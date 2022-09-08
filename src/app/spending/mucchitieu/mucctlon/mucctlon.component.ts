@@ -44,9 +44,14 @@ export class MucctlonComponent implements OnInit, OnChanges {
   })
 
   creatspending() {
+    let spen = {
+      name: this.Formspen.value.name,
+      idUser: this.Formspen.value.iduser
+    }
 
-    if (this.Formspen.valid) {
-      this.spendingService.checkname(this.Formspen.value.name).subscribe((data) => {
+    if (this.Formspen.valid){
+
+      this.spendingService.checkname(spen).subscribe((data) => {
         if (data != null){
           // @ts-ignore
           document.getElementById("checknamemct").style.display = "block"
@@ -95,6 +100,29 @@ checkname(){
     })
   }
 
+
+  checkedit(){
+    let spen = {
+      name: this.FormspenEdit.value.name,
+      idUser: this.Formspen.value.iduser
+    }
+
+    if (this.FormspenEdit.valid){
+
+      this.spendingService.checkname(spen).subscribe((data) => {
+        if (data != null){
+          // @ts-ignore
+          document.getElementById("checkeditmct").style.display = "block"
+        }else {
+          this.editspending()
+        }
+      })
+    }else {
+      // @ts-ignore
+      document.getElementById("editmct").style.display = "block"
+    }
+  }
+
   editspending() {
     let spen = {
       id: this.FormspenEdit.value.id,
@@ -104,11 +132,6 @@ checkname(){
       }
     }
     this.spendingService.create(spen).subscribe((data) => {
-      // @ts-ignore
-      document.getElementById("edit").style.display='none'
-
-      // @ts-ignore
-      document.getElementById("edit").style.position = 'none'
       this.showspending()
     })
   }

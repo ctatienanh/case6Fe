@@ -251,6 +251,7 @@
         <!-- Modal -->
         <div class="modal fade" id="createmodal">
           <div class="modal-dialog" role="document">
+            <form  [formGroup]="Formspen" (submit)="creatspending()">
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title" style="text-align: center">Thêm Mục Chi Tiêu</h5>
@@ -260,14 +261,17 @@
               <div class="modal-body">
                 <div class="form-group">
                   <label>Name</label>
-                  <input type="text" class="form-control" required>
+                  <input formControlName="name"  type="text" class="form-control" >
+                  <p id="createmct" *ngIf="!Formspen.get('name')?.valid " style="color: red;margin-left: 25px; display: none">Không được để trống</p>
+                  <p id="checknamemct" style="color: red;margin-left: 25px; display: none">Ten muc chi tieu da ton tai</p>
                 </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
               </div>
             </div>
+            </form>
           </div>
         </div>
       </div>
@@ -284,10 +288,10 @@
                 <th></th>
               </tr>
               </thead>
-              <tbody>
+              <tbody *ngFor="let s of spendinggoal; index as i">
               <tr>
-                <td><span class="text-black font-w500">#123412451</span></td>
-                <td><span class="text-black text-nowrap">#June 1, 2020, 08:22 AM</span></td>
+                <td><span class="text-black font-w500">{{i + 1}}</span></td>
+                <td><span class="text-black text-nowrap">{{s.name}}</span></td>
                 <td>
                   <div class="d-flex align-items-center">
                     <img src="images/avatar/1.jpg" alt="" class="rounded me-3" width="50">
@@ -308,8 +312,8 @@
                       </svg>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                      <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                      <a class="dropdown-item" href="javascript:void(0);">Edit</a>
+                      <a   class="dropdown-item" href="javascript:void(0);">Delete</a>
+                      <a (click)="showedit(s.id)" class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#edit" >Edit</a>
                     </div>
                   </div>
                 </td>
@@ -317,6 +321,8 @@
 
               </tbody>
             </table>
+
+
           </div>
         </div>
       </div>
@@ -326,6 +332,30 @@
       Content body end
   ***********************************-->
 
+  <div class="modal fade" id="edit">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal">
+          </button>
+        </div>
+        <form [formGroup]="FormspenEdit" (submit)="checkedit()">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Nhập Name</label>
+            <input type="text" formControlName="name" class="form-control" required>
+            <p id="editmct" *ngIf="!FormspenEdit.get('name')?.valid " style="color: red;margin-left: 25px; display: none">Không được để trống</p>
+            <p id="checkeditmct" style="color: red;margin-left: 25px; display: none">Ten muc chi tieu da ton tai</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save </button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
 
   <!--**********************************
