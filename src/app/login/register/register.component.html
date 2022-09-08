@@ -1,0 +1,97 @@
+<link rel="stylesheet" href="register.component.css">
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-login100">
+      <div class="login100-pic js-tilt" data-tilt>
+
+        <img
+          src="https://play-lh.googleusercontent.com/bSox1MYZiQeRrwmVkQ3flXKW9GKN6_r3G-X3-DLhQEO49r_xxY_qhXT6Zmq1B4oWpcw"
+          alt="IMG" style=" margin-top: -100px;
+">
+      </div>
+
+      <form class="login100-form validate-form" [formGroup]="regisiterForm" (submit)="register()">
+					<span class="login100-form-title" style="
+    margin-top: -140px;
+">
+						Tạo tài khoản
+					</span>
+        <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+          <input class="input100" type="text" formControlName="email" name="email" placeholder="Email"
+                 style="margin-top: -42px;">
+          <p *ngIf="!regisiterForm.get('email')?.valid && regisiterForm.get('email')?.touched "
+             style="color: red;margin-left: 25px;"> Không được để trống</p>
+          <p id="checkMail"style="color: red;margin-left: 25px;display: none">Email nay da ton tai</p>
+
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+						</span>
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+          <input class="input100" type="text" formControlName="username" placeholder="User">
+          <p *ngIf="!regisiterForm.get('username')?.valid && regisiterForm.get('username')?.touched "
+             style="color: red;margin-left: 25px"> Không được để trống</p>
+          <p id="checkName"style="color: red;margin-left: 25px;display: none">user nay da ton tai</p>
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+						</span>
+        </div>
+        <div class="wrap-input100 validate-input" data-validate="Password is required">
+          <input class="input100" type="password" formControlName="password" name="pass" placeholder="Password">
+          <p *ngIf="!regisiterForm.get('password')?.valid && regisiterForm.get('password')?.touched "
+             style="color: red;margin-left: 25px">Không được để trống</p>
+
+          <span class="focus-input100"></span>
+          <span class="symbol-input100">
+						</span>
+        </div>
+        <ng-container formArrayName="roles">
+          <div class="wrap-input100 validate-input" *ngFor="let _ of roles.controls; index as i"
+               data-validate="Password is required">
+            <ng-container [formGroupName]="i">
+              <p style="margin-left: 25px">Lựa chọn quyền tài khoản</p>
+              <select class="browser-default custom-select" formControlName="id">
+                <option value="2">Phụ Huynh</option>
+                <option value="3">Sinh Viên</option>
+              </select>
+            </ng-container>
+
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+						</span>
+          </div>
+        </ng-container>
+
+
+        <div class="container-login100-form-btn">
+          <button class="login100-form-btn" >
+            Create
+            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+          </button>
+        </div>
+
+
+        <div class="text-center p-t-12">
+						<span class="txt1">
+							Forgot
+						</span>
+          <a class="txt2" href="#">
+            Username / Password?
+          </a>
+        </div>
+
+        <div class="text-center p-t-136">
+          <a class="txt2" href="#">
+
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Financial-Management-System</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/assets/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/assets/css/adminlte.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/OverlayScrollbars.min.css">
+
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="profile.html">
+          <img src="../asset/img/avatar.jpg" class="img-circle elevation-2" alt="User Image" width="40"
+               style="margin-top: -7px;">
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+          <i class="fas fa-expand-arrows-alt"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="../index.html">
+          <i class="fas fa-power-off"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary" style="background-color: rgba(62,88,113);">
+    <!-- Brand Logo -->
+
+    <!-- Sidebar -->
+    <div class="sidebar" style="margin-top: 27px;">
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+            data-accordion="false">
+          <li class="nav-item animated bounceInLeft">
+            <a routerLink="/spending" class="nav-link">
+              <i class="nav-icon fa fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item animated bounceInRight">
+            <a class="nav-link">
+              <i class="nav-icon fas fa-home"></i>
+              <p>
+                Mục Chi Tiêu
+              </p>
+              <i class="right fas fa-angle-left"></i>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a routerLink="/spending/mctl" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Các Mục Chi Tiêu </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="barangay-officer.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Barangay Officer</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item animated bounceInRight">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Member
+              </p>
+              <i class="right fas fa-angle-left"></i>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="add-member.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Member</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="manage-member.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage Member</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item animated bounceInRight">
+            <a href="event.html" class="nav-link">
+              <i class="nav-icon fa fa-building"></i>
+              <p>
+                Event
+              </p>
+            </a>
+          </li>
+          <li class="nav-item animated bounceInRight">
+            <a href="file.html" class="nav-link">
+              <i class="nav-icon fa fa-file"></i>
+              <p>
+                Files
+              </p>
+            </a>
+          </li>
+          <li class="nav-item animated bounceInRight">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-money-bill"></i>
+              <p>
+                Bills
+              </p>
+              <i class="right fas fa-angle-left"></i>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="expense.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Expense</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="payment.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Payment</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item animated bounceInRight">
+            <a href="ledger.html" class="nav-link">
+              <i class="nav-icon fa fa-book"></i>
+              <p>
+                Ledger
+              </p>
+            </a>
+          </li>
+          <li class="nav-item animated bounceInRight">
+            <a href="settings.html" class="nav-link">
+              <i class="nav-icon fa fa-cog"></i>
+              <p>
+                Settings
+              </p>
+            </a>
+          </li>
+          <li class="nav-item animated bounceInRight">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Users
+              </p>
+              <i class="right fas fa-angle-left"></i>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="add-user.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="manage-user.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manage</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item animated bounceInRight">
+            <a href="database.html" class="nav-link">
+              <i class="nav-icon fa fa-database"></i>
+              <p>
+                Database
+              </p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+
+          <!-- /.col -->
+
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <div class="container-fluid">
+      <div class="card card-info">
+        <div class="card-header">
+          <h3 class="card-title">Mục Chi Tiết</h3>
+
+        </div>
+        <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#add"
+           style="margin-top: 20px; width: 300px"><i class="fa fa-pen">add thu muc</i></a>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <div id="add" class="modal animated rubberBand delete-modal" role="dialog">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-body text-center">
+                <form [formGroup]="Formspen" (submit)="creatspending()">
+                  <div class="card-header">
+                    <span class="fa fa-user"> Thêm Mục Chi Tiêu</span>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Tên Mục</label>
+                        <input formControlName="name" type="text" class="form-control">
+                        <p id="createmct" *ngIf="!Formspen.get('name')?.valid " style="color: red;margin-left: 25px; display: none">Không được để trống</p>
+                        <p id="checknamemct" style="color: red;margin-left: 25px; display: none">Ten muc chi tieu da ton tai</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-5" >
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th class="col-md-1">#</th>
+                  <th class="col-md-9">Mục Chi Tiêu</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let s of spendinggoal; index as i">
+                <tr>
+                  <td>{{i + 1}}</td>
+                  <td>{{s.name}}</td>
+                  <td class="text-right">
+                    <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit"
+                       (click)="showedit(s.id)"><i class="fa fa-pen"></i></a>
+                    <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i
+                      class="fa fa-trash"></i></a>
+                  </td>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+            <div class="col-md-7" style="border-left: 1px solid #ddd;">
+              <table id="example" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th class="col-md-1">#</th>
+                  <th class="col-md-9">Mục Chi Tiêu</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody *ngFor="let s of spendinggoal; index as i">
+                <tr>
+                  <td>{{i + 1}}</td>
+                  <td>{{s.name}}</td>
+                  <td class="text-right">
+                    <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#edit"
+                       (click)="showedit(s.id)"><i class="fa fa-pen"></i></a>
+                    <a class="btn btn-sm btn-danger" href="#" data-toggle="modal" data-target="#delete"><i
+                      class="fa fa-trash"></i></a>
+                  </td>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<!-- ./wrapper -->
+<div id="delete" class="modal animated rubberBand delete-modal" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <h3>Are you sure want to delete this Officer?</h3>
+        <div class="m-t-20"><a href="#" class="btn btn-white" data-dismiss="modal">Close</a>
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--edit-->
+
+<div id="edit" class="modal animated rubberBand delete-modal" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        <form [formGroup]="FormspenEdit" (submit)="editspending()">
+          <h4>Name</h4>
+          <input formControlName="name">
+          <div class="m-t-20"><a href="#" class="btn btn-white" data-dismiss="modal">Close</a>
+            <button type="submit" data-dismiss="modal" class="btn btn-warning">Edit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+</html>
