@@ -11,7 +11,7 @@ export class ProfileComponent implements OnInit {
   constructor(private script: ScriptService) { }
 
   ngOnInit(): void {
-    this.script.load('jquery','adminlte').then(data => {
+    this.script.load('global','bootstrap-select','jquerymin','Chartbundle','lightgallery-all','custom','dlabnav','upimg').then(data => {
     }).catch(error => console.log(error));
   }
 

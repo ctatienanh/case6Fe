@@ -6,13 +6,15 @@ import { HomeComponent } from './home/home.component';
 import { MucctlonComponent } from './mucchitieu/mucctlon/mucctlon.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { ProfileComponent } from './profile/profile.component';
+import { WalletComponent } from './wallet/wallet.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
     MucctlonComponent,
-    ProfileComponent
+    ProfileComponent,
+    WalletComponent
   ],
     imports: [
         CommonModule,

@@ -19,7 +19,7 @@ export class MucctlonComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.script.load('jquery', 'bootstrap', 'adminlte', 'datatables', 'datatables-bs4', 'datatables-responsive', 'datatables-buttons', 'dataTable').then(data => {
+    this.script.load('global', 'Chartbundle', 'jquerymin', 'jquerydataTables', 'datatables', 'custom', 'dlabnav').then(data => {
     }).catch(error => console.log(error));
     this.showspending()
 
