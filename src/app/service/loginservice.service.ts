@@ -68,6 +68,7 @@ export class LoginserviceService {
     localStorage.removeItem("token");
     localStorage.removeItem("userToken")
     this.router.navigate(["/"])
+
   }
 
 }

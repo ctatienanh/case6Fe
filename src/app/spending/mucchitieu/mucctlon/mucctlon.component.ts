@@ -5,6 +5,10 @@ import {FormControl, FormGroup, Validator, Validators} from "@angular/forms";
 import {SpendingService} from "../../../service/spending.service";
 import {Spending} from "../../../model/spending";
 import {Router} from "@angular/router";
+import {AppUser} from "../../../model/AppUser";
+import {WalletService} from "../../../service/wallet.service";
+import {ProfileService} from "../../../service/profile.service";
+import {Wallet} from "../../../model/wallet";
 
 @Component({
   selector: 'app-mucctlon',
@@ -14,14 +18,19 @@ import {Router} from "@angular/router";
 export class MucctlonComponent implements OnInit, OnChanges {
   spendinggoal: Spending[] = [];
   showspendingg: Spending = new Spending(0, "");
+  user: AppUser = new AppUser(0,"","","","","","",0,0,"")
 
-  constructor(private script: ScriptService, private loginService: LoginserviceService, private spendingService: SpendingService, private router: Router) {
+
+  constructor(private script: ScriptService, private loginService: LoginserviceService, private spendingService: SpendingService, private router: Router, private wallet: WalletService, private profileservice:ProfileService) {
   }
+  wallets: Wallet = new Wallet(0,0);
 
   ngOnInit(): void {
     this.script.load('global', 'Chartbundle', 'jquerymin', 'jquerydataTables', 'datatables', 'custom', 'dlabnav').then(data => {
     }).catch(error => console.log(error));
-    this.showspending()
+    this.showspending();
+    this.showWallet();
+    this.showUser1()
 
   }
 
@@ -132,9 +141,22 @@ checkname(){
       }
     }
     this.spendingService.create(spen).subscribe((data) => {
-      this.showspending()
+      this.showspending();
+
+    })
+  }
+  showWallet(){
+    this.wallet.show(this.loginService.getUserToken().id).subscribe((data) => {
+      this.wallets = data;
     })
   }
 
+  showUser1() {
+    let id = this.loginService.getUserToken().id
+    this.profileservice.show(id).subscribe((data) => {
+      console.log(data)
+      this.user = data;
+    })
+  }
 
 }

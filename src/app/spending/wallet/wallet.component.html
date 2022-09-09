@@ -202,8 +202,8 @@
           <a class="nav-link" routerLink="/profile" role="button" data-bs-toggle="dropdown">
             <img src="/assets/images/profile/pic1.jpg" width="20" alt=""/>
             <div class="header-info ms-3">
-              <span class="font-w600 ">Hi,<b>William</b></span>
-              <small class="text-end font-w400">william@gmail.com</small>
+              <span class="font-w600 ">Hi,<b>{{user.username}}</b></span>
+              <small class="text-end font-w400">{{user.email}}</small>
             </div>
           </a>
           <div class="dropdown-menu dropdown-menu-end">
@@ -253,7 +253,7 @@
                 <div class="card-header flex-wrap border-0 pb-0 align-items-end">
                   <div class="mb-3 me-3">
                     <h5 class="fs-20 text-black font-w500">Tổng tiền Trong ví</h5>
-                    <span class="text-num text-black fs-36 font-w500">$673,412.66</span>
+                    <span class="text-num text-black fs-36 font-w500">{{wallets.money}} VNĐ</span>
                   </div>
                   <div class="me-3 mb-3">
                     <a  class="btn btn-outline-primary mb-3" data-bs-toggle="modal" data-bs-target="#createmodal">Thêm Tiền Vào Ví</a>
@@ -315,7 +315,7 @@
               <div class="card">
                 <div class="card-header d-block d-sm-flex border-0">
                   <div class="me-3">
-                    <h4 class="card-title mb-2">Lịch Sử dao dịch</h4>
+                    <h4 class="card-title mb-2">Lịch Sử Giao Dịch</h4>
                     <span class="fs-12">Lorem ipsum dolor sit amet, consectetur</span>
                   </div>
                   <div class="card-tabs mt-3 mt-sm-0">

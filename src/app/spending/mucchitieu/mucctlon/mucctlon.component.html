@@ -202,8 +202,8 @@
           <a class="nav-link" routerLink="/profile" role="button" data-bs-toggle="dropdown">
             <img src="/assets/images/profile/pic1.jpg" width="20" alt=""/>
             <div class="header-info ms-3">
-              <span class="font-w600 ">Hi,<b>William</b></span>
-              <small class="text-end font-w400">william@gmail.com</small>
+              <span class="font-w600 ">Hi,<b>{{user.username}}</b></span>
+              <small class="text-end font-w400">{{user.email}}</small>
             </div>
           </a>
           <div class="dropdown-menu dropdown-menu-end">
@@ -263,12 +263,12 @@
                   <label>Name</label>
                   <input formControlName="name"  type="text" class="form-control" >
                   <p id="createmct" *ngIf="!Formspen.get('name')?.valid " style="color: red;margin-left: 25px; display: none">Không được để trống</p>
-                  <p id="checknamemct" style="color: red;margin-left: 25px; display: none">Ten muc chi tieu da ton tai</p>
+                  <p id="checknamemct" style="color: red;margin-left: 25px; display: none">Tên mục chi tiêu đã tồn tại</p>
                 </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary" >Save changes</button>
               </div>
             </div>
             </form>
