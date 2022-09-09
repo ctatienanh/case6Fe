@@ -151,6 +151,12 @@ checkname(){
     })
   }
 
+  deletespending(spending: Spending) {
+    this.spendingService.delete(spending).subscribe((data) => {
+      this.showspending()
+    })
+  }
+
   showUser1() {
     let id = this.loginService.getUserToken().id
     this.profileservice.show(id).subscribe((data) => {

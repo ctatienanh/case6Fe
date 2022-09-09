@@ -26,7 +26,11 @@ export class SpendingService {
   }
 
   checkname(name: any): Observable<any >{
-    return this.http.get<any>("http://localhost:8080/spendingGoal/check/"+name);
+    return this.http.post<any>("http://localhost:8080/spendingGoal/check",name);
+  }
+
+  delete(spen: any): Observable<any >{
+    return this.http.post<any>("http://localhost:8080/spendingGoal/delete",spen);
   }
 
 

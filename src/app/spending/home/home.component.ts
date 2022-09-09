@@ -6,6 +6,10 @@ import {Wallet} from "../../model/wallet";
 import {ProfileComponent} from "../profile/profile.component";
 import {AppUser} from "../../model/AppUser";
 import {ProfileService} from "../../service/profile.service";
+import {SpendingService} from "../../service/spending.service";
+import {Spending} from "../../model/spending";
+import {MctChitietService} from "../../service/mct-chitiet.service";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-home',
@@ -14,8 +18,10 @@ import {ProfileService} from "../../service/profile.service";
 })
 export class HomeComponent implements OnInit {
   user: AppUser = new AppUser(0,"","","","","","",0,0,"")
+  spendinggoal: Spending[] = [];
 
-  constructor(private script: ScriptService, private loginService: LoginserviceService, private wallet: WalletService, private profileservice:ProfileService) { }
+
+  constructor(private script: ScriptService, private loginService: LoginserviceService, private wallet: WalletService,private spendingService: SpendingService, private  mctChitietService: MctChitietService, private profileservice:ProfileService) { }
   wallets: Wallet = new Wallet(0,0);
 
 
@@ -23,6 +29,8 @@ export class HomeComponent implements OnInit {
     this.script.load('global','Chartbundle','jquerymin','apexchart','nouislider','wNumb','dashboard-1','custom','dlabnav').then(data => {
     }).catch(error => console.log(error));
     this.showWallet();
+    this.showspending()
+
     this.showUser1()
   }
 
@@ -43,5 +51,37 @@ export class HomeComponent implements OnInit {
       this.user = data;
     })
   }
+
+  showspending(){
+    this.spendingService.show(this.loginService.getUserToken().id).subscribe((data) => {
+      this.spendinggoal = data;
+      console.log(this.spendinggoal)
+    })
+  }
+
+  mctchitietfrom = new FormGroup({
+    name: new FormControl('', Validators.required),
+    namespending: new FormControl(""),
+    money: new FormControl(null, Validators.required),
+  })
+
+  createmctChitiet(){
+    this.mctChitietService.create(this.mctchitietfrom.value).subscribe((data) => {
+
+      this.mctchitietfrom = new FormGroup({
+        name: new FormControl('', Validators.required),
+        namespending: new FormControl(""),
+        money: new FormControl(null, Validators.required),
+      })
+    })
+  }
 }
+
+
+
+
+
+
+
+
 
