@@ -136,5 +136,11 @@ checkname(){
     })
   }
 
+  deletespending(spending: Spending) {
+    this.spendingService.delete(spending).subscribe((data) => {
+      this.showspending()
+    })
+  }
+
 
 }
