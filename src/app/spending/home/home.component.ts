@@ -19,6 +19,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 export class HomeComponent implements OnInit {
   user: AppUser = new AppUser(0,"","","","","","",0,0,"")
   spendinggoal: Spending[] = [];
+  iduser: number =0;
 
 
   constructor(private script: ScriptService, private loginService: LoginserviceService, private wallet: WalletService,private spendingService: SpendingService, private  mctChitietService: MctChitietService, private profileservice:ProfileService) { }
@@ -36,6 +37,8 @@ export class HomeComponent implements OnInit {
   showWallet(){
     this.wallet.show(this.loginService.getUserToken().id).subscribe((data) => {
       this.wallets = data;
+      this.iduser = data.user.id;
+
     })
   }
 
@@ -61,19 +64,33 @@ export class HomeComponent implements OnInit {
   mctchitietfrom = new FormGroup({
     name: new FormControl('', Validators.required),
     namespending: new FormControl(""),
-    money: new FormControl(null, Validators.required),
+    money: new FormControl(),
   })
+  deduction(){
+    let wallet = {
+      id: this.wallets.id,
+      money:  (this.wallets.money - this.mctchitietfrom.value.money),
+      user:{
+        id: this.iduser
+      }
+    }
+    this.wallet.create(wallet).subscribe((data) => {
+
+    })
+
+  }
 
   createmctChitiet(){
     this.mctChitietService.create(this.mctchitietfrom.value).subscribe((data) => {
-
+      this.deduction();
       this.mctchitietfrom = new FormGroup({
         name: new FormControl('', Validators.required),
         namespending: new FormControl(""),
         money: new FormControl(null, Validators.required),
       })
-    })
+    });
   }
+
 }
 
 
