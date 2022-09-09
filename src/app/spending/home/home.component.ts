@@ -65,6 +65,7 @@ export class HomeComponent implements OnInit {
     name: new FormControl('', Validators.required),
     namespending: new FormControl(""),
     money: new FormControl(),
+
   })
   deduction(){
     let wallet = {
@@ -81,7 +82,16 @@ export class HomeComponent implements OnInit {
   }
 
   createmctChitiet(){
-    this.mctChitietService.create(this.mctchitietfrom.value).subscribe((data) => {
+    let mtct = {
+      name: this.mctchitietfrom.value.name,
+      namespending: this.mctchitietfrom.value.namespending,
+      money: this.mctchitietfrom.value.money,
+      user:{
+        id: this.iduser
+      }
+    }
+
+    this.mctChitietService.create(mtct).subscribe((data) => {
       this.deduction();
       this.mctchitietfrom = new FormGroup({
         name: new FormControl('', Validators.required),
