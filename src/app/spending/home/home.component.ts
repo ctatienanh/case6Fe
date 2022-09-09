@@ -29,8 +29,7 @@ export class HomeComponent implements OnInit {
     this.script.load('global','Chartbundle','jquerymin','apexchart','nouislider','wNumb','dashboard-1','custom','dlabnav').then(data => {
     }).catch(error => console.log(error));
     this.showWallet();
-    this.showspending()
-
+    this.showspending();
     this.showUser1()
   }
 
