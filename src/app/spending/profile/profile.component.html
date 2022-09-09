@@ -210,10 +210,10 @@ Thông Tin Cá Nhan            </div>
       <ul class="metismenu" id="menu">
         <li class="dropdown header-profile">
           <a class="nav-link" routerLink="/profile" role="button" data-bs-toggle="dropdown">
-            <img src="/assets/images/profile/pic1.jpg" width="20" alt=""/>
+            <img src="{{user.img}}" width="20" alt=""/>
             <div class="header-info ms-3">
-              <span class="font-w600 ">Hi,<b>William</b></span>
-              <small class="text-end font-w400">william@gmail.com</small>
+              <span class="font-w600 ">Hi,<b>{{user.username}}</b></span>
+              <small class="text-end font-w400">{{user.email}}</small>
             </div>
           </a>
           <div class="dropdown-menu dropdown-menu-end">
@@ -259,16 +259,18 @@ Thông Tin Cá Nhan            </div>
         <div class="col-lg-12">
           <div class="profile card card-body px-3 pt-3 pb-0">
             <div class="profile-head">
-              <div class="photo-content">
-                <div class="cover-photo rounded"></div>
-              </div>
+<!--              <div class="photo-content">-->
+<!--                <div class="cover-photo rounded" ><img src="{{user.img}}"></div>-->
+<!--              </div>-->
               <div class="profile-info">
                 <div class="profile-photo">
-                  <img src="images/profile/profile.png" class="img-fluid rounded-circle" alt="">
+                  <img src="{{user.img}}" class="img-fluid rounded-circle" alt="" style="
+    margin-top: 28px;height: 100px;
+">
                 </div>
                 <div class="profile-details">
                   <div class="profile-email px-2 pt-2">
-                    <h4 class="text-muted mb-0">info@example.com</h4>
+                    <h4 class="text-muted mb-0">{{user.email}}</h4>
                     <p>Email</p>
                   </div>
                   <div class="dropdown ms-auto">
@@ -317,10 +319,10 @@ Thông Tin Cá Nhan            </div>
                         <h4 class="text-primary mb-4">Thông Tin Cá Nhân</h4>
                         <div class="row mb-2">
                           <div class="col-sm-3 col-5">
-                            <h5 class="f-w-500">Name <span class="pull-end">:</span>
+                            <h5 class="f-w-500">Họ Và Tên <span class="pull-end">:</span>
                             </h5>
                           </div>
-                          <div class="col-sm-9 col-7"><span>Mitchell C.Shay</span>
+                          <div class="col-sm-9 col-7"><span>{{user.name}}</span>
                           </div>
                         </div>
                         <div class="row mb-2">
@@ -328,37 +330,29 @@ Thông Tin Cá Nhan            </div>
                             <h5 class="f-w-500">Email <span class="pull-end">:</span>
                             </h5>
                           </div>
-                          <div class="col-sm-9 col-7"><span>example@examplel.com</span>
+                          <div class="col-sm-9 col-7"><span>{{user.email}}</span>
                           </div>
                         </div>
                         <div class="row mb-2">
                           <div class="col-sm-3 col-5">
-                            <h5 class="f-w-500">Availability <span class="pull-end">:</span></h5>
+                            <h5 class="f-w-500">Số Điện Thoại <span class="pull-end">:</span></h5>
                           </div>
-                          <div class="col-sm-9 col-7"><span>Full Time (Free Lancer)</span>
+                          <div class="col-sm-9 col-7"><span>{{user.phone}}</span>
                           </div>
                         </div>
                         <div class="row mb-2">
                           <div class="col-sm-3 col-5">
-                            <h5 class="f-w-500">Age <span class="pull-end">:</span>
+                            <h5 class="f-w-500">Tuổi <span class="pull-end">:</span>
                             </h5>
                           </div>
-                          <div class="col-sm-9 col-7"><span>27</span>
+                          <div class="col-sm-9 col-7"><span>{{user.age}}</span>
                           </div>
                         </div>
                         <div class="row mb-2">
                           <div class="col-sm-3 col-5">
-                            <h5 class="f-w-500">Location <span class="pull-end">:</span></h5>
+                            <h5 class="f-w-500">Địa Chỉ <span class="pull-end">:</span></h5>
                           </div>
-                          <div class="col-sm-9 col-7"><span>Rosemont Avenue Melbourne,
-                                                                Florida</span>
-                          </div>
-                        </div>
-                        <div class="row mb-2">
-                          <div class="col-sm-3 col-5">
-                            <h5 class="f-w-500">Year Experience <span class="pull-end">:</span></h5>
-                          </div>
-                          <div class="col-sm-9 col-7"><span>07 Year Experiences</span>
+                          <div class="col-sm-9 col-7"><span>{{user.aress}}</span>
                           </div>
                         </div>
                       </div>
