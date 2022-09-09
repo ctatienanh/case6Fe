@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ScriptService} from "../../service/script.service";
 import {LoginserviceService} from "../../service/loginservice.service";
 import {WalletService} from "../../service/wallet.service";
@@ -10,6 +10,7 @@ import {SpendingService} from "../../service/spending.service";
 import {Spending} from "../../model/spending";
 import {MctChitietService} from "../../service/mct-chitiet.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Count} from "../../model/count";
 
 @Component({
   selector: 'app-home',
@@ -17,24 +18,28 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  user: AppUser = new AppUser(0,"","","","","","",0,0,"")
+  user: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
   spendinggoal: Spending[] = [];
-  iduser: number =0;
+  iduser: number = 0;
+  count: Count =new Count(0);
 
 
-  constructor(private script: ScriptService, private loginService: LoginserviceService, private wallet: WalletService,private spendingService: SpendingService, private  mctChitietService: MctChitietService, private profileservice:ProfileService) { }
-  wallets: Wallet = new Wallet(0,0);
+  constructor(private script: ScriptService, private loginService: LoginserviceService, private wallet: WalletService, private spendingService: SpendingService, private mctChitietService: MctChitietService, private profileservice: ProfileService) {
+  }
+
+  wallets: Wallet = new Wallet(0, 0);
 
 
   ngOnInit(): void {
-    this.script.load('global','Chartbundle','jquerymin','apexchart','nouislider','wNumb','dashboard-1','custom','dlabnav').then(data => {
+    this.script.load('global', 'Chartbundle', 'jquerymin', 'apexchart', 'nouislider', 'wNumb', 'dashboard-1', 'custom', 'dlabnav').then(data => {
     }).catch(error => console.log(error));
     this.showWallet();
     this.showspending();
-    this.showUser1()
+    this.showUser1();
+    this.showcount();
   }
 
-  showWallet(){
+  showWallet() {
     this.wallet.show(this.loginService.getUserToken().id).subscribe((data) => {
       this.wallets = data;
       this.iduser = data.user.id;
@@ -42,7 +47,7 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  logout(){
+  logout() {
     this.loginService.logout();
   }
 
@@ -54,7 +59,7 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  showspending(){
+  showspending() {
     this.spendingService.show(this.loginService.getUserToken().id).subscribe((data) => {
       this.spendinggoal = data;
       console.log(this.spendinggoal)
@@ -67,11 +72,12 @@ export class HomeComponent implements OnInit {
     money: new FormControl(),
 
   })
-  deduction(){
+
+  deduction() {
     let wallet = {
       id: this.wallets.id,
-      money:  (this.wallets.money - this.mctchitietfrom.value.money),
-      user:{
+      money: (this.wallets.money - this.mctchitietfrom.value.money),
+      user: {
         id: this.iduser
       }
     }
@@ -81,12 +87,12 @@ export class HomeComponent implements OnInit {
 
   }
 
-  createmctChitiet(){
+  createmctChitiet() {
     let mtct = {
       name: this.mctchitietfrom.value.name,
       namespending: this.mctchitietfrom.value.namespending,
       money: this.mctchitietfrom.value.money,
-      user:{
+      user: {
         id: this.iduser
       }
     }
@@ -98,10 +104,28 @@ export class HomeComponent implements OnInit {
         namespending: new FormControl(""),
         money: new FormControl(null, Validators.required),
       })
+      this.showcount()
+
     });
   }
 
+  showcount() {
+    this.wallet.show(this.loginService.getUserToken().id).subscribe((data) => {
+
+      this.mctChitietService.showcount(data.user.id).subscribe((data) => {
+        this.count = data
+        console.log(data)
+      });
+    })
+
+
+
+
+  }
+
 }
+
+
 
 
 
