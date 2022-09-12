@@ -182,8 +182,8 @@
           <a class="nav-link" routerLink="/profile" role="button" data-bs-toggle="dropdown">
             <img src="/assets/images/profile/pic1.jpg" width="20" alt=""/>
             <div class="header-info ms-3">
-              <span class="font-w600 ">Hi,<b>William</b></span>
-              <small class="text-end font-w400">william@gmail.com</small>
+              <span class="font-w600 ">Hi,<b>{{user.username}}</b></span>
+              <small class="text-end font-w400">{{user.email}}</small>
             </div>
           </a>
           <div class="dropdown-menu dropdown-menu-end">
@@ -236,7 +236,7 @@
                 </svg>
               </div>
               <div>
-                <h2 class="text-white invoice-num">2478</h2>
+                <h2 class="text-white invoice-num" [ngModel]="count">{{count.sumspen}}</h2>
                 <span class="text-white fs-18">Thêm Giao dịch</span>
               </div>
             </div>
@@ -250,32 +250,28 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal">
                 </button>
               </div>
+              <form [formGroup]="mctchitietfrom" (submit)="createmctChitiet()">
               <div class="modal-body">
                 <div class="form-group">
                   <label>Tên Giao Dịch</label>
-                  <input type="text" class="form-control" required>
+                  <input type="text" formControlName="name" class="form-control" required>
                 </div>
                 <div class="form-group">
                   <label>Loại Giao dịch</label>
-                  <select class="form-control default-select wide" id="inputState">
-                    <option selected="">Choose...</option>
-                    <option>Option 1</option>
-                    <option>Option 2</option>
-                    <option>Option 3</option>
-                  </select>                </div>
-                <div class="form-group">
-                  <label>Số Tiền</label>
-                  <input type="text" class="form-control" required>
+                  <select formControlName="namespending" class="form-control  wide">
+                    <option  *ngFor="let s of spendinggoal" value="{{s.name}}">{{s.name}}</option>
+                  </select>
                 </div>
                 <div class="form-group">
-                  <label>img</label>
-                  <label class="custom-file-label">Choose file</label>
+                  <label>Số Tiền</label>
+                  <input type="number" formControlName="money" class="form-control" required>
                 </div>
               </div>
               <div class="modal-footer">
-                <button stype  type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Thêm</button>
+                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Thêm</button>
               </div>
+              </form>
             </div>
           </div>
         </div>
@@ -295,7 +291,7 @@
                 </svg>
               </div>
               <div>
-                <h2 class="text-white invoice-num">983</h2>
+                <h2 class="text-white invoice-num">{{wallets.money}} VNĐ</h2>
                 <span class="text-white fs-18">Số Dư</span>
               </div>
             </div>

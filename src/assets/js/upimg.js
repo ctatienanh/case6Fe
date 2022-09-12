@@ -1,6 +1,6 @@
 function luufile() {
   let filename = document.getElementById("file-input");
-  let link=document.getElementById("file");
+  let link=document.getElementById("anh")
 
   if (filename.files[0]!=undefined){
     link.files=filename.files
@@ -11,6 +11,5 @@ function luufile() {
       document.getElementById("image").src = e.target.result;
     }
     reader.readAsDataURL(filename.files[0]);
-
   }
 }
