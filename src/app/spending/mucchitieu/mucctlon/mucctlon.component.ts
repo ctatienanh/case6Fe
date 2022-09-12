@@ -17,7 +17,7 @@ import {Wallet} from "../../../model/wallet";
 })
 export class MucctlonComponent implements OnInit, OnChanges {
   spendinggoal: Spending[] = [];
-  showspendingg: Spending = new Spending(0, "");
+  showspendingg: Spending = new Spending(0, "",0);
   user: AppUser = new AppUser(0,"","","","","","",0,0,"")
 
 
