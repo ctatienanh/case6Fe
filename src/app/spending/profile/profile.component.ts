@@ -74,15 +74,15 @@ export class ProfileComponent implements OnInit {
     password : new FormControl(""),
     roles : new FormControl(""),
     email : new FormControl(""),
-    aress: new FormControl(""),
-    phone : new FormControl(0),
-    age : new FormControl(0),
+    name: new FormControl(),
+    aress: new FormControl(),
+    phone : new FormControl(),
+    age : new FormControl(),
     img : new FormControl("")
 
   })
 
   editProfile(){
-
     let form = this.edidForm.value;
     let edit= {
       id: this.user.id,
@@ -90,6 +90,7 @@ export class ProfileComponent implements OnInit {
       password: this.user.password,
       roles: this.user.roles,
       email: this.user.email,
+      name : form.name,
       aress: form.aress,
       phone: form.phone,
       age: form.age,
@@ -97,9 +98,6 @@ export class ProfileComponent implements OnInit {
     }
 
     console.log(edit)
-
-
-
     this.profileservice.create(edit).subscribe((data)=>{
       this.showUser()
     })
