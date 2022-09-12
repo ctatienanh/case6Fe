@@ -6,6 +6,8 @@ import {WalletService} from "../../service/wallet.service";
 import {ProfileService} from "../../service/profile.service";
 import {Wallet} from "../../model/wallet";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {lichsugiaodich} from "../../model/lichsugiaodich";
+import {MctChitietService} from "../../service/mct-chitiet.service";
 
 @Component({
   selector: 'app-wallet',
@@ -13,9 +15,10 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./wallet.component.css']
 })
 export class WalletComponent implements OnInit {
+  Transaction:lichsugiaodich []=[];
   user: AppUser = new AppUser(0,"","","","","","",0,0,"")
   iduser: number =0;
-  constructor(private script: ScriptService, private loginService: LoginserviceService, private wallet: WalletService, private profileservice:ProfileService) { }
+  constructor(private script: ScriptService, private loginService: LoginserviceService, private wallet: WalletService, private profileservice:ProfileService,private mctChitietService:MctChitietService) { }
   wallets: Wallet = new Wallet(0,0);
 
 
@@ -33,6 +36,7 @@ export class WalletComponent implements OnInit {
       console.log(data)
 
     })
+    this.showTransaction();
   }
 
   logout(){
@@ -64,6 +68,12 @@ export class WalletComponent implements OnInit {
         money: new FormControl()
       })
 
+    })
+  }
+  showTransaction(){
+    this.mctChitietService.show(this.loginService.getUserToken().id).subscribe((data) => {
+      this.Transaction = data;
+      console.log(this.Transaction)
     })
   }
 
