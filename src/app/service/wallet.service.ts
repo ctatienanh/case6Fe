@@ -17,4 +17,5 @@ export class WalletService {
     return this.http.get<any>("http://localhost:8080/wallet/"+id);
   }
 
+
 }

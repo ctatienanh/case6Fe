@@ -16,6 +16,9 @@ export class MctChitietService {
   showcount(id: any): Observable<any >{
     return this.http.get<any>("http://localhost:8080/spending/showcount/"+id);
   }
+  show(id: Number): Observable<any >{
+    return this.http.get<any>("http://localhost:8080/spending/"+id);
+  }
 }
 
 
