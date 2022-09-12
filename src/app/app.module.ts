@@ -10,6 +10,11 @@ import {RegisterComponent} from "./login/register/register.component";
 import {AuthInterceptor} from "./auth.interceptor";
 import {HomeComponent} from "./spending/home/home.component";
 import { ErrComponent } from './404/err/err.component';
+import {environment} from "../environments/environment";
+import {AngularFireStorageModule} from "@angular/fire/compat/storage";
+import {AngularFireModule} from "@angular/fire/compat";
+
+
 
 @NgModule({
   declarations: [
@@ -25,6 +30,8 @@ import { ErrComponent } from './404/err/err.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    AngularFireStorageModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig, "cloud")
 
   ],
   providers: [

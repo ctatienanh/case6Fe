@@ -13,6 +13,7 @@ export const ScriptStore: Scripts[] = [
   {name: 'dashboard-1', src:'/assets/js/dashboard/dashboard-1.js'},
   {name: 'custom', src:'/assets/js/custom.min.js'},
   {name: 'dlabnav', src:'/assets/js/dlabnav-init.js'},
+  {name: 'upimg', src:'/assets/js/upimg.js'},
 
 
 ];
