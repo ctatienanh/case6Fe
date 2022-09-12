@@ -44,7 +44,6 @@ export class MucctlonComponent implements OnInit, OnChanges {
 
   Formspen = new FormGroup({
     name: new FormControl('', Validators.required),
-
     iduser: new FormControl(this.loginService.getUserToken().id)
   })
 
@@ -165,5 +164,7 @@ checkname(){
       this.user = data;
     })
   }
+
+
 
 }

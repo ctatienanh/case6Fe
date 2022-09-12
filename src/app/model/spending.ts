@@ -3,7 +3,7 @@ import {UserToken} from "./UserToken";
 export class Spending{
   id:number;
   name: string;
-  amount:number;
+  amount: number;
 
 
   constructor(id: number, name: string, amount: number) {

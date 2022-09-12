@@ -24,6 +24,7 @@
   <link href="/assets/css/style.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+
 </head>
 
 <body>
@@ -361,43 +362,42 @@ Thông Tin Cá Nhân      </div>
                       <div class="pt-3">
                         <div class="settings-form">
                           <h4 class="text-primary">Sửa đổi thông tin cá nhân</h4>
-                          <form>
+                          <form [formGroup]="edidForm" (submit)="editProfile()">
                             <div class="row">
                               <div class="mb-3 col-md-6">
                                 <label class="form-label">Họ Và Tên</label>
-                                <input type="text" placeholder="Nhập Họ Và Tên" class="form-control">
+                                <input type="text" placeholder="Nhập Họ Và Tên" class="form-control" value="{{user.name}}" formControlName = "name">
                               </div>
 
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Địa Chỉ</label>
-                              <input type="text" placeholder="Nhập Địa Chỉ" class="form-control">
+                              <input type="text" placeholder="Nhập Địa Chỉ" class="form-control" formControlName = "aress" value="{{user.aress}}" >
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Số Điện Thoại</label>
-                              <input type="number" placeholder="Nhập Số Điện Thoại" class="form-control">
+                              <input type="number" placeholder="Nhập Số Điện Thoại" class="form-control" formControlName="phone" value="{{user.phone}}">
                             </div>
                             <div class="mb-3">
                               <div class="mb-3 col-md-6">
                                 <label class="form-label">Nhâp Tuổi</label>
-                                <input type="number" placeholder="Nhập Tuổi" class="form-control">
+                                <input type="number" placeholder="Nhập Tuổi" class="form-control" formControlName="age" value="{{user.age}}">
                               </div>
                             </div>
                             <div class="mb-3">
                               <div class="mb-3 col-md-6">
                                 <label class="form-label">img</label>
-                                <div >
+                                <div class >
                                   <label for="file-input">
-                                    <img  id="image"   src="" style="height: 205px; width: 159px">
+                                    <img  id="image" src="" style="height: 205px; width: 159px">
                                   </label>
-                                  <input id="file-input" type="file"  name="file"  accept="image/gif , image/jpeg, image/png" onchange="luufile()" hidden >
-                                  <input id="anh" name="file" type="file" hidden>
+                                  <input id="file-input" type="file"  name="file"  accept="image/gif , image/jpeg, image/png"  onchange = "luufile()" hidden >
+                                  <input id="file" name="image" type="file" (change)="onFileSelected($event)"  autocomplete="off" value="{{user.img}}" >
                                 </div>
-
                               </div>
                             </div>
                             <button class="btn btn-primary" type="submit">Save</button>
-                            <a  class="btn btn-outline-primary mb-3" data-bs-toggle="modal" data-bs-target="#createmodal" style="margin-left: 10px;margin-top: 18px;">Đổi Pass</a>
+                            <a   class="btn btn-outline-primary mb-3" data-bs-toggle="modal" data-bs-target="#createmodal" style="margin-left: 10px;margin-top: 18px;">Đổi Pass</a>
                           </form>
                         </div>
                       </div>
@@ -497,6 +497,7 @@ Thông Tin Cá Nhân      </div>
 <script src="./vendor/lightgallery/js/lightgallery-all.min.js"></script>
 <script src="./js/custom.min.js"></script>
 <script src="./js/dlabnav-init.js"></script>
+<script src="../../../assets/js/upimg.js"></script>
 
 
 </body>
