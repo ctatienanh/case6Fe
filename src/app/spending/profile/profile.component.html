@@ -389,10 +389,10 @@ Thông Tin Cá Nhân      </div>
                                 <label class="form-label">img</label>
                                 <div class >
                                   <label for="file-input">
-                                    <img  id="image" src="" style="height: 205px; width: 159px">
+                                    <img  id="image" src="{{user.img}}" style="height: 205px; width: 159px">
                                   </label>
-                                  <input id="file-input" type="file"  name="file"  accept="image/gif , image/jpeg, image/png"  onchange = "luufile()" hidden >
-                                  <input id="file" name="image" type="file" (change)="onFileSelected($event)"  autocomplete="off" value="{{user.img}}" >
+                                  <input id="file-input" type="file"  name="file"  accept="image/gif , image/jpeg, image/png"  onchange = "luufile()"  (change)="onFileSelected($event)" hidden>
+                                  <input id="file" name="image" type="file"  autocomplete="off" hidden >
                                 </div>
                               </div>
                             </div>

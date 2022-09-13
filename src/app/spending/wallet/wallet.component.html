@@ -25,6 +25,12 @@
   <!-- Style css -->
   <link href="/assets/css/style.css" rel="stylesheet">
 
+
+
+
+
+
+
 </head>
 <body>
 
@@ -351,6 +357,9 @@
                       <li class="nav-item">
                         <a class="nav-link active" data-bs-toggle="tab" href="#monthly" role="tab">Tất Cả Giao dịch</a>
                       </li>
+                      <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#today" role="tab">Chon Thoi gian</a>
+                      </li>
 
                     </ul>
                   </div>
@@ -412,6 +421,33 @@
   <!--**********************************
       Content body end
   ***********************************-->
+
+
+  <div class="modal fade" id="today">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" style="text-align: center">Nhập Số Tiền</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal">
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Ngay bat dau</label>
+              <input formControlName="name"  type="date" class="form-control" >
+            </div>
+            <div class="form-group">
+              <label>Ngay ket thuc</label>
+              <input formControlName="name"  type="date" class="form-control" >
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Thêm</button>
+          </div>
+        </div>
+    </div>
+  </div>
 
 
   <!--**********************************

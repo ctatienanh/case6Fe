@@ -104,7 +104,8 @@ export class HomeComponent implements OnInit {
         namespending: new FormControl(""),
         money: new FormControl(null, Validators.required),
       })
-      this.showcount()
+      this.showcount();
+      this.showWallet()
 
     });
   }

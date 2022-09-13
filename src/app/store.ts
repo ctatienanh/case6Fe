@@ -16,4 +16,17 @@ export const ScriptStore: Scripts[] = [
   {name: 'upimg', src:'/assets/js/upimg.js'},
 
 
+
+
+  // bootrap lich
+  {name: 'jquery-3.3.1', src:'/lichbootrap/js/jquery-3.3.1.min.js'},
+  {name: 'popper', src:'/lichbootrap/js/popper.min.js'},
+  {name: 'bootstrapmin', src:'/lichbootrap/js/bootstrap.min.js'},
+  {name: 'main', src:'/lichbootrap/js/main.js'},
+  {name: 'rome', src:'/lichbootrap/js/rome.js'},
+
+
+
+
+
 ];

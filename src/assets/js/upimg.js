@@ -1,6 +1,6 @@
 function luufile() {
   let filename = document.getElementById("file-input");
-  let link=document.getElementById("anh")
+  let link=document.getElementById("file")
 
   if (filename.files[0]!=undefined){
     link.files=filename.files
