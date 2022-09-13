@@ -11,6 +11,8 @@ import {Spending} from "../../model/spending";
 import {MctChitietService} from "../../service/mct-chitiet.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Count} from "../../model/count";
+import {NotificationserviceService} from "../../service/notificationservice.service";
+import {Notification} from "../../model/Notification";
 
 @Component({
   selector: 'app-home',
@@ -18,13 +20,18 @@ import {Count} from "../../model/count";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  notifications: Notification[] = [];
+
   user: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
   spendinggoal: Spending[] = [];
   iduser: number = 0;
   count: Count =new Count(0);
 
 
-  constructor(private script: ScriptService, private loginService: LoginserviceService, private wallet: WalletService, private spendingService: SpendingService, private mctChitietService: MctChitietService, private profileservice: ProfileService) {
+  constructor(private script: ScriptService, private loginService: LoginserviceService,
+              private wallet: WalletService, private spendingService: SpendingService,
+              private mctChitietService: MctChitietService,
+              private profileservice: ProfileService,private notifi: NotificationserviceService) {
   }
 
   wallets: Wallet = new Wallet(0, 0);
@@ -37,6 +44,7 @@ export class HomeComponent implements OnInit {
     this.showspending();
     this.showUser1();
     this.showcount();
+    this.shownotifi();
   }
 
   showWallet() {
@@ -119,10 +127,13 @@ export class HomeComponent implements OnInit {
         console.log(data)
       });
     })
+  }
 
-
-
-
+  shownotifi(){
+    this.notifi.show(this.loginService.getUserToken().id).subscribe((data) => {
+   this.notifications = data;
+      console.log(this.notifications)
+    })
   }
 
 }

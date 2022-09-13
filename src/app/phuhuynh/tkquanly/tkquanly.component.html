@@ -244,27 +244,29 @@
     <div class="container-fluid">
       <div class="d-flex mb-3">
 
-        <a  class="btn btn-outline-primary mb-3" data-bs-toggle="modal" data-bs-target="#createmodal">Thêm Mục Chi Tiêu</a>
+        <a  class="btn btn-outline-primary mb-3" data-bs-toggle="modal" data-bs-target="#createmodal">Thêm Tài Khoản Quản lý</a>
         <!-- Modal -->
         <div class="modal fade" id="createmodal">
           <div class="modal-dialog" role="document">
-            <form >
+            <form  [formGroup]="formadduser" (submit)="checkuser()">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" style="text-align: center">Thêm Mục Chi Tiêu</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal">
                   </button>
                 </div>
                 <div class="modal-body">
                   <div class="form-group">
-                    <label>Name</label>
-                    <input formControlName="name"  type="text" class="form-control" >
+                    <label>User</label>
+                    <input formControlName="username" placeholder="nhập user"  type="text" class="form-control">
+                    <p *ngIf="!formadduser.get('username')?.valid && formadduser.get('username')?.touched "
+                       style="color: red;margin-left: 25px;"> Không được để trống</p>
+                    <p id="checkuser"style="color: red;margin-left: 25px;display: none">Không tìm thấy tài khoản</p>
 
                   </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary" >Save changes</button>
+                  <button type="submit" class="btn btn-primary" >ADD</button>
                 </div>
               </div>
             </form>
