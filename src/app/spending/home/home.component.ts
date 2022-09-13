@@ -103,8 +103,9 @@ export class HomeComponent implements OnInit {
         namespending: new FormControl(""),
         money: new FormControl(null, Validators.required),
       })
+      this.showWallet();
       this.showcount();
-      this.showWallet()
+
 
     });
   }
@@ -113,7 +114,8 @@ export class HomeComponent implements OnInit {
     this.wallet.show(this.loginService.getUserToken().id).subscribe((data) => {
 
       this.mctChitietService.showcount(data.user.id).subscribe((data) => {
-        this.count = data
+        this.count = data;
+        this.showWallet();
         console.log(data)
       });
     })
