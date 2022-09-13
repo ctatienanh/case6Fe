@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   spendinggoal: Spending[] = [];
   iduser: number = 0;
   count: Count =new Count(0);
+  nameuserph: string = "";
 
 
   constructor(private script: ScriptService, private loginService: LoginserviceService,
@@ -134,6 +135,11 @@ export class HomeComponent implements OnInit {
    this.notifications = data;
       console.log(this.notifications)
     })
+  }
+
+  shownameph(name:string){
+    this.nameuserph = name;
+    console.log(this.nameuserph)
   }
 
 }

@@ -77,10 +77,13 @@ export class RegisterComponent implements OnInit {
         id: this.service.getUser().id
       }
     }
-    this.wallservic.create(wallet).subscribe((data) => {
-      alert("Thêm Ví Thành Công")
-      this.router.navigate([""]);
-    })
+    if(this.roles.value[0].id == 3){
+      this.wallservic.create(wallet).subscribe((data) => {
+        alert("Thêm Ví Thành Công")
+        this.router.navigate([""]);
+      })
+    }
+
   }
 
 

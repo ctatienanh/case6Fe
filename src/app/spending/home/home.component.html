@@ -92,21 +92,42 @@
                 <div id="dlab_W_Notification1" class="widget-media dlab-scroll p-3" style="height:380px;">
                   <ul class="timeline">
                     <li *ngFor="let n of notifications; index as i">
-                      <div class="timeline-panel">
+                      <div *ngIf="n.content == 'add'">
+                      <div class="timeline-panel" data-bs-toggle="modal" (click)="shownameph(n.user_ph.username)" data-bs-target="#addaccount">
                         <div class="media me-2">
                           <img alt="image" width="50" src="{{n.user_ph.img}}">
                         </div>
                         <div class="media-body">
-                          <h6 class="mb-1">{{n.content}}</h6>
+
+                          <h6  class="mb-1">{{n.content}}</h6>
+                            <h6 class="mb-1"> form : {{n.user_ph.username}}</h6>
+
                           <small class="d-block">{{n.date}} , {{n.time}}</small>
                         </div>
                       </div>
-                    </li>
+                      </div>
 
+                      <div *ngIf="n.content != 'add'">
+                        <div class="timeline-panel">
+                          <div class="media me-2">
+                            <img alt="image" width="50" src="{{n.user_ph.img}}">
+                          </div>
+                          <div class="media-body">
+                              <h6 class="mb-1">{{n.content}}</h6>
+                              <h6 class="mb-1"> form : {{n.user_ph.username}}</h6>
+                            <small class="d-block">{{n.date}} , {{n.time}}</small>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                    </li>
                   </ul>
                 </div>
                 <a class="all-notification" href="javascript:void(0);">See all notifications <i class="ti-arrow-end"></i></a>
               </div>
+
             </li>
 
           </ul>
@@ -114,6 +135,25 @@
       </nav>
     </div>
   </div>
+  <div class="modal fade" id="addaccount">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" style="text-align: center">Nhan ok de xac nhan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal">
+          </button>
+        </div>
+          <div class="modal-body">
+        <h6 [(ngModel)]="nameuserph">Bạn có đồng ý tài khoản {{nameuserph}} quản lý </h6>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+            <button type="button"  class="btn btn-primary"  >ok</button>
+          </div>
+      </div>
+    </div>
+  </div>
+
   <!--**********************************
       Header end ti-comment-alt
   ***********************************-->
