@@ -52,10 +52,12 @@ export class LoginserviceService {
     let userToken = this.getUserToken();
     for (const role of userToken?.roles) {
       if (role.name == "ph") {
-        this.router.navigate(["/ph"])
+        // this.router.navigate(["/ph"])
+        location.href = "/ph"
       }
       if(role.name=="sv"){
-        this.router.navigate(["/spending"])
+        location.href = "/spending"
+        // this.router.navigate(["/spending"])
       }
     }
   }

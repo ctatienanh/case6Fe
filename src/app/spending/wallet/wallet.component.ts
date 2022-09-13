@@ -28,6 +28,8 @@ export class WalletComponent implements OnInit {
     this.showWallet();
     this.showUser1()
   }
+
+
   showWallet(){
     this.wallet.show(this.loginService.getUserToken().id).subscribe((data) => {
       this.wallets = data;

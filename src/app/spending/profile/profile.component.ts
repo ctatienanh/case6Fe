@@ -32,6 +32,10 @@ export class ProfileComponent implements OnInit {
     this.showUser()
   }
 
+  logout() {
+    this.loginService.logout();
+  }
+
   showUser() {
     let id = this.loginService.getUserToken().id
     this.profileservice.show(id).subscribe((data) => {
