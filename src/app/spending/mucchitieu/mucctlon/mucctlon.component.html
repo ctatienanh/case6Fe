@@ -151,6 +151,24 @@
       </nav>
     </div>
   </div>
+  <div class="modal fade" id="addaccount">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" style="text-align: center">Nhan ok de xac nhan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal">
+          </button>
+        </div>
+        <div class="modal-body">
+          <h6 id="thongbao" [(ngModel)]="userph">Bạn có đồng ý tài khoản {{userph.username}} quản lý </h6>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+          <button type="button"  class="btn btn-primary" (click)="chekuserph()"  >ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!--**********************************
       Header end ti-comment-alt
   ***********************************-->
