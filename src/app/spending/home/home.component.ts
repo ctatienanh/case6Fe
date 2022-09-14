@@ -13,6 +13,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Count} from "../../model/count";
 import {NotificationserviceService} from "../../service/notificationservice.service";
 import {Notification} from "../../model/Notification";
+import {AdduserService} from "../../service/adduser.service";
 
 @Component({
   selector: 'app-home',
@@ -26,13 +27,14 @@ export class HomeComponent implements OnInit {
   spendinggoal: Spending[] = [];
   iduser: number = 0;
   count: Count =new Count(0);
-  nameuserph: string = "";
+  userph: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
 
 
   constructor(private script: ScriptService, private loginService: LoginserviceService,
               private wallet: WalletService, private spendingService: SpendingService,
               private mctChitietService: MctChitietService,
-              private profileservice: ProfileService,private notifi: NotificationserviceService) {
+              private profileservice: ProfileService,private notifi: NotificationserviceService,
+              private adduserservice: AdduserService) {
   }
 
   wallets: Wallet = new Wallet(0, 0);
@@ -137,9 +139,25 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  shownameph(name:string){
-    this.nameuserph = name;
-    console.log(this.nameuserph)
+  shownameph(appuser: AppUser){
+    this.userph = appuser;
+    console.log(this.userph)
+  }
+
+  adduser(){
+    let user = {
+      user_ph:{
+        id: this.userph.id,
+      },
+      user_sv:{
+        id: this.loginService.getUserToken().id,
+      }
+    }
+
+    this.adduserservice.AddUser(user).subscribe((data) => {
+    })
+
+
   }
 
 }
