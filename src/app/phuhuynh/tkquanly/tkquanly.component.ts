@@ -21,13 +21,16 @@ export class TkquanlyComponent implements OnInit {
   wallets: Wallet = new Wallet(0,0);
   constructor(private script: ScriptService, private loginService: LoginserviceService,
               private notifiservice: NotificationserviceService,
-              private adduserservice: AdduserService, private wallet: WalletService) {
+              private adduserservice: AdduserService,
+              private wallet: WalletService) {
   }
 
   ngOnInit(): void {
     this.script.load('global', 'Chartbundle', 'jquerymin', 'jquerydataTables', 'datatables', 'custom', 'dlabnav').then(data => {
     }).catch(error => console.log(error));
-    this.showadduser()
+    this.showadduser();
+    this.showluachon();
+    this.showWallet()
   }
 
   logout() {
@@ -97,7 +100,7 @@ export class TkquanlyComponent implements OnInit {
   }
 
   showWallet(){
-    this.wallet.show(this.loginService.getUserToken().id).subscribe((data) => {
+    this.wallet.show(this.adduserservice.getUser().id).subscribe((data) => {
       this.wallets = data;
     })
   }

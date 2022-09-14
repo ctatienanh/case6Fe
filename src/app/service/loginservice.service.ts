@@ -68,7 +68,8 @@ export class LoginserviceService {
 
   logout(){
     localStorage.removeItem("token");
-    localStorage.removeItem("userToken")
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("usersv");
     this.router.navigate(["/"])
 
   }

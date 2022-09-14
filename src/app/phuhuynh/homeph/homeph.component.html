@@ -233,7 +233,7 @@
                 </svg>
               </div>
               <div>
-                <h2 class="text-white invoice-num" ></h2>
+                <h2 class="text-white invoice-num" >{{count.sumspen}}</h2>
                 <span class="text-white fs-18">Thêm Giao dịch</span>
               </div>
             </div>
@@ -247,7 +247,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal">
                 </button>
               </div>
-              <form >
+              <form [formGroup]="mctchitietfrom" (submit)="createmctChitiet()">
                 <div class="modal-body">
                   <div class="form-group">
                     <label>Tên Giao Dịch</label>
@@ -256,7 +256,7 @@
                   <div class="form-group">
                     <label>Loại Giao dịch</label>
                     <select formControlName="namespending" class="form-control  wide">
-                      <option ></option>
+                      <option  *ngFor="let s of spendinggoal" value="{{s.name}}">{{s.name}}</option>
                     </select>
                   </div>
                   <div class="form-group">
@@ -284,7 +284,7 @@
                 </svg>
               </div>
               <div>
-                <h2 class="text-white invoice-num"> VNĐ</h2>
+                <h2 class="text-white invoice-num">{{wallets.money}} VNĐ</h2>
                 <span class="text-white fs-18">Số Dư</span>
               </div>
             </div>
