@@ -9,6 +9,8 @@ import {AppUser} from "../../../model/AppUser";
 import {WalletService} from "../../../service/wallet.service";
 import {ProfileService} from "../../../service/profile.service";
 import {Wallet} from "../../../model/wallet";
+import {NotificationserviceService} from "../../../service/notificationservice.service";
+import {Notification} from "../../../model/Notification";
 
 @Component({
   selector: 'app-mucctlon',
@@ -19,9 +21,12 @@ export class MucctlonComponent implements OnInit, OnChanges {
   spendinggoal: Spending[] = [];
   showspendingg: Spending = new Spending(0, "",0);
   user: AppUser = new AppUser(0,"","","","","","",0,0,"")
+  userph: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
+  notifications: Notification[] = [];
+  iduser: number = 0;
 
 
-  constructor(private script: ScriptService, private loginService: LoginserviceService, private spendingService: SpendingService, private router: Router, private wallet: WalletService, private profileservice:ProfileService) {
+  constructor(private notifi:NotificationserviceService,private script: ScriptService, private loginService: LoginserviceService, private spendingService: SpendingService, private router: Router, private wallet: WalletService, private profileservice:ProfileService) {
   }
   wallets: Wallet = new Wallet(0,0);
 
@@ -31,7 +36,7 @@ export class MucctlonComponent implements OnInit, OnChanges {
     this.showspending();
     this.showWallet();
     this.showUser1()
-
+    this.shownotifi();
   }
 
   ngOnChanges(): void {
@@ -165,6 +170,15 @@ checkname(){
     })
   }
 
-
+  shownotifi(){
+    this.notifi.show(this.loginService.getUserToken().id).subscribe((data) => {
+      this.notifications = data;
+      console.log(this.notifications)
+    })
+  }
+  shownameph(appuser: AppUser){
+    this.userph = appuser;
+    console.log(this.userph)
+  }
 
 }

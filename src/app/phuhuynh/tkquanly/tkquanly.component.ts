@@ -4,6 +4,7 @@ import {LoginserviceService} from "../../service/loginservice.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {NotificationserviceService} from "../../service/notificationservice.service";
 import {AppUser} from "../../model/AppUser";
+import {ProfileService} from "../../service/profile.service";
 
 @Component({
   selector: 'app-tkquanly',
@@ -12,12 +13,14 @@ import {AppUser} from "../../model/AppUser";
 })
 export class TkquanlyComponent implements OnInit {
   usersv: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
-  constructor(private script: ScriptService, private loginService: LoginserviceService, private notifiservice: NotificationserviceService) {
+  constructor(private script: ScriptService, private loginService: LoginserviceService, private notifiservice: NotificationserviceService,private profileservice:ProfileService) {
   }
 
   ngOnInit(): void {
     this.script.load('global', 'Chartbundle', 'jquerymin', 'jquerydataTables', 'datatables', 'custom', 'dlabnav').then(data => {
     }).catch(error => console.log(error));
+    this.showUser1()
+
   }
 
   logout() {
@@ -64,6 +67,13 @@ export class TkquanlyComponent implements OnInit {
       alert("đã gửi thông báo đến tài khoản để xác thực")
       }
     )
+  }
+  showUser1() {
+    let id = this.loginService.getUserToken().id
+    this.profileservice.show(id).subscribe((data) => {
+      console.log(data)
+      this.usersv = data;
+    })
   }
 
 }

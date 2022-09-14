@@ -8,6 +8,8 @@ import {Wallet} from "../../model/wallet";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {lichsugiaodich} from "../../model/lichsugiaodich";
 import {MctChitietService} from "../../service/mct-chitiet.service";
+import {Notification} from "../../model/Notification";
+import {NotificationserviceService} from "../../service/notificationservice.service";
 
 @Component({
   selector: 'app-wallet',
@@ -16,9 +18,12 @@ import {MctChitietService} from "../../service/mct-chitiet.service";
 })
 export class WalletComponent implements OnInit {
   Transaction:lichsugiaodich []=[];
+  notifications: Notification[] = [];
+  userph: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
+
   user: AppUser = new AppUser(0,"","","","","","",0,0,"")
   iduser: number =0;
-  constructor(private script: ScriptService, private loginService: LoginserviceService, private wallet: WalletService, private profileservice:ProfileService,private mctChitietService:MctChitietService) { }
+  constructor(private notifi: NotificationserviceService,private script: ScriptService, private loginService: LoginserviceService, private wallet: WalletService, private profileservice:ProfileService,private mctChitietService:MctChitietService) { }
   wallets: Wallet = new Wallet(0,0);
 
 
@@ -26,7 +31,9 @@ export class WalletComponent implements OnInit {
     this.script.load('global','Chartbundle','jquerymin','apexchart','nouislider','wNumb','my-wallet','custom','dlabnav').then(data => {
     }).catch(error => console.log(error));
     this.showWallet();
-    this.showUser1()
+    this.showUser1();
+    this.shownotifi();
+
   }
 
 
@@ -78,5 +85,15 @@ export class WalletComponent implements OnInit {
       console.log(this.Transaction)
     })
   }
+  shownotifi(){
+    this.notifi.show(this.loginService.getUserToken().id).subscribe((data) => {
+      this.notifications = data;
+      console.log(this.notifications)
+    })
+  }
 
+  shownameph(appuser: AppUser){
+    this.userph = appuser;
+    console.log(this.userph)
+  }
 }

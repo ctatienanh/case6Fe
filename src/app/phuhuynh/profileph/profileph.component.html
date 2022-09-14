@@ -211,10 +211,10 @@
       <ul class="metismenu" id="menu">
         <li class="dropdown header-profile">
           <a class="nav-link" href="/ph/profile" role="button" data-bs-toggle="dropdown">
-            <img src="" width="20" alt=""/>
+            <img src="{{user.img}}" width="20" alt=""/>
             <div class="header-info ms-3">
-              <span class="font-w600 ">Hi,<b></b></span>
-              <small class="text-end font-w400"></small>
+              <span class="font-w600 ">Hi,{{user.username}}<b></b></span>
+              <small class="text-end font-w400">{{user.email}}</small>
             </div>
           </a>
           <div class="dropdown-menu dropdown-menu-end">
@@ -262,13 +262,13 @@
               <!--              </div>-->
               <div class="profile-info">
                 <div class="profile-photo">
-                  <img src="" class="img-fluid rounded-circle" alt="" style="
+                  <img src="{{user.img}}" class="img-fluid rounded-circle" alt="" style="
     margin-top: 28px;height: 100px;
 ">
                 </div>
                 <div class="profile-details">
                   <div class="profile-email px-2 pt-2">
-                    <h4 class="text-muted mb-0"></h4>
+                    <h4 class="text-muted mb-0">{{user.email}}</h4>
                     <p>Email</p>
                   </div>
                   <div class="dropdown ms-auto">
@@ -320,7 +320,7 @@
                             <h5 class="f-w-500">Họ Và Tên <span class="pull-end">:</span>
                             </h5>
                           </div>
-                          <div class="col-sm-9 col-7"><span></span>
+                          <div class="col-sm-9 col-7"><span>{{user.name}}</span>
                           </div>
                         </div>
                         <div class="row mb-2">
@@ -328,14 +328,14 @@
                             <h5 class="f-w-500">Email <span class="pull-end">:</span>
                             </h5>
                           </div>
-                          <div class="col-sm-9 col-7"><span></span>
+                          <div class="col-sm-9 col-7"><span>{{user.email}}</span>
                           </div>
                         </div>
                         <div class="row mb-2">
                           <div class="col-sm-3 col-5">
                             <h5 class="f-w-500">Số Điện Thoại <span class="pull-end">:</span></h5>
                           </div>
-                          <div class="col-sm-9 col-7"><span></span>
+                          <div class="col-sm-9 col-7"><span>{{user.phone}}</span>
                           </div>
                         </div>
                         <div class="row mb-2">
@@ -343,14 +343,14 @@
                             <h5 class="f-w-500">Tuổi <span class="pull-end">:</span>
                             </h5>
                           </div>
-                          <div class="col-sm-9 col-7"><span></span>
+                          <div class="col-sm-9 col-7"><span>{{user.age}}</span>
                           </div>
                         </div>
                         <div class="row mb-2">
                           <div class="col-sm-3 col-5">
                             <h5 class="f-w-500">Địa Chỉ <span class="pull-end">:</span></h5>
                           </div>
-                          <div class="col-sm-9 col-7"><span></span>
+                          <div class="col-sm-9 col-7"><span>{{user.aress}}</span>
                           </div>
                         </div>
                       </div>
@@ -359,26 +359,27 @@
                       <div class="pt-3">
                         <div class="settings-form">
                           <h4 class="text-primary">Sửa đổi thông tin cá nhân</h4>
-                          <form>
-                            <div class="row">
+                          <form [formGroup]="edidForm" (submit)="editProfile()">
+
+                          <div class="row">
                               <div class="mb-3 col-md-6">
                                 <label class="form-label">Họ Và Tên</label>
-                                <input type="text" placeholder="Nhập Họ Và Tên" class="form-control" value="" formControlName = "name">
+                                <input type="text" placeholder="Nhập Họ Và Tên" class="form-control" value="{{user.name}}" formControlName = "name">
                               </div>
 
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Địa Chỉ</label>
-                              <input type="text" placeholder="Nhập Địa Chỉ" class="form-control" formControlName = "aress" value="" >
+                              <input type="text" placeholder="Nhập Địa Chỉ" class="form-control" formControlName = "aress" value="{{user.aress}}" >
                             </div>
                             <div class="mb-3">
                               <label class="form-label">Số Điện Thoại</label>
-                              <input type="number" placeholder="Nhập Số Điện Thoại" class="form-control" formControlName="phone" value="">
+                              <input type="number" placeholder="Nhập Số Điện Thoại" class="form-control" formControlName="phone" value="{{user.phone}}">
                             </div>
                             <div class="mb-3">
                               <div class="mb-3 col-md-6">
                                 <label class="form-label">Nhâp Tuổi</label>
-                                <input type="number" placeholder="Nhập Tuổi" class="form-control" formControlName="age" value="">
+                                <input type="number" placeholder="Nhập Tuổi" class="form-control" formControlName="age" value="{{user.age}}">
                               </div>
                             </div>
                             <div class="mb-3">
@@ -386,10 +387,9 @@
                                 <label class="form-label">img</label>
                                 <div class >
                                   <label for="file-input">
-                                    <img  id="image" src="" style="height: 205px; width: 159px">
+                                    <img  id="image" src="{{user.img}}" style="height: 205px; width: 159px">
                                   </label>
-                                  <input id="file-input" type="file"  name="file"  accept="image/gif , image/jpeg, image/png"  onchange = "luufile()"  hidden>
-                                  <input id="file" name="image" type="file"  autocomplete="off" hidden >
+                                  <input id="file-input" type="file"  name="file"  accept="image/gif , image/jpeg, image/png"  onchange = "luufile()"  (change)="onFileSelected($event)" hidden>                                  <input id="file" name="image" type="file"  autocomplete="off" hidden >
                                 </div>
                               </div>
                             </div>
