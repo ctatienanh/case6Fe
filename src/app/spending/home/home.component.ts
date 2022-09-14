@@ -14,6 +14,7 @@ import {Count} from "../../model/count";
 import {NotificationserviceService} from "../../service/notificationservice.service";
 import {Notification} from "../../model/Notification";
 import {AdduserService} from "../../service/adduser.service";
+import {Counttb} from "../../model/counttb";
 
 @Component({
   selector: 'app-home',
@@ -26,7 +27,9 @@ export class HomeComponent implements OnInit {
   user: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
   spendinggoal: Spending[] = [];
   iduser: number = 0;
-  count: Count =new Count(0);
+  count: Count = new Count(0);
+  counttb: Counttb = new Counttb(0);
+
   userph: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
 
 
@@ -34,8 +37,8 @@ export class HomeComponent implements OnInit {
               private wallet: WalletService,
               private spendingService: SpendingService,
               private mctChitietService: MctChitietService,
-              private profileservice: ProfileService,private notifi: NotificationserviceService,
-              private adduserservice: AdduserService ) {
+              private profileservice: ProfileService, private notifi: NotificationserviceService,
+              private adduserservice: AdduserService) {
   }
 
   wallets: Wallet = new Wallet(0, 0);
@@ -49,6 +52,7 @@ export class HomeComponent implements OnInit {
     this.showUser1();
     this.showcount();
     this.shownotifi();
+    this.showcounttb();
   }
 
   showWallet() {
@@ -132,24 +136,24 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  shownotifi(){
+  shownotifi() {
     this.notifi.show(this.loginService.getUserToken().id).subscribe((data) => {
-   this.notifications = data;
+      this.notifications = data;
       console.log(this.notifications)
     })
   }
 
-  shownameph(appuser: AppUser){
+  shownameph(appuser: AppUser) {
     this.userph = appuser;
     console.log(this.userph)
   }
 
-  adduser(){
+  adduser() {
     let user = {
-      user_ph:{
+      user_ph: {
         id: this.userph.id,
       },
-      user_sv:{
+      user_sv: {
         id: this.loginService.getUserToken().id,
       }
     }
@@ -160,27 +164,27 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  chekuserph(){
-    if (this.user.user_ph == null){
+  chekuserph() {
+    if (this.user.user_ph == null) {
       this.adduser()
-    }else {
+    } else {
       // @ts-ignore
       document.getElementById("thongbao").innerHTML = "Tài khoản đã được liên kết";
     }
   }
 
-  adduserphvaosv(){
+  adduserphvaosv() {
     let user = {
       id: this.user.id,
       username: this.user.username,
       password: this.user.password,
-      email:this.user.email,
+      email: this.user.email,
       roles: this.loginService.getUserToken().roles,
-      name:this.user.name,
-      aress:this.user.aress,
-      phone:this.user.phone,
-      age:this.user.age,
-      img:this.user.img,
+      name: this.user.name,
+      aress: this.user.aress,
+      phone: this.user.phone,
+      age: this.user.age,
+      img: this.user.img,
       user_ph: {
         id: this.userph.id,
       }
@@ -191,6 +195,12 @@ export class HomeComponent implements OnInit {
       document.getElementById("thongbao").innerHTML = "liên kết thành công";
       this.showUser1()
     })
+  }
+
+  showcounttb() {
+      this.notifi.showcounttb(this.loginService.getUserToken().id).subscribe((data) => {
+        this.counttb.Sumnotification = data.sumnotification;
+      });
   }
 
 }
