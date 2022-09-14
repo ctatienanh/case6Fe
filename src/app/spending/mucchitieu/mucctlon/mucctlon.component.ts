@@ -21,8 +21,8 @@ import {AdduserService} from "../../../service/adduser.service";
 })
 export class MucctlonComponent implements OnInit, OnChanges {
   spendinggoal: Spending[] = [];
-  showspendingg: Spending = new Spending(0, "",0);
-  user: AppUser = new AppUser(0,"","","","","","",0,0,"")
+  showspendingg: Spending = new Spending(0, "", 0);
+  user: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
   userph: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
   notifications: Notification[] = [];
   iduser: number = 0;
@@ -31,10 +31,11 @@ export class MucctlonComponent implements OnInit, OnChanges {
   constructor(private script: ScriptService, private loginService: LoginserviceService,
               private wallet: WalletService, private spendingService: SpendingService,
               private mctChitietService: MctChitietService,
-              private profileservice: ProfileService,private notifi: NotificationserviceService,
-              private adduserservice: AdduserService ) {
+              private profileservice: ProfileService, private notifi: NotificationserviceService,
+              private adduserservice: AdduserService) {
   }
-  wallets: Wallet = new Wallet(0,0);
+
+  wallets: Wallet = new Wallet(0, 0);
 
   ngOnInit(): void {
     this.script.load('global', 'Chartbundle', 'jquerymin', 'jquerydataTables', 'datatables', 'custom', 'dlabnav').then(data => {
@@ -69,37 +70,37 @@ export class MucctlonComponent implements OnInit, OnChanges {
       idUser: this.Formspen.value.iduser
     }
 
-    if (this.Formspen.valid){
+    if (this.Formspen.valid) {
 
       this.spendingService.checkname(spen).subscribe((data) => {
-        if (data != null){
+        if (data != null) {
           // @ts-ignore
           document.getElementById("checknamemct").style.display = "block"
-        }else {
+        } else {
           this.checkname()
         }
       })
-    }else {
+    } else {
       // @ts-ignore
       document.getElementById("createmct").style.display = "block"
     }
   }
 
-checkname(){
-  let spen = {
-    name: this.Formspen.value.name,
-    user: {
-      id: this.Formspen.value.iduser
+  checkname() {
+    let spen = {
+      name: this.Formspen.value.name,
+      user: {
+        id: this.Formspen.value.iduser
+      }
     }
-  }
-  this.spendingService.create(spen).subscribe((data) => {
-    this.Formspen = new FormGroup({
-      name: new FormControl('', Validators.required),
-      iduser: new FormControl(this.loginService.getUserToken().id)
+    this.spendingService.create(spen).subscribe((data) => {
+      this.Formspen = new FormGroup({
+        name: new FormControl('', Validators.required),
+        iduser: new FormControl(this.loginService.getUserToken().id)
+      })
+      this.showspending()
     })
-    this.showspending()
-  })
-}
+  }
 
 
   showspending() {
@@ -121,23 +122,23 @@ checkname(){
   }
 
 
-  checkedit(){
+  checkedit() {
     let spen = {
       name: this.FormspenEdit.value.name,
       idUser: this.Formspen.value.iduser
     }
 
-    if (this.FormspenEdit.valid){
+    if (this.FormspenEdit.valid) {
 
       this.spendingService.checkname(spen).subscribe((data) => {
-        if (data != null){
+        if (data != null) {
           // @ts-ignore
           document.getElementById("checkeditmct").style.display = "block"
-        }else {
+        } else {
           this.editspending()
         }
       })
-    }else {
+    } else {
       // @ts-ignore
       document.getElementById("editmct").style.display = "block"
     }
@@ -156,7 +157,8 @@ checkname(){
 
     })
   }
-  showWallet(){
+
+  showWallet() {
     this.wallet.show(this.loginService.getUserToken().id).subscribe((data) => {
       this.wallets = data;
     })
@@ -176,13 +178,14 @@ checkname(){
     })
   }
 
-  shownotifi(){
+  shownotifi() {
     this.notifi.show(this.loginService.getUserToken().id).subscribe((data) => {
       this.notifications = data;
       console.log(this.notifications)
     })
   }
-  shownameph(appuser: AppUser){
+
+  shownameph(appuser: AppUser) {
     this.userph = appuser;
     console.log(this.userph)
   }
@@ -203,13 +206,20 @@ checkname(){
         id: this.userph.id,
       }
     }
+
+    this.loginService.register(user).subscribe((data) => {
+      // @ts-ignore
+      document.getElementById("thongbao").innerHTML = "liên kết thành công";
+      this.showUser1()
+    })
   }
-  adduser(){
+
+  adduser() {
     let user = {
-      user_ph:{
+      user_ph: {
         id: this.userph.id,
       },
-      user_sv:{
+      user_sv: {
         id: this.loginService.getUserToken().id,
       }
     }
@@ -219,13 +229,14 @@ checkname(){
 
     })
   }
-    chekuserph(){
-      if (this.user.user_ph == null){
-        this.adduser()
-      }else {
-        // @ts-ignore
-        document.getElementById("thongbao").innerHTML = "Tài khoản đã được liên kết";
-      }
+
+  chekuserph() {
+    if (this.user.user_ph == null) {
+      this.adduser()
+    } else {
+      // @ts-ignore
+      document.getElementById("thongbao").innerHTML = "Tài khoản đã được liên kết";
     }
+  }
 
 }

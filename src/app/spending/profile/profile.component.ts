@@ -7,6 +7,9 @@ import {LoginserviceService} from "../../service/loginservice.service";
 import {finalize, Observable} from "rxjs";
 import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {FormControl, FormGroup} from "@angular/forms";
+import {NotificationserviceService} from "../../service/notificationservice.service";
+import {AdduserService} from "../../service/adduser.service";
+import {Notification} from "../../model/Notification";
 
 @Component({
   selector: 'app-profile',
@@ -20,16 +23,24 @@ export class ProfileComponent implements OnInit {
   fb: string = "";
   downloadURL: Observable<string> | undefined;
   urlImg : string = ""  ;
+  notifications: Notification[] = [];
+
+  userph: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
 
 
-
-  constructor(private script: ScriptService, private profileservice: ProfileService, private router: Router, private route: ActivatedRoute, private loginService: LoginserviceService, private storage: AngularFireStorage) {
+  constructor(private script: ScriptService, private profileservice: ProfileService,
+              private router: Router, private route: ActivatedRoute,
+              private loginService: LoginserviceService,
+              private storage: AngularFireStorage,  private notifi: NotificationserviceService,
+              private adduserservice: AdduserService) {
   }
 
   ngOnInit(): void {
     this.script.load('global', 'bootstrap-select', 'jquerymin', 'Chartbundle', 'lightgallery-all', 'custom', 'dlabnav', 'upimg').then(data => {
     }).catch(error => console.log(error));
     this.showUser()
+    this.showUser1()
+    this.shownotifi();
   }
 
   logout() {
@@ -105,6 +116,75 @@ export class ProfileComponent implements OnInit {
     this.profileservice.create(edit).subscribe((data)=>{
       this.showUser()
     })
+  }
 
+
+  showUser1() {
+    let id = this.loginService.getUserToken().id
+    this.profileservice.show(id).subscribe((data) => {
+      console.log(data)
+      this.user = data;
+    })
+  }
+
+  shownotifi() {
+    this.notifi.show(this.loginService.getUserToken().id).subscribe((data) => {
+      this.notifications = data;
+      console.log(this.notifications)
+    })
+  }
+
+  shownameph(appuser: AppUser) {
+    this.userph = appuser;
+    console.log(this.userph)
+  }
+
+  adduserphvaosv() {
+    let user = {
+      id: this.user.id,
+      username: this.user.username,
+      password: this.user.password,
+      email: this.user.email,
+      roles: this.loginService.getUserToken().roles,
+      name: this.user.name,
+      aress: this.user.aress,
+      phone: this.user.phone,
+      age: this.user.age,
+      img: this.user.img,
+      user_ph: {
+        id: this.userph.id,
+      }
+    }
+
+    this.loginService.register(user).subscribe((data) => {
+      // @ts-ignore
+      document.getElementById("thongbao").innerHTML = "liên kết thành công";
+      this.showUser1()
+    })
+  }
+
+  adduser() {
+    let user = {
+      user_ph: {
+        id: this.userph.id,
+      },
+      user_sv: {
+        id: this.loginService.getUserToken().id,
+      }
+    }
+    this.adduserservice.AddUser(user).subscribe((data) => {
+      this.showUser1()
+      this.adduserphvaosv()
+
+    })
+  }
+
+  chekuserph() {
+    if (this.user.user_ph == null) {
+      this.adduser()
+    } else {
+      // @ts-ignore
+      document.getElementById("thongbao").innerHTML = "Tài khoản đã được liên kết";
+    }
   }
 }

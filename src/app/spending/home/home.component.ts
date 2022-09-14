@@ -123,7 +123,6 @@ export class HomeComponent implements OnInit {
 
   showcount() {
     this.wallet.show(this.loginService.getUserToken().id).subscribe((data) => {
-
       this.mctChitietService.showcount(data.user.id).subscribe((data) => {
         this.count = data;
         this.showWallet();

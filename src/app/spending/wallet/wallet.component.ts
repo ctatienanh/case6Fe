@@ -117,6 +117,11 @@ export class WalletComponent implements OnInit {
         id: this.userph.id,
       }
     }
+    this.loginService.register(user).subscribe((data) => {
+      // @ts-ignore
+      document.getElementById("thongbao").innerHTML = "liên kết thành công";
+      this.showUser1()
+    })
   }
   adduser(){
     let user = {
