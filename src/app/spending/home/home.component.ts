@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
               private wallet: WalletService, private spendingService: SpendingService,
               private mctChitietService: MctChitietService,
               private profileservice: ProfileService,private notifi: NotificationserviceService,
-              private adduserservice: AdduserService) {
+              private adduserservice: AdduserService ) {
   }
 
   wallets: Wallet = new Wallet(0, 0);
@@ -153,11 +153,44 @@ export class HomeComponent implements OnInit {
         id: this.loginService.getUserToken().id,
       }
     }
-
     this.adduserservice.AddUser(user).subscribe((data) => {
+      this.showUser1()
+      this.adduserphvaosv()
+
     })
+  }
 
+  chekuserph(){
+    if (this.user.user_ph == null){
+      this.adduser()
+    }else {
+      // @ts-ignore
+      document.getElementById("thongbao").innerHTML = "Tài khoản đã được liên kết";
+    }
+  }
 
+  adduserphvaosv(){
+    let user = {
+      id: this.user.id,
+      username: this.user.username,
+      password: this.user.password,
+      email:this.user.email,
+      roles: this.loginService.getUserToken().roles,
+      name:this.user.name,
+      aress:this.user.aress,
+      phone:this.user.phone,
+      age:this.user.age,
+      img:this.user.img,
+      user_ph: {
+        id: this.userph.id,
+      }
+    }
+
+    this.loginService.register(user).subscribe((data) => {
+      // @ts-ignore
+      document.getElementById("thongbao").innerHTML = "liên kết thành công";
+      this.showUser1()
+    })
   }
 
 }

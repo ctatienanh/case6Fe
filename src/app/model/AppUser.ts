@@ -9,6 +9,7 @@ export class AppUser{
   phone: number;
   age: number;
   img: string;
+  user_ph! : AppUser;
 
 
   constructor(id: number, username: string, password: string, roles: string, email: string, name: string, aress: string, phone: number, age: number, img: string) {
