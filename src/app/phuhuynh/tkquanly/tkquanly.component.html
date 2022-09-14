@@ -280,21 +280,21 @@
               <div class="row align-items-center">
                 <div class="col-xl-4 mb-3">
                   <p class="mb-2">ID Payment</p>
-                  <h2 class="mb-0" >{{userchon.id}}</h2>
+                  <h2 class="mb-0" >{{userchon?.id}}</h2>
                 </div>
                 <div class="col-xl-8 d-flex flex-wrap justify-content-between align-items-center">
                   <div class="d-flex me-3 mb-3 ms-2 align-items-start">
                     <i class="fa fa-phone scale-2 me-4 mt-2"></i>
                     <div>
                       <p class="mb-2">Telephone</p>
-                      <h4 class="mb-0">{{userchon.phone}}</h4>
+                      <h4 class="mb-0">{{userchon?.phone}}</h4>
                     </div>
                   </div>
                   <div class="d-flex me-3 mb-3 ms-2 align-items-start">
                     <i class="fa fa-envelope scale-2 me-4 mt-2"></i>
                     <div>
                       <p class="mb-2">Email</p>
-                      <h4 class="mb-0">{{userchon.email}}</h4>
+                      <h4 class="mb-0">{{userchon?.email}}</h4>
                     </div>
                   </div>
 
@@ -303,30 +303,30 @@
             </div>
             <div class="card-body pb-3 transaction-details d-flex flex-wrap justify-content-between align-items-center">
               <div class="user-bx-2 me-3 mb-3">
-                <img src="{{userchon.img}}" class="rounded" alt="">
+                <img src="{{userchon?.img}}" class="rounded" alt="">
                 <div>
                   <h3>User</h3>
-                  <span>{{userchon.username}}</span>
+                  <span>{{userchon?.username}}</span>
                 </div>
               </div>
               <div class="me-3 mb-3">
                 <p class="mb-2">Name</p>
-                <h4 class="mb-0">{{userchon.name}}</h4>
+                <h4 class="mb-0">{{userchon?.name}}</h4>
               </div>
               <div class="me-3 mb-3">
                 <p class="mb-2">Tuổi</p>
-                <h4 class="mb-0">{{userchon.age}}</h4>
+                <h4 class="mb-0">{{userchon?.age}}</h4>
               </div>
               <div class="me-3 mb-3">
                 <p class="mb-2">Địa Chỉ</p>
-                <h4 class="mb-0">{{userchon.aress}}</h4>
+                <h4 class="mb-0">{{userchon?.aress}}</h4>
               </div>
 
               <div class="amount-bx mb-3">
                 <i class="fa fa-usd"></i>
                 <div>
                   <p class="mb-1">Amount</p>
-                  <h3 class="mb-0">{{wallets.money}}</h3>
+                  <h3 class="mb-0">{{wallets?.money}}</h3>
                 </div>
               </div>
             </div>
@@ -344,8 +344,8 @@
                 <th></th>
               </tr>
               </thead>
-              <tbody *ngFor="let t of users; index as i">
-              <tr>
+              <tbody >
+              <tr *ngFor="let t of users; index as i">
                 <td><span class="text-black font-w500">{{i}}</span></td>
                 <td><span class="text-black text-nowrap">{{t.user_sv.username}}</span></td>
 
