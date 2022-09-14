@@ -16,4 +16,7 @@ export class NotificationserviceService {
   show(id : any): Observable<any> {
     return  this.http.get<any>("http://localhost:8080/notificationadd/show/"+ id);
   }
+  showcounttb(id: any): Observable<any >{
+    return this.http.get<any>("http://localhost:8080/notificationadd/showcount/"+id);
+  }
 }
