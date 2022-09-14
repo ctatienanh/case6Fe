@@ -41,8 +41,7 @@ export class WalletComponent implements OnInit {
     this.wallet.show(this.loginService.getUserToken().id).subscribe((data) => {
       this.wallets = data;
       this.iduser = data.user.id;
-      console.log("aaa")
-      console.log(data)
+
 
     })
     this.showTransaction();
