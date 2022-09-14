@@ -4,7 +4,10 @@ import {LoginserviceService} from "../../service/loginservice.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {NotificationserviceService} from "../../service/notificationservice.service";
 import {AppUser} from "../../model/AppUser";
-import {ProfileService} from "../../service/profile.service";
+import {AdduserService} from "../../service/adduser.service";
+import {AddUser} from "../../model/AddUser";
+import {Wallet} from "../../model/wallet";
+import {WalletService} from "../../service/wallet.service";
 
 @Component({
   selector: 'app-tkquanly',
@@ -13,14 +16,21 @@ import {ProfileService} from "../../service/profile.service";
 })
 export class TkquanlyComponent implements OnInit {
   usersv: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
-  constructor(private script: ScriptService, private loginService: LoginserviceService, private notifiservice: NotificationserviceService,private profileservice:ProfileService) {
+  users: AddUser[] = [];
+  userchon: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
+  wallets: Wallet = new Wallet(0,0);
+  constructor(private script: ScriptService, private loginService: LoginserviceService,
+              private notifiservice: NotificationserviceService,
+              private adduserservice: AdduserService,
+              private wallet: WalletService) {
   }
 
   ngOnInit(): void {
     this.script.load('global', 'Chartbundle', 'jquerymin', 'jquerydataTables', 'datatables', 'custom', 'dlabnav').then(data => {
     }).catch(error => console.log(error));
-    this.showUser1()
-
+    this.showadduser();
+    this.showluachon();
+    this.showWallet()
   }
 
   logout() {
@@ -52,10 +62,10 @@ export class TkquanlyComponent implements OnInit {
 
   add() {
     let notifi = {
-      user_sv : {
+      user_sv: {
         id: this.usersv.id
       },
-      user_ph:{
+      user_ph: {
         id: this.loginService.getUserToken().id
       },
       content: "add"
@@ -64,15 +74,34 @@ export class TkquanlyComponent implements OnInit {
     console.log(notifi)
 
     this.notifiservice.add(notifi).subscribe((data) => {
-      alert("đã gửi thông báo đến tài khoản để xác thực")
+        alert("đã gửi thông báo đến tài khoản để xác thực")
       }
     )
   }
-  showUser1() {
-    let id = this.loginService.getUserToken().id
-    this.profileservice.show(id).subscribe((data) => {
-      console.log(data)
-      this.usersv = data;
+
+  showadduser() {
+    this.adduserservice.getallbyid(this.loginService.getUserToken().id).subscribe((data) => {
+        this.users = data;
+      }
+    )
+  }
+
+  showusersv(user: string){
+    this.adduserservice.showuser(user).subscribe((data) => {
+      this.adduserservice.setUser(data)
+      this.showluachon();
+      this.showWallet();
+      }
+    )
+  }
+
+  showluachon(){
+    this.userchon = this.adduserservice.getUser();
+  }
+
+  showWallet(){
+    this.wallet.show(this.adduserservice.getUser().id).subscribe((data) => {
+      this.wallets = data;
     })
   }
 

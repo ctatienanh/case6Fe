@@ -34,7 +34,8 @@ export class HomeComponent implements OnInit {
 
 
   constructor(private script: ScriptService, private loginService: LoginserviceService,
-              private wallet: WalletService, private spendingService: SpendingService,
+              private wallet: WalletService,
+              private spendingService: SpendingService,
               private mctChitietService: MctChitietService,
               private profileservice: ProfileService, private notifi: NotificationserviceService,
               private adduserservice: AdduserService) {
@@ -127,7 +128,6 @@ export class HomeComponent implements OnInit {
 
   showcount() {
     this.wallet.show(this.loginService.getUserToken().id).subscribe((data) => {
-
       this.mctChitietService.showcount(data.user.id).subscribe((data) => {
         this.count = data;
         this.showWallet();

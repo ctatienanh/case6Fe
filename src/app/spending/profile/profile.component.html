@@ -103,7 +103,8 @@
         <div class="collapse navbar-collapse justify-content-between">
           <div class="header-left">
             <div class="dashboard_bar">
-Thông Tin Cá Nhân      </div>
+              Dashboard
+            </div>
           </div>
           <ul class="navbar-nav header-right">
             <li class="nav-item">
@@ -122,69 +123,32 @@ Thông Tin Cá Nhân      </div>
               <div class="dropdown-menu dropdown-menu-end">
                 <div id="dlab_W_Notification1" class="widget-media dlab-scroll p-3" style="height:380px;">
                   <ul class="timeline">
-                    <li>
-                      <div class="timeline-panel">
-                        <div class="media me-2">
-                          <img alt="image" width="50" src="images/avatar/1.jpg">
-                        </div>
-                        <div class="media-body">
-                          <h6 class="mb-1">Dr sultads Send you Photo</h6>
-                          <small class="d-block">29 July 2020 - 02:26 PM</small>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="timeline-panel">
-                        <div class="media me-2 media-info">
-                          KG
-                        </div>
-                        <div class="media-body">
-                          <h6 class="mb-1">Resport created successfully</h6>
-                          <small class="d-block">29 July 2020 - 02:26 PM</small>
+                    <li *ngFor="let n of notifications; index as i">
+                      <div *ngIf="n.content == 'add'">
+                        <div class="timeline-panel" data-bs-toggle="modal" (click)="shownameph(n.user_ph)" data-bs-target="#addaccount">
+                          <div class="media me-2">
+                            <img alt="image" width="50" src="{{n.user_ph.img}}">
+                          </div>
+                          <div class="media-body">
+
+                            <h6  class="mb-1">{{n.content}}</h6>
+                            <h6 class="mb-1"> form : {{n.user_ph.username}}</h6>
+
+                            <small class="d-block">{{n.date}} , {{n.time}}</small>
+                          </div>
                         </div>
                       </div>
-                    </li>
-                    <li>
-                      <div class="timeline-panel">
-                        <div class="media me-2 media-success">
-                          <i class="fa fa-home"></i>
-                        </div>
-                        <div class="media-body">
-                          <h6 class="mb-1">Reminder : Treatment Time!</h6>
-                          <small class="d-block">29 July 2020 - 02:26 PM</small>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="timeline-panel">
-                        <div class="media me-2">
-                          <img alt="image" width="50" src="/assets/images/avatar/1.jpg">
-                        </div>
-                        <div class="media-body">
-                          <h6 class="mb-1">Dr sultads Send you Photo</h6>
-                          <small class="d-block">29 July 2020 - 02:26 PM</small>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="timeline-panel">
-                        <div class="media me-2 media-danger">
-                          KG
-                        </div>
-                        <div class="media-body">
-                          <h6 class="mb-1">Resport created successfully</h6>
-                          <small class="d-block">29 July 2020 - 02:26 PM</small>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="timeline-panel">
-                        <div class="media me-2 media-primary">
-                          <i class="fa fa-home"></i>
-                        </div>
-                        <div class="media-body">
-                          <h6 class="mb-1">Reminder : Treatment Time!</h6>
-                          <small class="d-block">29 July 2020 - 02:26 PM</small>
+
+                      <div *ngIf="n.content != 'add'">
+                        <div class="timeline-panel">
+                          <div class="media me-2">
+                            <img alt="image" width="50" src="{{n.user_ph.img}}">
+                          </div>
+                          <div class="media-body">
+                            <h6 class="mb-1">{{n.content}}</h6>
+                            <h6 class="mb-1"> form : {{n.user_ph.username}}</h6>
+                            <small class="d-block">{{n.date}} , {{n.time}}</small>
+                          </div>
                         </div>
                       </div>
                     </li>
@@ -199,7 +163,24 @@ Thông Tin Cá Nhân      </div>
       </nav>
     </div>
   </div>
-
+  <div class="modal fade" id="addaccount">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" style="text-align: center">Nhan ok de xac nhan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal">
+          </button>
+        </div>
+        <div class="modal-body">
+          <h6 id="thongbao" >Bạn có đồng ý tài khoản {{userph.username}} quản lý </h6>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+          <button type="button"  class="btn btn-primary" (click)="chekuserph()"  >ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!--**********************************
       Header end ti-comment-alt
   ***********************************-->

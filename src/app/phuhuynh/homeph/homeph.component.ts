@@ -5,6 +5,14 @@ import {AppUser} from "../../model/AppUser";
 import {Notification} from "../../model/Notification";
 import {ProfileService} from "../../service/profile.service";
 import {NotificationserviceService} from "../../service/notificationservice.service";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {MctChitietService} from "../../service/mct-chitiet.service";
+import {Wallet} from "../../model/wallet";
+import {WalletService} from "../../service/wallet.service";
+import {Count} from "../../model/count";
+import {Spending} from "../../model/spending";
+import {SpendingService} from "../../service/spending.service";
+import {AdduserService} from "../../service/adduser.service";
 
 @Component({
   selector: 'app-homeph',
@@ -15,15 +23,29 @@ export class HomephComponent implements OnInit {
   userph: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
   iduser: number = 0;
   notifications: Notification[] = [];
+  wallets: Wallet = new Wallet(0, 0);
+  count: Count =new Count(0);
+  spendinggoal: Spending[] = [];
 
-  constructor(private notifi: NotificationserviceService,private profileservice: ProfileService  ,private script: ScriptService, private loginService: LoginserviceService) { }
+
+
+  constructor(private notifi: NotificationserviceService,
+              private profileservice: ProfileService  ,
+              private script: ScriptService,
+              private loginService: LoginserviceService,
+              private mctChitietService: MctChitietService,
+              private wallet: WalletService,
+              private spendingService: SpendingService,
+              private adduserservice: AdduserService) { }
 
   ngOnInit(): void {
     this.script.load('global', 'Chartbundle', 'jquerymin', 'apexchart', 'nouislider', 'wNumb', 'dashboard-1', 'custom', 'dlabnav').then(data => {
     }).catch(error => console.log(error));
     this.shownotifi();
     this.showUser1();
-
+    this.showWallet();
+    this.showcount();
+    this.showspending()
   }
 
   logout(){
@@ -37,11 +59,82 @@ export class HomephComponent implements OnInit {
     })
   }
   shownotifi(){
-    this.notifi.show(this.loginService.getUserToken().id).subscribe((data) => {
+    this.notifi.show(this.adduserservice.getUser().id).subscribe((data) => {
       this.notifications = data;
       console.log(this.notifications)
     })
   }
+  mctchitietfrom = new FormGroup({
+    name: new FormControl('', Validators.required),
+    namespending: new FormControl(""),
+    money: new FormControl(),
+
+  })
+
+  createmctChitiet() {
+    let mtct = {
+      name: this.mctchitietfrom.value.name,
+      namespending: this.mctchitietfrom.value.namespending,
+      money: this.mctchitietfrom.value.money,
+      user: {
+        id: this.iduser
+      }
+    }
+
+    this.mctChitietService.create(mtct).subscribe((data) => {
+      this.deduction();
+      this.mctchitietfrom = new FormGroup({
+        name: new FormControl('', Validators.required),
+        namespending: new FormControl(""),
+        money: new FormControl(null, Validators.required),
+      })
+      this.showWallet();
+      this.showcount();
+
+
+    });
+  }
+
+  showWallet() {
+    this.wallet.show(this.adduserservice.getUser().id).subscribe((data) => {
+      this.wallets = data;
+      this.iduser = data.user.id;
+    })
+  }
+
+  deduction() {
+    let wallet = {
+      id: this.wallets.id,
+      money: (this.wallets.money - this.mctchitietfrom.value.money),
+      user: {
+        id: this.iduser
+      }
+    }
+    this.wallet.create(wallet).subscribe((data) => {
+
+    })
+
+  }
+
+  showcount() {
+    this.wallet.show(this.adduserservice.getUser().id).subscribe((data) => {
+      this.mctChitietService.showcount(data.user.id).subscribe((data) => {
+        this.count = data;
+        this.showWallet();
+        console.log(data)
+      });
+    })
+  }
+
+  showspending() {
+    this.spendingService.show(this.adduserservice.getUser().id).subscribe((data) => {
+      this.spendinggoal = data;
+      console.log(this.spendinggoal)
+    })
+  }
+
+
+
   }
 
 

@@ -47,8 +47,7 @@ export class WalletComponent implements OnInit {
     this.wallet.show(this.loginService.getUserToken().id).subscribe((data) => {
       this.wallets = data;
       this.iduser = data.user.id;
-      console.log("aaa")
-      console.log(data)
+
 
     })
     this.showTransaction();
@@ -118,6 +117,11 @@ export class WalletComponent implements OnInit {
         id: this.userph.id,
       }
     }
+    this.loginService.register(user).subscribe((data) => {
+      // @ts-ignore
+      document.getElementById("thongbao").innerHTML = "liên kết thành công";
+      this.showUser1()
+    })
   }
   adduser(){
     let user = {
