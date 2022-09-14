@@ -13,6 +13,7 @@ import {Count} from "../../model/count";
 import {Spending} from "../../model/spending";
 import {SpendingService} from "../../service/spending.service";
 import {AdduserService} from "../../service/adduser.service";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-homeph',
@@ -26,6 +27,7 @@ export class HomephComponent implements OnInit {
   wallets: Wallet = new Wallet(0, 0);
   count: Count =new Count(0);
   spendinggoal: Spending[] = [];
+  usersv: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "");
 
 
 
@@ -45,7 +47,8 @@ export class HomephComponent implements OnInit {
     this.showUser1();
     this.showWallet();
     this.showcount();
-    this.showspending()
+    this.showspending();
+    this.showusersv();
   }
 
   logout(){
@@ -90,8 +93,6 @@ export class HomephComponent implements OnInit {
       })
       this.showWallet();
       this.showcount();
-
-
     });
   }
 
@@ -131,6 +132,29 @@ export class HomephComponent implements OnInit {
       this.spendinggoal = data;
       console.log(this.spendinggoal)
     })
+  }
+  showusersv(){
+    this.usersv = this.adduserservice.getUser();
+  }
+
+
+  formhanche = new FormGroup({
+    thoigian: new FormControl(),
+    money: new FormControl()
+  })
+
+  addhanche(){
+    if (this.formhanche.value.thoigian == 1){
+      alert(  moment().add(1, 'months').format(' YYYY/M/D'))
+    }
+    if (this.formhanche.value.thoigian == 2){
+      alert(  moment().add(7, 'days').format(' YYYY/M/D'))
+    }
+
+    if (this.formhanche.value.thoigian == 3){
+      alert(  moment().add(1, 'days').format(' YYYY/M/D'))
+    }
+
   }
 
 

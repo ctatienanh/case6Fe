@@ -18,7 +18,9 @@ export class TkquanlyComponent implements OnInit {
   usersv: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
   users: AddUser[] = [];
   userchon: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
-  wallets: Wallet = new Wallet(0,0);
+  wallets: Wallet = new Wallet(0, 0);
+  check: number = 0;
+
   constructor(private script: ScriptService, private loginService: LoginserviceService,
               private notifiservice: NotificationserviceService,
               private adduserservice: AdduserService,
@@ -30,7 +32,7 @@ export class TkquanlyComponent implements OnInit {
 
     }).catch(error => console.log(error));
     this.showadduser();
-    this.showluachon();
+    this.checkusersv();
     this.showWallet()
   }
 
@@ -83,28 +85,37 @@ export class TkquanlyComponent implements OnInit {
   showadduser() {
     this.adduserservice.getallbyid(this.loginService.getUserToken().id).subscribe((data) => {
         this.users = data;
-      console.log(this.users)
+        console.log(this.users)
       }
     )
   }
 
-  showusersv(user: string){
+  showusersv(user: string) {
     this.adduserservice.showuser(user).subscribe((data) => {
-      this.adduserservice.setUser(data)
-      this.showluachon();
-      this.showWallet();
+        this.adduserservice.setUser(data)
+        this.showluachon();
+        this.showWallet();
       }
     )
   }
 
-  showluachon(){
+  showluachon() {
     this.userchon = this.adduserservice.getUser();
+    this.check = 1;
   }
 
-  showWallet(){
+
+  showWallet() {
     this.wallet.show(this.adduserservice.getUser().id).subscribe((data) => {
       this.wallets = data;
     })
   }
+
+  checkusersv() {
+    if (this.adduserservice.getUser() != null) {
+      this.showluachon()
+    }
+  }
+
 
 }
