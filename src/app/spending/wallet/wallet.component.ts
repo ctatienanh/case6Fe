@@ -10,6 +10,8 @@ import {lichsugiaodich} from "../../model/lichsugiaodich";
 import {MctChitietService} from "../../service/mct-chitiet.service";
 import {Notification} from "../../model/Notification";
 import {NotificationserviceService} from "../../service/notificationservice.service";
+import {SpendingService} from "../../service/spending.service";
+import {AdduserService} from "../../service/adduser.service";
 
 @Component({
   selector: 'app-wallet',
@@ -23,8 +25,12 @@ export class WalletComponent implements OnInit {
 
   user: AppUser = new AppUser(0,"","","","","","",0,0,"")
   iduser: number =0;
-  constructor(private notifi: NotificationserviceService,private script: ScriptService, private loginService: LoginserviceService, private wallet: WalletService, private profileservice:ProfileService,private mctChitietService:MctChitietService) { }
-  wallets: Wallet = new Wallet(0,0);
+  constructor(private script: ScriptService, private loginService: LoginserviceService,
+              private wallet: WalletService, private spendingService: SpendingService,
+              private mctChitietService: MctChitietService,
+              private profileservice: ProfileService,private notifi: NotificationserviceService,
+              private adduserservice: AdduserService ) {
+  }  wallets: Wallet = new Wallet(0,0);
 
 
   ngOnInit(): void {
@@ -94,5 +100,45 @@ export class WalletComponent implements OnInit {
   shownameph(appuser: AppUser){
     this.userph = appuser;
     console.log(this.userph)
+  }
+  adduserphvaosv() {
+    let user = {
+      id: this.user.id,
+      username: this.user.username,
+      password: this.user.password,
+      email: this.user.email,
+      roles: this.loginService.getUserToken().roles,
+      name: this.user.name,
+      aress: this.user.aress,
+      phone: this.user.phone,
+      age: this.user.age,
+      img: this.user.img,
+      user_ph: {
+        id: this.userph.id,
+      }
+    }
+  }
+  adduser(){
+    let user = {
+      user_ph:{
+        id: this.userph.id,
+      },
+      user_sv:{
+        id: this.loginService.getUserToken().id,
+      }
+    }
+    this.adduserservice.AddUser(user).subscribe((data) => {
+      this.showUser1()
+      this.adduserphvaosv()
+
+    })
+  }
+  chekuserph(){
+    if (this.user.user_ph == null){
+      this.adduser()
+    }else {
+      // @ts-ignore
+      document.getElementById("thongbao").innerHTML = "Tài khoản đã được liên kết";
+    }
   }
 }
