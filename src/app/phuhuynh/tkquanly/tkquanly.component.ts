@@ -4,6 +4,10 @@ import {LoginserviceService} from "../../service/loginservice.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {NotificationserviceService} from "../../service/notificationservice.service";
 import {AppUser} from "../../model/AppUser";
+import {AdduserService} from "../../service/adduser.service";
+import {AddUser} from "../../model/AddUser";
+import {Wallet} from "../../model/wallet";
+import {WalletService} from "../../service/wallet.service";
 
 @Component({
   selector: 'app-tkquanly',
@@ -12,12 +16,18 @@ import {AppUser} from "../../model/AppUser";
 })
 export class TkquanlyComponent implements OnInit {
   usersv: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
-  constructor(private script: ScriptService, private loginService: LoginserviceService, private notifiservice: NotificationserviceService) {
+  users: AddUser[] = [];
+  userchon: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
+  wallets: Wallet = new Wallet(0,0);
+  constructor(private script: ScriptService, private loginService: LoginserviceService,
+              private notifiservice: NotificationserviceService,
+              private adduserservice: AdduserService, private wallet: WalletService) {
   }
 
   ngOnInit(): void {
     this.script.load('global', 'Chartbundle', 'jquerymin', 'jquerydataTables', 'datatables', 'custom', 'dlabnav').then(data => {
     }).catch(error => console.log(error));
+    this.showadduser()
   }
 
   logout() {
@@ -49,10 +59,10 @@ export class TkquanlyComponent implements OnInit {
 
   add() {
     let notifi = {
-      user_sv : {
+      user_sv: {
         id: this.usersv.id
       },
-      user_ph:{
+      user_ph: {
         id: this.loginService.getUserToken().id
       },
       content: "add"
@@ -61,9 +71,35 @@ export class TkquanlyComponent implements OnInit {
     console.log(notifi)
 
     this.notifiservice.add(notifi).subscribe((data) => {
-      alert("đã gửi thông báo đến tài khoản để xác thực")
+        alert("đã gửi thông báo đến tài khoản để xác thực")
       }
     )
+  }
+
+  showadduser() {
+    this.adduserservice.getallbyid(this.loginService.getUserToken().id).subscribe((data) => {
+        this.users = data;
+      }
+    )
+  }
+
+  showusersv(user: string){
+    this.adduserservice.showuser(user).subscribe((data) => {
+      this.adduserservice.setUser(data)
+      this.showluachon();
+      this.showWallet();
+      }
+    )
+  }
+
+  showluachon(){
+    this.userchon = this.adduserservice.getUser();
+  }
+
+  showWallet(){
+    this.wallet.show(this.loginService.getUserToken().id).subscribe((data) => {
+      this.wallets = data;
+    })
   }
 
 }
