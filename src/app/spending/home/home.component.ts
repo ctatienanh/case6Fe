@@ -152,6 +152,7 @@ export class HomeComponent implements OnInit {
     let user = {
       user_ph: {
         id: this.userph.id,
+
       },
       user_sv: {
         id: this.loginService.getUserToken().id,

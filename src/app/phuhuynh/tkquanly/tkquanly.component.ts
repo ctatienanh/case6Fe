@@ -27,6 +27,7 @@ export class TkquanlyComponent implements OnInit {
 
   ngOnInit(): void {
     this.script.load('global', 'Chartbundle', 'jquerymin', 'jquerydataTables', 'datatables', 'custom', 'dlabnav').then(data => {
+
     }).catch(error => console.log(error));
     this.showadduser();
     this.showluachon();
@@ -82,6 +83,7 @@ export class TkquanlyComponent implements OnInit {
   showadduser() {
     this.adduserservice.getallbyid(this.loginService.getUserToken().id).subscribe((data) => {
         this.users = data;
+      console.log(this.users)
       }
     )
   }
