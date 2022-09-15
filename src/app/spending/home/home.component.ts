@@ -150,16 +150,32 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  shownameph(appuser: AppUser) {
+  shownameph(appuser: AppUser,i : number) {
     this.userph = appuser;
-    console.log(this.userph)
+   let notification = {
+     id:this.notifications[i].id,
+     content:this.notifications[i].content,
+     date: this.notifications[i].date,
+     time: this.notifications[i].time,
+     status_confirm:this.notifications[i].status_confirm = true,
+     user_ph:{
+        id: this.userph.id,
+     },
+     user_sv: {
+       id: this.loginService.getUserToken().id,
+     }
+   }
+this.notifi.editstatus(notification).subscribe((data) => {
+  console.log(data)
+  this.shownotifi();
+    this.showcounttb();
+})
   }
 
   adduser() {
     let user = {
       user_ph: {
         id: this.userph.id,
-
       },
       user_sv: {
         id: this.loginService.getUserToken().id,
@@ -168,7 +184,6 @@ export class HomeComponent implements OnInit {
     this.adduserservice.AddUser(user).subscribe((data) => {
       this.showUser1()
       this.adduserphvaosv()
-
     })
   }
 
@@ -178,9 +193,9 @@ export class HomeComponent implements OnInit {
     } else {
       // @ts-ignore
       document.getElementById("thongbao").innerHTML = "Tài khoản đã được liên kết";
+
     }
   }
-
   adduserphvaosv() {
     let user = {
       id: this.user.id,

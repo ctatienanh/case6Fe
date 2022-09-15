@@ -169,7 +169,6 @@ export class HomephComponent implements OnInit {
       alert(  moment().add(1, 'days').format(' YYYY-MM-DD'))
       spen.date2 =moment().add(1, 'days').format(' YYYY-MM-DD')
     }
-
     this.spendinglimitService.save(spen).subscribe((data) => {
     })
 
