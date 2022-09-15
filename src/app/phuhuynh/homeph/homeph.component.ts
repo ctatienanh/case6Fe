@@ -141,29 +141,37 @@ export class HomephComponent implements OnInit {
 
 
   formhanche = new FormGroup({
-    date2: new FormControl()
+    date2: new FormControl(),
+    money: new FormControl()
   })
 
   addhanche(){
-    if (this.formhanche.value.date2 == 1){
-      alert( moment().add(1, 'months').format(' YYYY/M/D'))
 
-      let spen = {
-        date2: moment().add(1, 'months').format(' YYYY/M/D')
+    let spen = {
+      date2: "" ,
+      moneylimit:this.formhanche.value.money,
+      user:{
+        id: this.adduserservice.getUser().id,
       }
-      console.log(spen)
-      this.spendinglimitService.save(spen).subscribe((data) => {
-        console.log("THanh cong")
-      })
+    }
+    if (this.formhanche.value.date2 == 1){
+      alert( moment().add(1, 'months').format(' YYYY-MM-DD'))
 
+    spen.date2 =moment().add(1, 'months').format(' YYYY-MM-DD')
     }
     if (this.formhanche.value.date2 == 2){
-      alert(  moment().add(7, 'days').format(' YYYY/M/D'))
+      alert(  moment().add(7, 'days').format(' YYYY-MM-DD'))
+      spen.date2 =moment().add(7, 'days').format(' YYYY-MM-DD')
+
     }
 
     if (this.formhanche.value.date2 == 3){
-      alert(  moment().add(1, 'days').format(' YYYY/M/D'))
+      alert(  moment().add(1, 'days').format(' YYYY-MM-DD'))
+      spen.date2 =moment().add(1, 'days').format(' YYYY-MM-DD')
     }
+
+    this.spendinglimitService.save(spen).subscribe((data) => {
+    })
 
   }
 
