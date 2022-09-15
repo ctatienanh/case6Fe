@@ -152,7 +152,6 @@ export class HomeComponent implements OnInit {
     let user = {
       user_ph: {
         id: this.userph.id,
-
       },
       user_sv: {
         id: this.loginService.getUserToken().id,
@@ -161,7 +160,6 @@ export class HomeComponent implements OnInit {
     this.adduserservice.AddUser(user).subscribe((data) => {
       this.showUser1()
       this.adduserphvaosv()
-
     })
   }
 
@@ -171,8 +169,12 @@ export class HomeComponent implements OnInit {
     } else {
       // @ts-ignore
       document.getElementById("thongbao").innerHTML = "Tài khoản đã được liên kết";
+
     }
   }
+editstatus(){
+
+}
 
   adduserphvaosv() {
     let user = {
