@@ -94,7 +94,7 @@
                   <ul class="timeline">
                     <li *ngFor="let n of notifications; index as i">
                       <div *ngIf="n.content == 'add'">
-                      <div class="timeline-panel" data-bs-toggle="modal" (click)="shownameph(n.user_ph)" data-bs-target="#addaccount">
+                      <div class="timeline-panel" data-bs-toggle="modal" (click)="shownameph(n.user_ph,i)" data-bs-target="#addaccount">
                         <div class="media me-2">
                           <img alt="image" width="50" src="{{n.user_ph.img}}">
                         </div>
@@ -109,7 +109,7 @@
                       </div>
 
                       <div *ngIf="n.content != 'add'">
-                        <div class="timeline-panel" data-bs-toggle="modal" (click)="shownameph(n.user_ph)" data-bs-target="#mess">
+                        <div class="timeline-panel" data-bs-toggle="modal" (click)="shownameph(n.user_ph,i)" data-bs-target="#mess">
                         <div class="timeline-panel ">
                           <div class="media me-2">
                             <img alt="image" width="50" src="{{n.user_ph.img}}">
