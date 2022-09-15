@@ -66,92 +66,7 @@
   <!--**********************************
           Header start
       ***********************************-->
-  <div class="header">
-    <div class="header-content">
-      <nav class="navbar navbar-expand">
-        <div class="collapse navbar-collapse justify-content-between">
-          <div class="header-left">
-            <div class="dashboard_bar">
-              Dashboard
-            </div>
-          </div>
-          <ul class="navbar-nav header-right">
-            <li class="nav-item">
-              <div class="input-group search-area">
-                <input type="text" class="form-control" placeholder="Search here...">
-                <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
-              </div>
-            </li>
-            <li class="nav-item dropdown notification_dropdown">
-              <a class="nav-link  ai-icon" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M12.638 4.9936V2.3C12.638 1.5824 13.2484 1 14.0006 1C14.7513 1 15.3631 1.5824 15.3631 2.3V4.9936C17.3879 5.2718 19.2805 6.1688 20.7438 7.565C22.5329 9.2719 23.5384 11.5872 23.5384 14V18.8932L24.6408 20.9966C25.1681 22.0041 25.1122 23.2001 24.4909 24.1582C23.8709 25.1163 22.774 25.7 21.5941 25.7H15.3631C15.3631 26.4176 14.7513 27 14.0006 27C13.2484 27 12.638 26.4176 12.638 25.7H6.40705C5.22571 25.7 4.12888 25.1163 3.50892 24.1582C2.88759 23.2001 2.83172 22.0041 3.36039 20.9966L4.46268 18.8932V14C4.46268 11.5872 5.46691 9.2719 7.25594 7.565C8.72068 6.1688 10.6119 5.2718 12.638 4.9936ZM14.0006 7.5C12.1924 7.5 10.4607 8.1851 9.18259 9.4045C7.90452 10.6226 7.18779 12.2762 7.18779 14V19.2C7.18779 19.4015 7.13739 19.6004 7.04337 19.7811C7.04337 19.7811 6.43703 20.9381 5.79662 22.1588C5.69171 22.3603 5.70261 22.6008 5.82661 22.7919C5.9506 22.983 6.16996 23.1 6.40705 23.1H21.5941C21.8298 23.1 22.0492 22.983 22.1732 22.7919C22.2972 22.6008 22.3081 22.3603 22.2031 22.1588C21.5627 20.9381 20.9564 19.7811 20.9564 19.7811C20.8624 19.6004 20.8133 19.4015 20.8133 19.2V14C20.8133 12.2762 20.0953 10.6226 18.8172 9.4045C17.5391 8.1851 15.8073 7.5 14.0006 7.5Z" fill="#4f7086"/>
-                </svg>
-                <span class="badge light text-white bg-primary rounded-circle" >{{counttb.Sumnotification}}</span>
-              </a>
-              <div class="dropdown-menu dropdown-menu-end">
-                <div id="dlab_W_Notification1" class="widget-media dlab-scroll p-3" style="height:380px;">
-                  <ul class="timeline">
-                    <li *ngFor="let n of notifications; index as i">
-                      <div *ngIf="n.content == 'add'">
-                      <div class="timeline-panel" data-bs-toggle="modal" (click)="shownameph(n.user_ph)" data-bs-target="#addaccount">
-                        <div class="media me-2">
-                          <img alt="image" width="50" src="{{n.user_ph.img}}">
-                        </div>
-                        <div class="media-body">
 
-                          <h6  class="mb-1">{{n.content}}</h6>
-                            <h6 class="mb-1"> form : {{n.user_ph.username}}</h6>
-
-                          <small class="d-block">{{n.date}} , {{n.time}}</small>
-                        </div>
-                      </div>
-                      </div>
-
-                      <div *ngIf="n.content != 'add'">
-                        <div class="timeline-panel">
-                          <div class="media me-2">
-                            <img alt="image" width="50" src="{{n.user_ph.img}}">
-                          </div>
-                          <div class="media-body">
-                              <h6 class="mb-1">{{n.content}}</h6>
-                              <h6 class="mb-1"> form : {{n.user_ph.username}}</h6>
-                            <small class="d-block">{{n.date}} , {{n.time}}</small>
-                          </div>
-                        </div>
-                      </div>
-
-                    </li>
-                  </ul>
-                </div>
-                <a class="all-notification" href="javascript:void(0);">See all notifications <i class="ti-arrow-end"></i></a>
-              </div>
-
-            </li>
-
-          </ul>
-        </div>
-      </nav>
-    </div>
-  </div>
-  <div class="modal fade" id="addaccount">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" style="text-align: center">Nhan ok de xac nhan</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal">
-          </button>
-        </div>
-          <div class="modal-body">
-        <h6 id="thongbao" >Bạn có đồng ý tài khoản {{userph.username}} quản lý </h6>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-            <button type="button"  class="btn btn-primary" (click)="chekuserph()" >OK</button>
-          </div>
-      </div>
-    </div>
-  </div>
 
 
 
@@ -281,6 +196,23 @@
             </div>
           </div>
         </div>
+        <div class="col-xl-3 col-xxl-6 col-sm-6" data-bs-toggle="modal" data-bs-target="#hanchegd">
+          <div class="card bg-secondary invoice-card">
+            <div class="card-body d-flex">
+              <div class="icon me-3">
+                <svg width="33px" height="32px">
+                  <path fill-rule="evenodd" fill="rgb(255, 255, 255)"
+                        d="M31.963,30.931 C31.818,31.160 31.609,31.342 31.363,31.455 C31.175,31.538 30.972,31.582 30.767,31.583 C30.429,31.583 30.102,31.463 29.845,31.243 L25.802,27.786 L21.758,31.243 C21.502,31.463 21.175,31.583 20.837,31.583 C20.498,31.583 20.172,31.463 19.915,31.243 L15.872,27.786 L11.829,31.243 C11.622,31.420 11.370,31.534 11.101,31.572 C10.832,31.609 10.558,31.569 10.311,31.455 C10.065,31.342 9.857,31.160 9.710,30.931 C9.565,30.703 9.488,30.437 9.488,30.167 L9.488,17.416 L2.395,17.416 C2.019,17.416 1.658,17.267 1.392,17.001 C1.126,16.736 0.976,16.375 0.976,16.000 L0.976,6.083 C0.976,4.580 1.574,3.139 2.639,2.076 C3.703,1.014 5.146,0.417 6.651,0.417 L26.511,0.417 C28.016,0.417 29.459,1.014 30.524,2.076 C31.588,3.139 32.186,4.580 32.186,6.083 L32.186,30.167 C32.186,30.437 32.109,30.703 31.963,30.931 ZM9.488,6.083 C9.488,5.332 9.189,4.611 8.657,4.080 C8.125,3.548 7.403,3.250 6.651,3.250 C5.898,3.250 5.177,3.548 4.645,4.080 C4.113,4.611 3.814,5.332 3.814,6.083 L3.814,14.583 L9.488,14.583 L9.488,6.083 ZM29.348,6.083 C29.348,5.332 29.050,4.611 28.517,4.080 C27.985,3.548 27.263,3.250 26.511,3.250 L11.559,3.250 C12.059,4.111 12.324,5.088 12.325,6.083 L12.325,27.092 L14.950,24.840 C15.207,24.620 15.534,24.500 15.872,24.500 C16.210,24.500 16.537,24.620 16.794,24.840 L20.837,28.296 L24.880,24.840 C25.137,24.620 25.463,24.500 25.802,24.500 C26.140,24.500 26.467,24.620 26.724,24.840 L29.348,27.092 L29.348,6.083 ZM25.092,20.250 L16.581,20.250 C16.205,20.250 15.844,20.101 15.578,19.835 C15.312,19.569 15.162,19.209 15.162,18.833 C15.162,18.457 15.312,18.097 15.578,17.831 C15.844,17.566 16.205,17.416 16.581,17.416 L25.092,17.416 C25.469,17.416 25.829,17.566 26.096,17.831 C26.362,18.097 26.511,18.457 26.511,18.833 C26.511,19.209 26.362,19.569 26.096,19.835 C25.829,20.101 25.469,20.250 25.092,20.250 ZM25.092,14.583 L16.581,14.583 C16.205,14.583 15.844,14.434 15.578,14.168 C15.312,13.903 15.162,13.542 15.162,13.167 C15.162,12.791 15.312,12.430 15.578,12.165 C15.844,11.899 16.205,11.750 16.581,11.750 L25.092,11.750 C25.469,11.750 25.829,11.899 26.096,12.165 C26.362,12.430 26.511,12.791 26.511,13.167 C26.511,13.542 26.362,13.903 26.096,14.168 C25.829,14.434 25.469,14.583 25.092,14.583 ZM25.092,8.916 L16.581,8.916 C16.205,8.916 15.844,8.767 15.578,8.501 C15.312,8.236 15.162,7.875 15.162,7.500 C15.162,7.124 15.312,6.764 15.578,6.498 C15.844,6.232 16.205,6.083 16.581,6.083 L25.092,6.083 C25.469,6.083 25.829,6.232 26.096,6.498 C26.362,6.764 26.511,7.124 26.511,7.500 C26.511,7.875 26.362,8.236 26.096,8.501 C25.829,8.767 25.469,8.916 25.092,8.916 Z"/>
+                </svg>
+              </div>
+              <div>
+                <h2 class="text-white invoice-num">652</h2>
+                <span class="text-white fs-18">Hạn Chế Giao dịch</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
       <div class="row">
         <div class="col-xl-9 col-xxl-12">
@@ -860,6 +792,50 @@
   ***********************************-->
 
 
+  <div class="modal fade" id="hanchegd" >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="    width: 1000px;    margin-left: -226px;">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal">
+          </button>
+        </div>
+
+
+            <div class="modal-body">
+              <div class="table-responsive fs-14">
+                <table class="table card-table display mb-4 dataTablesCard " id="example5">
+                  <thead>
+                  <tr>
+                    <th>Ngày bắt đầu</th>
+                    <th>Ngày kết thúc</th>
+                    <th>Hạn Mức</th>
+                    <th>Số Tiền đã tiêu</th>
+                  </tr>
+                  </thead>
+                  <tbody >
+                  <tr *ngFor="let s of spendinglimit">
+                    <td><span class="text-black font-w500"></span>{{s.date1}}</td>
+                    <td><span class="text-black text-nowrap"></span>{{s.date2}}</td>
+                    <td><span class="text-black text-nowrap"></span>{{s.moneylimit}}</td>
+                    <td><span class="text-black text-nowrap"></span>{{s.money}}</td>
+                  </tr>
+
+                  </tbody>
+                </table>
+
+
+              </div>
+
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">ok</button>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!--**********************************
       Footer start
@@ -874,7 +850,90 @@
       Footer end
   ***********************************-->
 
+  <div class="header">
+    <div class="header-content">
+      <nav class="navbar navbar-expand">
+        <div class="collapse navbar-collapse justify-content-between">
+          <div class="header-left">
+            <div class="dashboard_bar">
+              Dashboard
+            </div>
+          </div>
+          <ul class="navbar-nav header-right">
+            <li class="nav-item">
+              <div class="input-group search-area">
+                <input type="text" class="form-control" placeholder="Search here...">
+                <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
+              </div>
+            </li>
+            <li class="nav-item dropdown notification_dropdown">
+              <a class="nav-link  ai-icon" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
+                <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M12.638 4.9936V2.3C12.638 1.5824 13.2484 1 14.0006 1C14.7513 1 15.3631 1.5824 15.3631 2.3V4.9936C17.3879 5.2718 19.2805 6.1688 20.7438 7.565C22.5329 9.2719 23.5384 11.5872 23.5384 14V18.8932L24.6408 20.9966C25.1681 22.0041 25.1122 23.2001 24.4909 24.1582C23.8709 25.1163 22.774 25.7 21.5941 25.7H15.3631C15.3631 26.4176 14.7513 27 14.0006 27C13.2484 27 12.638 26.4176 12.638 25.7H6.40705C5.22571 25.7 4.12888 25.1163 3.50892 24.1582C2.88759 23.2001 2.83172 22.0041 3.36039 20.9966L4.46268 18.8932V14C4.46268 11.5872 5.46691 9.2719 7.25594 7.565C8.72068 6.1688 10.6119 5.2718 12.638 4.9936ZM14.0006 7.5C12.1924 7.5 10.4607 8.1851 9.18259 9.4045C7.90452 10.6226 7.18779 12.2762 7.18779 14V19.2C7.18779 19.4015 7.13739 19.6004 7.04337 19.7811C7.04337 19.7811 6.43703 20.9381 5.79662 22.1588C5.69171 22.3603 5.70261 22.6008 5.82661 22.7919C5.9506 22.983 6.16996 23.1 6.40705 23.1H21.5941C21.8298 23.1 22.0492 22.983 22.1732 22.7919C22.2972 22.6008 22.3081 22.3603 22.2031 22.1588C21.5627 20.9381 20.9564 19.7811 20.9564 19.7811C20.8624 19.6004 20.8133 19.4015 20.8133 19.2V14C20.8133 12.2762 20.0953 10.6226 18.8172 9.4045C17.5391 8.1851 15.8073 7.5 14.0006 7.5Z" fill="#4f7086"/>
+                </svg>
+                <span class="badge light text-white bg-primary rounded-circle" >{{counttb.Sumnotification}}</span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end">
+                <div id="dlab_W_Notification1" class="widget-media dlab-scroll p-3" style="height:380px;">
+                  <ul class="timeline">
+                    <li *ngFor="let n of notifications; index as i">
+                      <div *ngIf="n.content == 'add'">
+                        <div class="timeline-panel" data-bs-toggle="modal" (click)="shownameph(n.user_ph)" data-bs-target="#addaccount">
+                          <div class="media me-2">
+                            <img alt="image" width="50" src="{{n.user_ph.img}}">
+                          </div>
+                          <div class="media-body">
+
+                            <h6  class="mb-1">{{n.content}}</h6>
+                            <h6 class="mb-1"> form : {{n.user_ph.username}}</h6>
+
+                            <small class="d-block">{{n.date}} , {{n.time}}</small>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div *ngIf="n.content != 'add'">
+                        <div class="timeline-panel">
+                          <div class="media me-2">
+                            <img alt="image" width="50" src="">
+                          </div>
+                          <div class="media-body">
+                            <h6 class="mb-1"> form : {{n.user_ph.username}}</h6>
+                            <small class="d-block">{{n.date}} , {{n.time}}</small>
+                          </div>
+                        </div>
+                      </div>
+
+                    </li>
+                  </ul>
+                </div>
+                <a class="all-notification" href="javascript:void(0);">See all notifications <i class="ti-arrow-end"></i></a>
+              </div>
+
+            </li>
+
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <div class="modal fade" id="addaccount">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" style="text-align: center">Nhan ok de xac nhan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal">
+          </button>
+        </div>
+        <div class="modal-body">
+          <h6 id="thongbao" >Bạn có đồng ý tài khoản {{userph.username}} quản lý </h6>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+          <button type="button"  class="btn btn-primary" (click)="chekuserph()" >OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
-
-</div>

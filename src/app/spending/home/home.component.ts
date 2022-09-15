@@ -15,6 +15,9 @@ import {NotificationserviceService} from "../../service/notificationservice.serv
 import {Notification} from "../../model/Notification";
 import {AdduserService} from "../../service/adduser.service";
 import {Counttb} from "../../model/counttb";
+import {Spendinglimit} from "../../model/spendinglimit";
+import {SpendinglimitService} from "../../service/spendinglimit.service";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-home',
@@ -29,16 +32,19 @@ export class HomeComponent implements OnInit {
   iduser: number = 0;
   count: Count = new Count(0);
   counttb: Counttb = new Counttb(0);
-
+  pipe = new DatePipe('en-US');
   userph: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
-
+  spendinglimit: Spendinglimit[] = [];
+  date: any;
+  moneyhc: number =0;
 
   constructor(private script: ScriptService, private loginService: LoginserviceService,
               private wallet: WalletService,
               private spendingService: SpendingService,
               private mctChitietService: MctChitietService,
               private profileservice: ProfileService, private notifi: NotificationserviceService,
-              private adduserservice: AdduserService) {
+              private adduserservice: AdduserService,private  spendinglimitService:SpendinglimitService,
+              private notifiservice: NotificationserviceService) {
   }
 
   wallets: Wallet = new Wallet(0, 0);
@@ -53,6 +59,7 @@ export class HomeComponent implements OnInit {
     this.showcount();
     this.shownotifi();
     this.showcounttb();
+    this.showhanche();
   }
 
   showWallet() {
@@ -111,7 +118,7 @@ export class HomeComponent implements OnInit {
         id: this.iduser
       }
     }
-
+    this.moneyhc = this.mctchitietfrom.value.money
     this.mctChitietService.create(mtct).subscribe((data) => {
       this.deduction();
       this.mctchitietfrom = new FormGroup({
@@ -119,10 +126,10 @@ export class HomeComponent implements OnInit {
         namespending: new FormControl(""),
         money: new FormControl(null, Validators.required),
       })
+      this.date = this.pipe.transform(new Date(),'yyyy-MM-dd');
       this.showWallet();
       this.showcount();
-
-
+      this.themtienvaohanche();
     });
   }
 
@@ -204,6 +211,58 @@ export class HomeComponent implements OnInit {
       });
   }
 
+  showhanche(){
+    this.spendinglimitService.show(this.loginService.getUserToken().id).subscribe((data) => {
+      this.spendinglimit = data;
+      console.log(this.spendinglimit)
+    });
+  }
+
+  themtienvaohanche(){
+    for (let s of this.spendinglimit){
+      if ( s.date1 >= this.date ||this.date <= s.date2 ){
+        s.money += this.moneyhc;
+        let a= {
+          id: s.id,
+          date1: s.date1,
+          date2:s.date2,
+          user: {
+            id: s.user.id
+          },
+          money: s.money,
+          moneylimit: s.moneylimit
+        }
+        this.spendinglimitService.save(a).subscribe((data) => {
+          this.showhanche()
+        });
+        this.ktguinotifi();
+      }
+    }
+  }
+
+  ktguinotifi() {
+
+    for (let s of this.spendinglimit) {
+
+      if (s.money > s.moneylimit) {
+        let notifi = {
+          user_sv: {
+            id:  this.user.user_ph.id
+          },
+          user_ph: {
+            id: this.loginService.getUserToken().id
+          },
+          content: "Hạn chi tiêu ngày "+s.date1 + " đến " + s.date2+" đã quá vượt quá hạn mức chi tiêu "
+        }
+
+
+        this.notifiservice.add(notifi).subscribe((data) => {
+            alert("thanh công")
+          }
+        )
+      }
+    }
+  }
 }
 
 
