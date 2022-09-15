@@ -33,6 +33,10 @@ export class SpendingService {
     return this.http.post<any>("http://localhost:8080/spendingGoal/delete",spen);
   }
 
+  seachDay(SpendingDay: any): Observable<any >{
+    return this.http.post<any>("http://localhost:8080/spending/day",SpendingDay);
+  }
+
 
 
 
