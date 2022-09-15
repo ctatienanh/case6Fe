@@ -14,6 +14,7 @@ import {Spending} from "../../model/spending";
 import {SpendingService} from "../../service/spending.service";
 import {AdduserService} from "../../service/adduser.service";
 import * as moment from 'moment';
+import {SpendinglimitService} from "../../service/spendinglimit.service";
 
 @Component({
   selector: 'app-homeph',
@@ -38,7 +39,8 @@ export class HomephComponent implements OnInit {
               private mctChitietService: MctChitietService,
               private wallet: WalletService,
               private spendingService: SpendingService,
-              private adduserservice: AdduserService) { }
+              private adduserservice: AdduserService,
+              private  spendinglimitService:SpendinglimitService) { }
 
   ngOnInit(): void {
     this.script.load('global', 'Chartbundle', 'jquerymin', 'apexchart', 'nouislider', 'wNumb', 'dashboard-1', 'custom', 'dlabnav').then(data => {
@@ -139,19 +141,27 @@ export class HomephComponent implements OnInit {
 
 
   formhanche = new FormGroup({
-    thoigian: new FormControl(),
-    money: new FormControl()
+    date2: new FormControl()
   })
 
   addhanche(){
-    if (this.formhanche.value.thoigian == 1){
-      alert(  moment().add(1, 'months').format(' YYYY/M/D'))
+    if (this.formhanche.value.date2 == 1){
+      alert( moment().add(1, 'months').format(' YYYY/M/D'))
+
+      let spen = {
+        date2: moment().add(1, 'months').format(' YYYY/M/D')
+      }
+      console.log(spen)
+      this.spendinglimitService.save(spen).subscribe((data) => {
+        console.log("THanh cong")
+      })
+
     }
-    if (this.formhanche.value.thoigian == 2){
+    if (this.formhanche.value.date2 == 2){
       alert(  moment().add(7, 'days').format(' YYYY/M/D'))
     }
 
-    if (this.formhanche.value.thoigian == 3){
+    if (this.formhanche.value.date2 == 3){
       alert(  moment().add(1, 'days').format(' YYYY/M/D'))
     }
 
