@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit {
   spendinglimit: Spendinglimit[] = [];
   date: any;
   moneyhc: number =0;
+  conten: string = "";
 
   constructor(private script: ScriptService, private loginService: LoginserviceService,
               private wallet: WalletService,
@@ -165,6 +166,7 @@ export class HomeComponent implements OnInit {
        id: this.loginService.getUserToken().id,
      }
    }
+   this.conten = this.notifications[i].content
 this.notifi.editstatus(notification).subscribe((data) => {
   console.log(data)
   this.shownotifi();
