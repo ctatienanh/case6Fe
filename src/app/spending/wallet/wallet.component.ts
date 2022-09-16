@@ -13,6 +13,7 @@ import {NotificationserviceService} from "../../service/notificationservice.serv
 import {SpendingService} from "../../service/spending.service";
 import {AdduserService} from "../../service/adduser.service";
 import {DatePipe} from "@angular/common";
+import {Counttb} from "../../model/counttb";
 
 
 @Component({
@@ -30,6 +31,7 @@ export class WalletComponent implements OnInit {
   // spendingday:SpendingDay = new SpendingDay(0,null,null)
   iduser: number = 0;
 
+  counttb: Counttb = new Counttb(0);
 
   constructor(private script: ScriptService, private loginService: LoginserviceService,
               private wallet: WalletService, private spendingService: SpendingService,
@@ -47,6 +49,7 @@ export class WalletComponent implements OnInit {
     this.showWallet();
     this.showUser1();
     this.shownotifi();
+    this.showcounttb();
 
   }
 
@@ -109,9 +112,26 @@ export class WalletComponent implements OnInit {
     })
   }
 
-  shownameph(appuser: AppUser) {
+  shownameph(appuser: AppUser,i : number) {
     this.userph = appuser;
-    console.log(this.userph)
+    let notification = {
+      id:this.notifications[i].id,
+      content:this.notifications[i].content,
+      date: this.notifications[i].date,
+      time: this.notifications[i].time,
+      status_confirm:this.notifications[i].status_confirm = true,
+      user_ph:{
+        id: this.userph.id,
+      },
+      user_sv: {
+        id: this.loginService.getUserToken().id,
+      }
+    }
+    this.notifi.editstatus(notification).subscribe((data) => {
+      console.log(data)
+      this.shownotifi();
+      this.showcounttb();
+    })
   }
 
   adduserphvaosv() {
@@ -187,5 +207,10 @@ export class WalletComponent implements OnInit {
       // @ts-ignore
       document.getElementById("checkdate").style.display = "flex"
     }
+  }
+  showcounttb() {
+    this.notifi.showcounttb(this.loginService.getUserToken().id).subscribe((data) => {
+      this.counttb.Sumnotification = data.sumnotification;
+    });
   }
 }

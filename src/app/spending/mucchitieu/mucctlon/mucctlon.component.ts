@@ -15,6 +15,7 @@ import {MctChitietService} from "../../../service/mct-chitiet.service";
 import {AdduserService} from "../../../service/adduser.service";
 import {Detail} from "../../../model/Detail";
 import {lichsugiaodich} from "../../../model/lichsugiaodich";
+import {Counttb} from "../../../model/counttb";
 
 
 
@@ -31,8 +32,9 @@ export class MucctlonComponent implements OnInit, OnChanges {
   userph: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
   notifications: Notification[] = [];
   iduser: number = 0;
-  Transaction2 : lichsugiaodich[] = [];
   Transaction3 : lichsugiaodich[] = [];
+  counttb: Counttb = new Counttb(0);
+
   constructor(private script: ScriptService, private loginService: LoginserviceService,
               private wallet: WalletService, private spendingService: SpendingService,
               private mctChitietService: MctChitietService,
@@ -49,6 +51,8 @@ export class MucctlonComponent implements OnInit, OnChanges {
     this.showWallet();
     this.showUser1()
     this.shownotifi();
+    this.showcounttb();
+
   }
 
   ngOnChanges(): void {
@@ -201,11 +205,27 @@ export class MucctlonComponent implements OnInit, OnChanges {
     })
   }
 
-  shownameph(appuser: AppUser) {
+  shownameph(appuser: AppUser,i : number) {
     this.userph = appuser;
-    console.log(this.userph)
+    let notification = {
+      id:this.notifications[i].id,
+      content:this.notifications[i].content,
+      date: this.notifications[i].date,
+      time: this.notifications[i].time,
+      status_confirm:this.notifications[i].status_confirm = true,
+      user_ph:{
+        id: this.userph.id,
+      },
+      user_sv: {
+        id: this.loginService.getUserToken().id,
+      }
+    }
+    this.notifi.editstatus(notification).subscribe((data) => {
+      console.log(data)
+      this.shownotifi();
+      this.showcounttb();
+    })
   }
-
   adduserphvaosv() {
     let user = {
       id: this.user.id,
@@ -254,7 +274,9 @@ export class MucctlonComponent implements OnInit, OnChanges {
       document.getElementById("thongbao").innerHTML = "Tài khoản đã được liên kết";
     }
   }
-
-
-
+  showcounttb() {
+    this.notifi.showcounttb(this.loginService.getUserToken().id).subscribe((data) => {
+      this.counttb.Sumnotification = data.sumnotification;
+    });
+  }
 }
