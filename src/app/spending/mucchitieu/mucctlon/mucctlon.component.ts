@@ -13,6 +13,11 @@ import {NotificationserviceService} from "../../../service/notificationservice.s
 import {Notification} from "../../../model/Notification";
 import {MctChitietService} from "../../../service/mct-chitiet.service";
 import {AdduserService} from "../../../service/adduser.service";
+import {Detail} from "../../../model/Detail";
+import {lichsugiaodich} from "../../../model/lichsugiaodich";
+
+
+
 
 @Component({
   selector: 'app-mucctlon',
@@ -26,8 +31,8 @@ export class MucctlonComponent implements OnInit, OnChanges {
   userph: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
   notifications: Notification[] = [];
   iduser: number = 0;
-
-
+  Transaction2 : lichsugiaodich[] = [];
+  Transaction3 : lichsugiaodich[] = [];
   constructor(private script: ScriptService, private loginService: LoginserviceService,
               private wallet: WalletService, private spendingService: SpendingService,
               private mctChitietService: MctChitietService,
@@ -108,6 +113,17 @@ export class MucctlonComponent implements OnInit, OnChanges {
       this.spendinggoal = data;
       console.log(this.spendinggoal)
 
+    })
+  }
+
+  showdetail(name:string) {
+    let detail = {
+     id: this.loginService.getUserToken().id,
+     namespending: name
+   }
+    this.mctChitietService.showdetail(detail).subscribe((data) => {
+      this.Transaction3 = data;
+      console.log(data)
     })
   }
 
@@ -238,5 +254,7 @@ export class MucctlonComponent implements OnInit, OnChanges {
       document.getElementById("thongbao").innerHTML = "Tài khoản đã được liên kết";
     }
   }
+
+
 
 }

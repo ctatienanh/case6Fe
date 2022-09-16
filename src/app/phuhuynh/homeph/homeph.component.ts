@@ -27,10 +27,9 @@ export class HomephComponent implements OnInit {
   notifications: Notification[] = [];
   wallets: Wallet = new Wallet(0, 0);
   count: Count =new Count(0);
-  spendinggoal: Spending[] = [];
+  spendinggoal:   Spending[] = [];
   usersv: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "");
-
-
+  user: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
 
   constructor(private notifi: NotificationserviceService,
               private profileservice: ProfileService  ,
@@ -60,9 +59,10 @@ export class HomephComponent implements OnInit {
     let id = this.loginService.getUserToken().id
     this.profileservice.show(id).subscribe((data) => {
       console.log(data)
-      this.userph = data;
+      this.user = data;
     })
   }
+
   shownotifi(){
     this.notifi.show(this.adduserservice.getUser().id).subscribe((data) => {
       this.notifications = data;

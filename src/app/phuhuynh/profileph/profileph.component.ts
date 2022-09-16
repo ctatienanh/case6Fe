@@ -27,8 +27,6 @@ export class ProfilephComponent implements OnInit {
     this.script.load('global', 'bootstrap-select', 'jquerymin', 'Chartbundle', 'lightgallery-all', 'custom', 'dlabnav', 'upimg').then(data => {
     }).catch(error => console.log(error));
     this.showUser()
-
-
   }
 
   logout(){

@@ -281,8 +281,42 @@
                     </div>
                   </div>
                 </td>
-
-                <td><a href="javascript:void(0)" class="btn btn-success light">Chi Tiết</a></td>
+                <td><button type="button" data-bs-toggle="modal" data-bs-target="#modalGrid" class="btn btn-success light" (click)="showdetail(s.name)">Chi Tiết</button></td>
+                <div class="modal fade" id="modalGrid">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content" style="border-radius: 1.75rem;width: 1000px;position: relative;right: 205px;">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Chi Tiết Giao Dịch</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal">
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="container">
+                          <table class="table">
+                            <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Tên Giao Dịch</th>
+                              <th>Loại Giao Dịch</th>
+                              <th>Thời Gian Giao Dịch</th>
+                              <th>Số Tiền Giao Dịch</th>
+                            </tr>
+                            </thead>
+                            <tbody *ngFor="let d of Transaction3 ; index as i" >
+                            <tr>
+                              <td>{{i+1}}</td>
+                              <td>{{d?.name}}</td>
+                              <td>{{d?.namespending}}</td>
+                              <td>{{d?.time}},{{d?.date}}</td>
+                              <td>{{d.money}} VNĐ</td>
+                            </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <td>
                   <div class="dropdown">
                     <a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown" aria-expanded="false">
