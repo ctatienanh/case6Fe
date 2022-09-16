@@ -763,7 +763,7 @@
           </div>
         </div>
         <div *ngIf="usersv.id != 0">
-          <form [formGroup]="formhanche"  (submit)="addhanche()" >
+          <form [formGroup]="formhanche"  (submit)="checkhanche()" >
             <div class="modal-body">
 
               <div class="form-group">
@@ -781,7 +781,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Thêm</button>
+              <button type="submit" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#thongbaohc" >Thêm</button>
             </div>
           </form>
 
@@ -789,6 +789,27 @@
       </div>
     </div>
   </div>
+
+
+  <div class="modal fade" id="thongbaohc">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal">
+          </button>
+        </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <h6 id="tbhc"></h6>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">OK</button>
+          </div>
+      </div>
+    </div>
+  </div>
+
 
 
 </div>

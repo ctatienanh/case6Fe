@@ -12,6 +12,9 @@ export class SpendinglimitService {
   save(spen: any): Observable<any >{
     return this.http.post<any>("http://localhost:8080/spendinglimit",spen);
   }
+  edit(spen: any): Observable<any >{
+    return this.http.post<any>("http://localhost:8080/spendinglimit/edit",spen);
+  }
   show(id: any): Observable<any >{
     return this.http.get<any>("http://localhost:8080/spendinglimit/"+id);
   }
