@@ -16,6 +16,7 @@ import {AdduserService} from "../../service/adduser.service";
 import * as moment from 'moment';
 import {SpendinglimitService} from "../../service/spendinglimit.service";
 import {Spendinglimit} from "../../model/spendinglimit";
+import {lichsugiaodich} from "../../model/lichsugiaodich";
 
 @Component({
   selector: 'app-homeph',
@@ -32,6 +33,8 @@ export class HomephComponent implements OnInit {
   usersv: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "");
   spendinglimit: Spendinglimit[] = [];
   checkstatushanched: Spendinglimit[] = [];
+  Transaction: lichsugiaodich [] = [];
+  Transaction1: lichsugiaodich [] = [];
 
 
   constructor(private notifi: NotificationserviceService,
@@ -55,6 +58,7 @@ export class HomephComponent implements OnInit {
     this.showspending();
     this.showusersv();
     this.checkstatushanche();
+    this.showTransaction()
   }
 
   logout() {
@@ -342,8 +346,8 @@ export class HomephComponent implements OnInit {
             }
           }
         }
-        if ((date1.getMonth() + 1) > (date3.getMonth() + 1)){
-          if (spen.moneylimit < this.spendinglimit[i].moneylimit ){
+        if ((date1.getMonth() + 1) > (date3.getMonth() + 1)) {
+          if (spen.moneylimit < this.spendinglimit[i].moneylimit) {
             // @ts-ignore
             document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn lớn hơn "
             check = false;
@@ -359,39 +363,39 @@ export class HomephComponent implements OnInit {
   }
 
 
-  checkstatushanche(){
+  checkstatushanche() {
     this.spendinglimitService.show(this.adduserservice.getUser().id).subscribe((data) => {
       let tg = new Date()
       this.checkstatushanched = data;
-      for (let c of this.checkstatushanched){
+      for (let c of this.checkstatushanched) {
         console.log(c.id)
-        let check =true;
+        let check = true;
         let date = new Date(c.date2);
-        if ((tg.getMonth()+1) == (date.getMonth()+1)){
-          if (tg.getDate() > date.getDate()){
-           c.status = 2;
-           check = false;
+        if ((tg.getMonth() + 1) == (date.getMonth() + 1)) {
+          if (tg.getDate() > date.getDate()) {
+            c.status = 2;
+            check = false;
           }
         }
-        if ((tg.getMonth()+1) > (date.getMonth()+1)){
+        if ((tg.getMonth() + 1) > (date.getMonth() + 1)) {
           c.status = 2;
-          check= false;
+          check = false;
         }
-        if (check==false) {
+        if (check == false) {
           console.log(c)
-          let spen ={
-            id:c.id,
+          let spen = {
+            id: c.id,
             date1: c.date1,
             date2: c.date2,
-            user:{
+            user: {
               id: c.user.id
-          },
-          money:c.money,
-          moneylimit: c.moneylimit,
-          status: 2
+            },
+            money: c.money,
+            moneylimit: c.moneylimit,
+            status: 2
           }
           this.spendinglimitService.edit(spen).subscribe((data) => {
-           check=true;
+            check = true;
           })
         }
       }
@@ -399,6 +403,38 @@ export class HomephComponent implements OnInit {
     })
   }
 
+  showTransaction() {
+    this.mctChitietService.show(this.adduserservice.getUser().id).subscribe((data) => {
+      this.Transaction = data;
+      console.log(this.Transaction)
+    })
+  }
+  fromday = new FormGroup({
+    day1: new FormControl(),
+    day2: new FormControl(),
+  })
+
+  seachDay() {
+    let spendingday = {
+      idUser: this.adduserservice.getUser().id,
+      // day1: this.pipe.transform(this.fromday.value.day1,'yyyy/MM/dd'),
+      // day2: this.pipe.transform(this.fromday.value.day2,'yyyy/MM/dd')
+      day1: this.fromday.value.day1,
+      day2: this.fromday.value.day2
+    }
+    let datecheck1 = new Date(spendingday.day1)
+    let datecheck2 = new Date(spendingday.day2)
+    if (datecheck1 <= datecheck2) {
+      this.spendingService.seachDay(spendingday).subscribe((data) => {
+        this.Transaction1 = data
+        console.log(this.Transaction1)
+        console.log("day")
+      })
+    }else {
+      // @ts-ignore
+      document.getElementById("checkdate").style.display = "flex"
+    }
+  }
 
 }
 
