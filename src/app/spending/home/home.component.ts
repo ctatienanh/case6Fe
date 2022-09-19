@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
   spendinggoal: Spending[] = [];
   iduser: number = 0;
   count: Count = new Count(0);
-  counttb: Counttb = new Counttb(0);
+  counttb: Counttb = new Counttb( 0);
   pipe = new DatePipe('en-US');
   userph: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
   spendinglimit: Spendinglimit[] = [];
@@ -127,7 +127,6 @@ export class HomeComponent implements OnInit {
         namespending: new FormControl(""),
         money: new FormControl(null, Validators.required),
       })
-      this.date = this.pipe.transform(new Date(),'yyyy-MM-dd');
       this.showWallet();
       this.showcount();
       this.themtienvaohanche();
@@ -236,8 +235,11 @@ this.notifi.editstatus(notification).subscribe((data) => {
   }
 
   themtienvaohanche(){
+    let date = new Date();
     for (let s of this.spendinglimit){
-      if ( s.date1 >= this.date ||this.date <= s.date2 ){
+      let date2 = new Date(s.date2);
+      console.log(date.getDate() <= date2.getDate() || (date.getMonth()+1) <= (date2.getMonth() +1))
+      if (date.getDate() <= date2.getDate() || (date.getMonth()+1) <= (date2.getMonth() +1) ){
         s.money += this.moneyhc;
         let a= {
           id: s.id,
@@ -249,34 +251,52 @@ this.notifi.editstatus(notification).subscribe((data) => {
           money: s.money,
           moneylimit: s.moneylimit
         }
+
+        console.log(a)
         this.spendinglimitService.save(a).subscribe((data) => {
           this.showhanche()
         });
-        this.ktguinotifi();
       }
     }
+    this.ktguinotifi();
+
   }
 
   ktguinotifi() {
-
+    let date = new Date();
+    console.log(this.user)
     for (let s of this.spendinglimit) {
-
-      if (s.money > s.moneylimit) {
-        let notifi = {
-          user_sv: {
-            id:  this.user.user_ph.id
-          },
-          user_ph: {
-            id: this.loginService.getUserToken().id
-          },
-          content: "Hạn chi tiêu ngày "+s.date1 + " đến " + s.date2+" đã quá vượt quá hạn mức chi tiêu "
-        }
-
-
-        this.notifiservice.add(notifi).subscribe((data) => {
-            alert("thanh công")
+      console.log(s)
+      let date2 = new Date(s.date2)
+      if (date.getDate() < date2.getDate() || (date.getMonth() + 1) < (date2.getMonth() + 1)) {
+        if (s.money > s.moneylimit) {
+          let notifi = {
+            user_sv: {
+              id: this.user.user_ph.id
+            },
+            user_ph: {
+              id: this.loginService.getUserToken().id
+            },
+            content: "Hạn chi tiêu ngày " + s.date1 + " đến " + s.date2 + " đã quá vượt quá hạn mức chi tiêu "
           }
-        )
+          let notifiuser = {
+            user_sv: {
+              id: this.loginService.getUserToken().id
+            },
+            user_ph: {
+              id: this.user.user_ph.id
+            },
+            content: "Hạn chi tiêu ngày " + s.date1 + " đến " + s.date2 + " đã quá vượt quá hạn mức chi tiêu "
+          }
+          this.notifiservice.add(notifi).subscribe((data) => {
+            this.notifiservice.add(notifiuser).subscribe((data) => {
+                this.shownotifi();
+
+              }
+            )
+            }
+          )
+        }
       }
     }
   }

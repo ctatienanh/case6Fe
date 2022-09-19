@@ -18,6 +18,7 @@ import {SpendinglimitService} from "../../service/spendinglimit.service";
 import {Spendinglimit} from "../../model/spendinglimit";
 import {lichsugiaodich} from "../../model/lichsugiaodich";
 import {AddUser} from "../../model/AddUser";
+import {Counttb} from "../../model/counttb";
 
 @Component({
   selector: 'app-homeph',
@@ -33,9 +34,12 @@ export class HomephComponent implements OnInit {
   spendinggoal: Spending[] = [];
   usersv: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "");
   spendinglimit: Spendinglimit[] = [];
-  checkstatushanched: Spendinglimit[] = [];
+  showspendinglimit: Spendinglimit[] = [];
   Transaction: lichsugiaodich [] = [];
   Transaction1: lichsugiaodich [] = [];
+  datehientai: Date = new Date();
+  conten: string = "";
+  counttb: Counttb = new Counttb(0);
 
 
   constructor(private notifi: NotificationserviceService,
@@ -58,7 +62,8 @@ export class HomephComponent implements OnInit {
     this.showcount();
     this.showspending();
     this.showusersv();
-    this.showTransaction()
+    this.showTransaction();
+    this.showhanche()
   }
 
   logout() {
@@ -74,7 +79,7 @@ export class HomephComponent implements OnInit {
   }
 
   shownotifi() {
-    this.notifi.show(this.adduserservice.getUser().id).subscribe((data) => {
+    this.notifi.show(this.loginService.getUserToken().id).subscribe((data) => {
       this.notifications = data;
       console.log(this.notifications)
     })
@@ -142,7 +147,16 @@ export class HomephComponent implements OnInit {
     this.spendinglimitService.save(spen).subscribe((data) => {
       // @ts-ignore
       document.getElementById("tbhc").innerHTML = " Thêm giới hạn thành công "
+      this.showhanche();
     })
+  }
+
+  showhanche(){
+    this.spendinglimitService.show(this.adduserservice.getUser().id).subscribe((data) => {
+      this.showspendinglimit = data;
+      console.log(this.showspendinglimit)
+      console.log(data)
+    });
   }
 
   checkhanche() {
@@ -172,8 +186,10 @@ export class HomephComponent implements OnInit {
 
     this.spendinglimitService.show(this.adduserservice.getUser().id).subscribe((data) => {
       this.spendinglimit = data;
-
+      console.log(data)
+      console.log(this.spendinglimit)
       for (let i = 0; i < this.spendinglimit.length; i++) {
+
         // @ts-ignore
         let date1 = new Date(spen.date2)
         let date3 = new Date(this.spendinglimit[i].date2)
@@ -467,6 +483,43 @@ export class HomephComponent implements OnInit {
       // @ts-ignore
       document.getElementById("checkdate").style.display = "flex"
     }
+  }
+
+  checkdate(date : any): boolean {
+    let d = new Date(date)
+    if (this.datehientai.getDate() > d.getDate() || (this.datehientai.getMonth() + 1) > (d.getMonth() + 1)) {
+      return false
+    } else {
+      return true
+    }
+  }
+
+  shownameph(appuser: AppUser,i : number) {
+    this.userph = appuser;
+    let notification = {
+      id:this.notifications[i].id,
+      content:this.notifications[i].content,
+      date: this.notifications[i].date,
+      time: this.notifications[i].time,
+      status_confirm:this.notifications[i].status_confirm = true,
+      user_ph:{
+        id: this.userph.id,
+      },
+      user_sv: {
+        id: this.loginService.getUserToken().id,
+      }
+    }
+    this.conten = this.notifications[i].content
+    this.notifi.editstatus(notification).subscribe((data) => {
+      console.log(data)
+      this.shownotifi();
+      this.showcounttb();
+    })
+  }
+  showcounttb() {
+    this.notifi.showcounttb(this.loginService.getUserToken().id).subscribe((data) => {
+      this.counttb.Sumnotification = data.sumnotification;
+    });
   }
 
 }
