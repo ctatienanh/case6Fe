@@ -91,15 +91,15 @@
         <div class="collapse navbar-collapse justify-content-between">
           <div class="header-left">
             <div class="dashboard_bar">
-              Dashboard
+
             </div>
           </div>
           <ul class="navbar-nav header-right">
             <li class="nav-item">
-              <div class="input-group search-area">
-                <input type="text" class="form-control" placeholder="Search here...">
-                <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
-              </div>
+<!--              <div class="input-group search-area">-->
+<!--                <input type="text" class="form-control" placeholder="Search here...">-->
+<!--                <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>-->
+<!--              </div>-->
             </li>
             <li class="nav-item dropdown notification_dropdown">
               <a class="nav-link  ai-icon" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
@@ -155,7 +155,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" style="text-align: center">Nhan ok de xac nhan</h5>
+          <h5 class="modal-title" style="text-align: center">Nhan đồng ý để xác nhận</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal">
           </button>
         </div>
@@ -163,8 +163,8 @@
           <h6 id="thongbao" >Bạn có đồng ý tài khoản {{userph.username}} quản lý </h6>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-          <button type="button"  class="btn btn-primary" (click)="chekuserph()"  >ok</button>
+          <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Thoát</button>
+          <button type="button"  class="btn btn-primary" (click)="chekuserph()"  >Đồng Ý</button>
         </div>
       </div>
     </div>
@@ -248,8 +248,8 @@
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" >Save changes</button>
+                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Thoát</button>
+                <button type="submit" class="btn btn-primary" >Lưu Lại</button>
               </div>
             </div>
             </form>

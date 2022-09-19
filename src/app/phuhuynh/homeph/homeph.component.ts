@@ -17,6 +17,7 @@ import * as moment from 'moment';
 import {SpendinglimitService} from "../../service/spendinglimit.service";
 import {Spendinglimit} from "../../model/spendinglimit";
 import {lichsugiaodich} from "../../model/lichsugiaodich";
+import {AddUser} from "../../model/AddUser";
 
 @Component({
   selector: 'app-homeph',

@@ -103,15 +103,15 @@
         <div class="collapse navbar-collapse justify-content-between">
           <div class="header-left">
             <div class="dashboard_bar">
-              Dashboard
+
             </div>
           </div>
           <ul class="navbar-nav header-right">
             <li class="nav-item">
-              <div class="input-group search-area">
-                <input type="text" class="form-control" placeholder="Search here...">
-                <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>
-              </div>
+<!--              <div class="input-group search-area">-->
+<!--                <input type="text" class="form-control" placeholder="Search here...">-->
+<!--                <span class="input-group-text"><a href="javascript:void(0)"><i class="flaticon-381-search-2"></i></a></span>-->
+<!--              </div>-->
             </li>
             <li class="nav-item dropdown notification_dropdown">
               <a class="nav-link  ai-icon" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
@@ -167,7 +167,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" style="text-align: center">Nhan ok de xac nhan</h5>
+          <h5 class="modal-title" style="text-align: center">Nhan đồng ý để xác nhận</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal">
           </button>
         </div>
@@ -175,8 +175,8 @@
           <h6 id="thongbao" >Bạn có đồng ý tài khoản {{userph.username}} quản lý </h6>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-          <button type="button"  class="btn btn-primary" (click)="chekuserph()"  >ok</button>
+          <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Thoát</button>
+          <button type="button"  class="btn btn-primary" (click)="chekuserph()"  >Đồng Ý</button>
         </div>
       </div>
     </div>
@@ -290,16 +290,15 @@
                 <div class="custom-tab-1">
                   <ul class="nav nav-tabs">
 
-                    <li class="nav-item"><a href="#about-me" data-bs-toggle="tab" class="nav-link">About Me</a>
+                    <li class="nav-item"><a href="#about-me" data-bs-toggle="tab" class="nav-link">Thông Tin Cá Nhân</a>
                     </li>
-                    <li class="nav-item"><a href="#profile-settings" data-bs-toggle="tab" class="nav-link">Setting</a>
+                    <li class="nav-item"><a href="#profile-settings" data-bs-toggle="tab" class="nav-link">Sửa Đổi Thông Tin</a>
                     </li>
                   </ul>
                   <div class="tab-content">
                     <div id="about-me" class="tab-pane fade active show">
                       <br>
                       <div class="profile-personal-info">
-                        <h4 class="text-primary mb-4">Thông Tin Cá Nhân</h4>
                         <div class="row mb-2">
                           <div class="col-sm-3 col-5">
                             <h5 class="f-w-500">Họ Và Tên <span class="pull-end">:</span>
@@ -343,7 +342,6 @@
                     <div id="profile-settings" class="tab-pane fade">
                       <div class="pt-3">
                         <div class="settings-form">
-                          <h4 class="text-primary">Sửa đổi thông tin cá nhân</h4>
                           <form [formGroup]="edidForm" (submit)="editProfile()">
                             <div class="row">
                               <div class="mb-3 col-md-6">
@@ -368,7 +366,7 @@
                             </div>
                             <div class="mb-3">
                               <div class="mb-3 col-md-6">
-                                <label class="form-label">img</label>
+                                <label class="form-label">Đổi Ảnh</label>
                                 <div class >
                                   <label for="file-input">
                                     <img  id="image" src="{{user.img}}" style="height: 205px; width: 159px">
@@ -378,8 +376,8 @@
                                 </div>
                               </div>
                             </div>
-                            <button class="btn btn-primary" type="submit">Save</button>
-                            <a   class="btn btn-outline-primary mb-3" data-bs-toggle="modal" data-bs-target="#createmodal" style="margin-left: 10px;margin-top: 18px;">Đổi Pass</a>
+                            <button class="btn btn-primary" type="submit">Lưu Thay Đổi</button>
+                            <a   class="btn btn-outline-primary mb-3" data-bs-toggle="modal" data-bs-target="#createmodal" style="margin-left: 10px;margin-top: 18px;">Thay Đổi Mật Khẩu</a>
                           </form>
                         </div>
                       </div>
@@ -438,8 +436,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save </button>
+          <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Thoát</button>
+          <button type="button" class="btn btn-primary">Lưu Lại</button>
         </div>
       </div>
     </div>
