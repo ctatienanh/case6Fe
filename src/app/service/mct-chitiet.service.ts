@@ -23,6 +23,9 @@ export class MctChitietService {
   show(id: Number): Observable<any >{
     return this.http.get<any>("http://localhost:8080/spending/"+id);
   }
+  showdetail(detail: any): Observable<any >{
+    return this.http.post<any>("http://localhost:8080/spending/detail",detail);
+  }
 }
 
 
