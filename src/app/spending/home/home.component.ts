@@ -291,7 +291,7 @@ this.notifi.editstatus(notification).subscribe((data) => {
           this.notifiservice.add(notifi).subscribe((data) => {
             this.notifiservice.add(notifiuser).subscribe((data) => {
                 this.shownotifi();
-
+                this.showcounttb()
               }
             )
             }

@@ -30,14 +30,15 @@ export class WalletComponent implements OnInit {
   user: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
   // spendingday:SpendingDay = new SpendingDay(0,null,null)
   iduser: number = 0;
-
+  addmoneymax: number = 0;
   counttb: Counttb = new Counttb(0);
 
   constructor(private script: ScriptService, private loginService: LoginserviceService,
               private wallet: WalletService, private spendingService: SpendingService,
               private mctChitietService: MctChitietService,
               private profileservice: ProfileService, private notifi: NotificationserviceService,
-              private adduserservice: AdduserService) {
+              private adduserservice: AdduserService,
+              private notifiservice: NotificationserviceService) {
   }
 
   wallets: Wallet = new Wallet(0, 0);
@@ -81,7 +82,8 @@ export class WalletComponent implements OnInit {
   })
 
   recharge() {
-
+    // @ts-ignore
+    document.getElementById("moneymax").style.display = "none"
     let wallet = {
       id: this.wallets.id,
       money: (this.Formwallet.value.money + this.wallets.money),
@@ -89,14 +91,36 @@ export class WalletComponent implements OnInit {
         id: this.iduser
       }
     }
-    this.wallet.create(wallet).subscribe((data) => {
-      this.showWallet();
-      this.Formwallet = new FormGroup({
-        money: new FormControl()
+
+    if (this.Formwallet.value.money <= 1000000) {
+      this.wallet.create(wallet).subscribe((data) => {
+        this.showWallet();
+        this.Formwallet = new FormGroup({
+          money: new FormControl()
+        })
+      })
+    }
+    else {
+      // @ts-ignore
+      document.getElementById("moneymax").style.display = "block"
+      let notifi = {
+        user_sv: {
+          id: this.user.user_ph.id
+        },
+        user_ph: {
+          id: this.loginService.getUserToken().id
+        },
+        content: "money",
+        money: this.Formwallet.value.money
+      }
+      this.notifiservice.add(notifi).subscribe((data) => {
       })
 
-    })
+    }
   }
+
+
+
 
   showTransaction() {
     this.mctChitietService.show(this.loginService.getUserToken().id).subscribe((data) => {
@@ -107,7 +131,7 @@ export class WalletComponent implements OnInit {
 
   shownotifi() {
     this.notifi.show(this.loginService.getUserToken().id).subscribe((data) => {
-      this.notifications = data;
+      this.notifications = data.reverse();
       console.log(this.notifications)
     })
   }
@@ -120,6 +144,7 @@ export class WalletComponent implements OnInit {
       date: this.notifications[i].date,
       time: this.notifications[i].time,
       status_confirm:this.notifications[i].status_confirm = true,
+      money : this.notifications[i].money,
       user_ph:{
         id: this.userph.id,
       },
@@ -127,6 +152,7 @@ export class WalletComponent implements OnInit {
         id: this.loginService.getUserToken().id,
       }
     }
+    this.addmoneymax = this.notifications[i].money;
     this.notifi.editstatus(notification).subscribe((data) => {
       console.log(data)
       this.shownotifi();

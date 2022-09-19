@@ -40,6 +40,8 @@ export class HomephComponent implements OnInit {
   datehientai: Date = new Date();
   conten: string = "";
   counttb: Counttb = new Counttb(0);
+  addmoneymax: number = 0;
+  moneysv: string = ""
 
 
   constructor(private notifi: NotificationserviceService,
@@ -50,7 +52,8 @@ export class HomephComponent implements OnInit {
               private wallet: WalletService,
               private spendingService: SpendingService,
               private adduserservice: AdduserService,
-              private spendinglimitService: SpendinglimitService) {
+              private spendinglimitService: SpendinglimitService,
+              private notifiservice: NotificationserviceService) {
   }
 
   ngOnInit(): void {
@@ -80,7 +83,7 @@ export class HomephComponent implements OnInit {
 
   shownotifi() {
     this.notifi.show(this.loginService.getUserToken().id).subscribe((data) => {
-      this.notifications = data;
+      this.notifications = data.reverse();
       console.log(this.notifications)
     })
   }
@@ -502,6 +505,7 @@ export class HomephComponent implements OnInit {
       date: this.notifications[i].date,
       time: this.notifications[i].time,
       status_confirm:this.notifications[i].status_confirm = true,
+      money : this.notifications[i].money,
       user_ph:{
         id: this.userph.id,
       },
@@ -509,6 +513,8 @@ export class HomephComponent implements OnInit {
         id: this.loginService.getUserToken().id,
       }
     }
+    this.moneysv = this.notifications[i].user_ph.username;
+    this.addmoneymax = this.notifications[i].money;
     this.conten = this.notifications[i].content
     this.notifi.editstatus(notification).subscribe((data) => {
       console.log(data)
@@ -522,6 +528,29 @@ export class HomephComponent implements OnInit {
     });
   }
 
+  recharge() {
+    let wallet = {
+      id: this.wallets.id,
+      money: (this.addmoneymax + this.wallets.money),
+      user: {
+        id: this.iduser
+      }
+    }
+      this.wallet.create(wallet).subscribe((data) => {
+        this.showWallet();
+        let notifi = {
+          user_sv: {
+            id: this.adduserservice.getUser().id
+          },
+          user_ph: {
+            id: this.loginService.getUserToken().id
+          },
+          content: "Phụ huynh của bạn đã đồng ý nạp tiền",
+        }
+        this.notifiservice.add(notifi).subscribe((data) => {
+        })
+      })
+    }
 }
 
 
