@@ -86,27 +86,7 @@ export class HomephComponent implements OnInit {
 
   })
 
-  createmctChitiet() {
-    let mtct = {
-      name: this.mctchitietfrom.value.name,
-      namespending: this.mctchitietfrom.value.namespending,
-      money: this.mctchitietfrom.value.money,
-      user: {
-        id: this.iduser
-      }
-    }
 
-    this.mctChitietService.create(mtct).subscribe((data) => {
-      this.deduction();
-      this.mctchitietfrom = new FormGroup({
-        name: new FormControl('', Validators.required),
-        namespending: new FormControl(""),
-        money: new FormControl(null, Validators.required),
-      })
-      this.showWallet();
-      this.showcount();
-    });
-  }
 
   showWallet() {
     this.wallet.show(this.adduserservice.getUser().id).subscribe((data) => {
