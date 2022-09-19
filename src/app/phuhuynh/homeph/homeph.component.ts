@@ -16,6 +16,7 @@ import {AdduserService} from "../../service/adduser.service";
 import * as moment from 'moment';
 import {SpendinglimitService} from "../../service/spendinglimit.service";
 import {Spendinglimit} from "../../model/spendinglimit";
+import {lichsugiaodich} from "../../model/lichsugiaodich";
 
 @Component({
   selector: 'app-homeph',
@@ -32,6 +33,8 @@ export class HomephComponent implements OnInit {
   usersv: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "");
   spendinglimit: Spendinglimit[] = [];
   checkstatushanched: Spendinglimit[] = [];
+  Transaction: lichsugiaodich [] = [];
+  Transaction1: lichsugiaodich [] = [];
 
 
   constructor(private notifi: NotificationserviceService,
@@ -54,6 +57,7 @@ export class HomephComponent implements OnInit {
     this.showcount();
     this.showspending();
     this.showusersv();
+    this.showTransaction()
   }
 
   logout() {
@@ -183,7 +187,6 @@ export class HomephComponent implements OnInit {
       spen.date2 = moment().add(1, 'days').format(' YYYY-MM-DD')
     }
 
-    // alert(spen.date2)
 
 
     this.spendinglimitService.show(this.adduserservice.getUser().id).subscribe((data) => {
@@ -193,61 +196,110 @@ export class HomephComponent implements OnInit {
         // @ts-ignore
         let date1 = new Date(spen.date2)
         let date3 = new Date(this.spendinglimit[i].date2)
-        let datee = new Date()
-
-        if (datee.getDate() < date3.getDate() ) {
-          console.log((date1.getMonth() + 1) < (date3.getMonth() + 1))
-
-
-
+        let date = new Date();
+        if (date.getDate() < date3.getDate() || (date.getMonth() + 1) < (date3.getMonth() + 1)) {
           if ((date1.getMonth() + 1) == (date3.getMonth() + 1)) {
             if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) < (date3.getDate() + "-" + (date3.getMonth() + 1) + "-" + date3.getFullYear())) {
+              alert("<")
               if (spen.moneylimit < this.spendinglimit[i].moneylimit) {
                 this.spendinglimit.splice(i, 1);
                 for (let j = 0; j < this.spendinglimit.length; j++) {
                   let date4 = new Date(this.spendinglimit[j].date2)
-                  if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) < (date4.getDate() + "-" + (date4.getMonth() + 1) + "-" + date4.getFullYear())) {
-                    if (spen.moneylimit < this.spendinglimit[j].moneylimit) {
-                      this.spendinglimit.splice(j, 1);
-                      for (let g = 0; g < this.spendinglimit.length; g++) {
-                        let date5 = new Date(this.spendinglimit[g].date2)
-                        if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) == (date5.getDate() + "-" + (date5.getMonth() + 1) + "-" + date5.getFullYear())) {
+                  if (date.getDate() < date4.getDate() || (date.getMonth() + 1) < (date4.getMonth() + 1)) {
+                    if ((date1.getMonth() + 1) == (date4.getMonth() + 1)) {
+                      if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) < (date4.getDate() + "-" + (date4.getMonth() + 1) + "-" + date4.getFullYear())) {
+                        if (spen.moneylimit < this.spendinglimit[j].moneylimit) {
+                          this.spendinglimit.splice(j, 1);
+                          for (let g = 0; g < this.spendinglimit.length; g++) {
+                            let date5 = new Date(this.spendinglimit[g].date2)
+                            if (date.getDate() < date5.getDate() || (date.getMonth() + 1) < (date5.getMonth() + 1)) {
+                              if ((date1.getMonth() + 1) == (date5.getMonth() + 1)) {
+                                if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) == (date5.getDate() + "-" + (date5.getMonth() + 1) + "-" + date5.getFullYear())) {
+                                  // @ts-ignore
+                                  document.getElementById("tbhc").innerHTML = "Hạn chế ở thời gian này đã tồn tại"
+                                  check = false;
+                                }
+                              }
+                              if ((date1.getMonth() + 1) > (date5.getMonth() + 1)) {
+                                if (spen.moneylimit < this.spendinglimit[g].moneylimit) {
+                                  // @ts-ignore
+                                  document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn lớn hơn "
+                                  check = false;
+                                }
+                              }
+                              if ((date1.getMonth() + 1) < (date5.getMonth() + 1)) {
+                                if (spen.moneylimit > this.spendinglimit[g].moneylimit) {
+                                  // @ts-ignore
+                                  document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn nho hơn "
+                                  check = false;
+                                }
+                              }
+                            }
+
+
+                          }
+                        } else {
                           // @ts-ignore
-                          document.getElementById("tbhc").innerHTML = "Hạn chế ở thời gian này đã tồn tại"
+                          document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn nhỏ hơn "
                           check = false;
                         }
                       }
-                    } else {
-                      // @ts-ignore
-                      document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn nhỏ hơn "
-                      check = false;
-                    }
-                  }
-                  if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) == (date4.getDate() + "-" + (date4.getMonth() + 1) + "-" + date4.getFullYear())) {
-                    // @ts-ignore
-                    document.getElementById("tbhc").innerHTML = "Hạn chế ở thời gian này đã tồn tại"
-                    check = false;
-                  }
-                  if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) > (date4.getDate() + "-" + (date4.getMonth() + 1) + "-" + date4.getFullYear())) {
-                    if (spen.moneylimit > this.spendinglimit[j].moneylimit) {
-                      this.spendinglimit.splice(j, 1);
-                      for (let g = 0; g < this.spendinglimit.length; g++) {
-                        let date5 = new Date(this.spendinglimit[g].date2)
+                      if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) == (date4.getDate() + "-" + (date4.getMonth() + 1) + "-" + date4.getFullYear())) {
+                        alert("=")
+                        // @ts-ignore
+                        document.getElementById("tbhc").innerHTML = "Hạn chế ở thời gian này đã tồn tại"
+                        check = false;
+                      }
+                      if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) > (date4.getDate() + "-" + (date4.getMonth() + 1) + "-" + date4.getFullYear())) {
+                        alert(">")
+                        if (spen.moneylimit > this.spendinglimit[j].moneylimit) {
+                          this.spendinglimit.splice(j, 1);
+                          for (let g = 0; g < this.spendinglimit.length; g++) {
+                            let date5 = new Date(this.spendinglimit[g].date2)
+                            if (date.getDate() < date5.getDate() || (date.getMonth() + 1) < (date5.getMonth() + 1)) {
+                              if ((date1.getMonth() + 1) == (date5.getMonth() + 1)) {
+                                if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) == (date5.getDate() + "-" + (date5.getMonth() + 1) + "-" + date5.getFullYear())) {
+                                  // @ts-ignore
+                                  document.getElementById("tbhc").innerHTML = "Hạn chế ở thời gian này đã tồn tại"
+                                  check = false;
+                                }
+                              }
+                              if ((date1.getMonth() + 1) > (date5.getMonth() + 1)) {
+                                if (spen.moneylimit < this.spendinglimit[g].moneylimit) {
+                                  // @ts-ignore
+                                  document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn lớn hơn "
+                                  check = false;
+                                }
+                              }
+                              if ((date1.getMonth() + 1) < (date5.getMonth() + 1)) {
+                                if (spen.moneylimit > this.spendinglimit[g].moneylimit) {
+                                  // @ts-ignore
+                                  document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn nho hơn "
+                                  check = false;
+                                }
+                              }
+                            }
 
-                        if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) == (date5.getDate() + "-" + (date5.getMonth() + 1) + "-" + date5.getFullYear())) {
+
+                          }
+                        } else {
                           // @ts-ignore
-                          document.getElementById("tbhc").innerHTML = "Hạn chế ở thời gian này đã tồn tại"
+                          document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn lớn hơn "
+
                           check = false;
                         }
                       }
-                    } else {
-                      // @ts-ignore
-                      document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn lớn hơn "
-
-                      check = false;
                     }
-                  }
+                    if ((date1.getMonth() + 1) > (date4.getMonth() + 1)) {
+                      if (spen.moneylimit < this.spendinglimit[j].moneylimit) {
+                        // @ts-ignore
+                        document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn lớn hơn "
+                        check = false;
+                      }
+                    }
 
+
+                  }
                 }
               } else {
                 // @ts-ignore
@@ -255,9 +307,6 @@ export class HomephComponent implements OnInit {
                 check = false;
               }
             }
-
-            console.log( (date3.getDate() + "-" + (date3.getMonth() + 1) + "-" + date3.getFullYear()))
-            console.log((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) == (date3.getDate() + "-" + (date3.getMonth() + 1) + "-" + date3.getFullYear()))
             if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) == (date3.getDate() + "-" + (date3.getMonth() + 1) + "-" + date3.getFullYear())) {
               // @ts-ignore
               document.getElementById("tbhc").innerHTML = "Hạn chế ở thời gian này đã tồn tại"
@@ -268,48 +317,109 @@ export class HomephComponent implements OnInit {
                 this.spendinglimit.splice(i, 1);
                 for (let j = 0; j < this.spendinglimit.length; j++) {
                   let date4 = new Date(this.spendinglimit[j].date2)
-                  console.log((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()))
-                  // console.log(date4.)
-                  // console.log(date1 == date4)
-                  if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) > (date4.getDate() + "-" + (date4.getMonth() + 1) + "-" + date4.getFullYear())) {
-                    if (spen.moneylimit > this.spendinglimit[j].moneylimit) {
-                      this.spendinglimit.splice(j, 1);
-                      for (let g = 0; g < this.spendinglimit.length; g++) {
-                        let date5 = new Date(this.spendinglimit[g].date2)
-                        if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) == (date5.getDate() + "-" + (date5.getMonth() + 1) + "-" + date5.getFullYear())) {
+
+                  if (date.getDate() < date4.getDate() || (date.getMonth() + 1) < (date4.getMonth() + 1)) {
+                    if ((date1.getMonth() + 1) == (date4.getMonth() + 1)) {
+
+                      if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) > (date4.getDate() + "-" + (date4.getMonth() + 1) + "-" + date4.getFullYear())) {
+                        if (spen.moneylimit > this.spendinglimit[j].moneylimit) {
+                          this.spendinglimit.splice(j, 1);
+                          for (let g = 0; g < this.spendinglimit.length; g++) {
+                            let date5 = new Date(this.spendinglimit[g].date2)
+                            if (date.getDate() < date5.getDate() || (date.getMonth() + 1) < (date5.getMonth() + 1)) {
+                              if ((date1.getMonth() + 1) == (date5.getMonth() + 1)) {
+                                if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) == (date5.getDate() + "-" + (date5.getMonth() + 1) + "-" + date5.getFullYear())) {
+                                  // @ts-ignore
+                                  document.getElementById("tbhc").innerHTML = "Hạn chế ở thời gian này đã tồn tại"
+                                  check = false;
+                                }
+                              }
+                              if ((date1.getMonth() + 1) > (date5.getMonth() + 1)) {
+                                if (spen.moneylimit < this.spendinglimit[g].moneylimit) {
+                                  // @ts-ignore
+                                  document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn lớn hơn "
+                                  check = false;
+                                }
+                              }
+                              if ((date1.getMonth() + 1) < (date5.getMonth() + 1)) {
+                                if (spen.moneylimit > this.spendinglimit[g].moneylimit) {
+                                  // @ts-ignore
+                                  document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn nho hơn "
+                                  check = false;
+                                }
+                              }
+                            }
+
+
+                          }
+                        } else {
                           // @ts-ignore
-                          document.getElementById("tbhc").innerHTML = "Hạn chế ở thời gian này đã tồn tại"
+                          document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn lớn hơn "
+                          check = false;
+                          console.log("g")
+
+                        }
+                      }
+                      if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) == (date4.getDate() + "-" + (date4.getMonth() + 1) + "-" + date4.getFullYear())) {
+                        // @ts-ignore
+                        document.getElementById("tbhc").innerHTML = "Hạn chế ở thời gian này đã tồn tại"
+                        check = false;
+                      }
+                      if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) < (date4.getDate() + "-" + (date4.getMonth() + 1) + "-" + date4.getFullYear())) {
+                        if (spen.moneylimit < this.spendinglimit[j].moneylimit) {
+                          this.spendinglimit.splice(j, 1);
+                          for (let g = 0; g < this.spendinglimit.length; g++) {
+                            let date5 = new Date(this.spendinglimit[g].date2)
+                            if (date.getDate() < date5.getDate() || (date.getMonth() + 1) < (date5.getMonth() + 1)) {
+                              if ((date1.getMonth() + 1) == (date5.getMonth() + 1)) {
+                                if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) == (date5.getDate() + "-" + (date5.getMonth() + 1) + "-" + date5.getFullYear())) {
+                                  // @ts-ignore
+                                  document.getElementById("tbhc").innerHTML = "Hạn chế ở thời gian này đã tồn tại"
+                                  check = false;
+                                }
+                              }
+                              if ((date1.getMonth() + 1) < (date5.getMonth() + 1)) {
+                                if (spen.moneylimit > this.spendinglimit[g].moneylimit) {
+                                  // @ts-ignore
+                                  document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn nho hơn "
+                                  check = false;
+                                }
+                              }
+                              if ((date1.getMonth() + 1) > (date5.getMonth() + 1)) {
+                                if (spen.moneylimit < this.spendinglimit[g].moneylimit) {
+                                  // @ts-ignore
+                                  document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn lớn hơn "
+                                  check = false;
+                                }
+                              }
+                            }
+
+
+                          }
+                        } else {
+                          // @ts-ignore
+                          document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn nhỏ hơn "
                           check = false;
                         }
                       }
-                    } else {
-                      // @ts-ignore
-                      document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn lớn hơn "
-                      check = false;
+
                     }
-                  }
-                  if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) == (date4.getDate() + "-" + (date4.getMonth() + 1) + "-" + date4.getFullYear())) {
-                    // @ts-ignore
-                    document.getElementById("tbhc").innerHTML = "Hạn chế ở thời gian này đã tồn tại"
-                    check = false;
-                  }
-                  if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) < (date4.getDate() + "-" + (date4.getMonth() + 1) + "-" + date4.getFullYear())) {
-                    if (spen.moneylimit < this.spendinglimit[j].moneylimit) {
-                      this.spendinglimit.splice(j, 1);
-                      for (let g = 0; g < this.spendinglimit.length; g++) {
-                        let date5 = new Date(this.spendinglimit[g].date2)
-                        if ((date1.getDate() + "-" + (date1.getMonth() + 1) + "-" + date1.getFullYear()) == (date5.getDate() + "-" + (date5.getMonth() + 1) + "-" + date5.getFullYear())) {
-                          // @ts-ignore
-                          document.getElementById("tbhc").innerHTML = "Hạn chế ở thời gian này đã tồn tại"
-                          check = false;
-                        }
+                    if ((date1.getMonth() + 1) > (date4.getMonth() + 1)) {
+                      if (spen.moneylimit < this.spendinglimit[j].moneylimit) {
+                        // @ts-ignore
+                        document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn lớn hơn "
+                        check = false;
                       }
-                    } else {
-                      // @ts-ignore
-                      document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn nhỏ hơn "
-                      check = false;
+                    }
+                    if ((date1.getMonth() + 1) < (date4.getMonth() + 1)) {
+                      if (spen.moneylimit > this.spendinglimit[j].moneylimit) {
+                        // @ts-ignore
+                        document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn nho hơn "
+                        check = false;
+                      }
                     }
                   }
+
 
                 }
               } else {
@@ -319,68 +429,64 @@ export class HomephComponent implements OnInit {
               }
             }
           }
-
           if ((date1.getMonth() + 1) > (date3.getMonth() + 1)) {
             if (spen.moneylimit < this.spendinglimit[i].moneylimit) {
-
               // @ts-ignore
               document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn lớn hơn "
               check = false;
             }
           }
-
+          if ((date1.getMonth() + 1) < (date3.getMonth() + 1)) {
+            if (spen.moneylimit > this.spendinglimit[i].moneylimit) {
+              // @ts-ignore
+              document.getElementById("tbhc").innerHTML = " Vui lòng lựa chọn số tiền giới hạn nho hơn "
+              check = false;
+            }
+          }
 
         }
 
       }
       if (check == true) {
-        console.log("vaooo")
         this.addhanche(spen);
       }
     });
   }
 
 
-  checkstatushanche(){
-    this.spendinglimitService.show(this.adduserservice.getUser().id).subscribe((data) => {
-      let tg = new Date()
-      this.checkstatushanched = data;
-      for (let c of this.checkstatushanched){
-        console.log(c.id)
-        let check =true;
-        let date = new Date(c.date2);
-        if ((tg.getMonth()+1) == (date.getMonth()+1)){
-          if (tg.getDate() > date.getDate()){
-           c.status = 2;
-           check = false;
-          }
-        }
-        if ((tg.getMonth()+1) > (date.getMonth()+1)){
-          c.status = 2;
-          check= false;
-        }
-        if (check==false) {
-          console.log(c)
-          let spen ={
-            id:c.id,
-            date1: c.date1,
-            date2: c.date2,
-            user:{
-              id: c.user.id
-          },
-          money:c.money,
-          moneylimit: c.moneylimit,
-          status: 2
-          }
-          this.spendinglimitService.edit(spen).subscribe((data) => {
-           check=true;
-          })
-        }
-      }
-
+  showTransaction() {
+    this.mctChitietService.show(this.adduserservice.getUser().id).subscribe((data) => {
+      this.Transaction = data;
+      console.log(this.Transaction)
     })
   }
 
+  fromday = new FormGroup({
+    day1: new FormControl(),
+    day2: new FormControl(),
+  })
+
+  seachDay() {
+    let spendingday = {
+      idUser: this.adduserservice.getUser().id,
+      // day1: this.pipe.transform(this.fromday.value.day1,'yyyy/MM/dd'),
+      // day2: this.pipe.transform(this.fromday.value.day2,'yyyy/MM/dd')
+      day1: this.fromday.value.day1,
+      day2: this.fromday.value.day2
+    }
+    let datecheck1 = new Date(spendingday.day1)
+    let datecheck2 = new Date(spendingday.day2)
+    if (datecheck1 <= datecheck2) {
+      this.spendingService.seachDay(spendingday).subscribe((data) => {
+        this.Transaction1 = data
+        console.log(this.Transaction1)
+        console.log("day")
+      })
+    } else {
+      // @ts-ignore
+      document.getElementById("checkdate").style.display = "flex"
+    }
+  }
 
 }
 
