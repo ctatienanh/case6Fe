@@ -81,6 +81,25 @@ export class WalletComponent implements OnInit {
     money: new FormControl()
   })
 
+
+  createmctChitiet() {
+    let mtct = {
+      name: "nạp tiền vào ví",
+      namespending: "nạp tiền vào ví",
+      money: this.Formwallet.value.money,
+      user: {
+        id: this.iduser
+      }
+    }
+
+    this.mctChitietService.create(mtct).subscribe((data) => {
+      this.showWallet();
+      this.Formwallet = new FormGroup({
+        money: new FormControl()
+      })
+    });
+  }
+
   recharge() {
     // @ts-ignore
     document.getElementById("moneymax").style.display = "none"
@@ -94,13 +113,9 @@ export class WalletComponent implements OnInit {
 
     if (this.Formwallet.value.money <= 1000000) {
       this.wallet.create(wallet).subscribe((data) => {
-        this.showWallet();
-        this.Formwallet = new FormGroup({
-          money: new FormControl()
-        })
+        this.createmctChitiet()
       })
-    }
-    else {
+    } else {
       // @ts-ignore
       document.getElementById("moneymax").style.display = "block"
       let notifi = {
@@ -115,11 +130,8 @@ export class WalletComponent implements OnInit {
       }
       this.notifiservice.add(notifi).subscribe((data) => {
       })
-
     }
   }
-
-
 
 
   showTransaction() {
@@ -136,16 +148,16 @@ export class WalletComponent implements OnInit {
     })
   }
 
-  shownameph(appuser: AppUser,i : number) {
+  shownameph(appuser: AppUser, i: number) {
     this.userph = appuser;
     let notification = {
-      id:this.notifications[i].id,
-      content:this.notifications[i].content,
+      id: this.notifications[i].id,
+      content: this.notifications[i].content,
       date: this.notifications[i].date,
       time: this.notifications[i].time,
-      status_confirm:this.notifications[i].status_confirm = true,
-      money : this.notifications[i].money,
-      user_ph:{
+      status_confirm: this.notifications[i].status_confirm = true,
+      money: this.notifications[i].money,
+      user_ph: {
         id: this.userph.id,
       },
       user_sv: {
@@ -229,11 +241,12 @@ export class WalletComponent implements OnInit {
         console.log(this.Transaction1)
         console.log("day")
       })
-    }else {
+    } else {
       // @ts-ignore
       document.getElementById("checkdate").style.display = "flex"
     }
   }
+
   showcounttb() {
     this.notifi.showcounttb(this.loginService.getUserToken().id).subscribe((data) => {
       this.counttb.Sumnotification = data.sumnotification;

@@ -104,11 +104,11 @@
           </div>
           <ul class="navbar-nav header-right">
             <li class="nav-item">
-<!--              <div class="input-group search-area">-->
-<!--                <input type="text" class="form-control" placeholder="Search here...">-->
-<!--                <span class="input-group-text"><a href="javascript:void(0)"><i-->
-<!--                  class="flaticon-381-search-2"></i></a></span>-->
-<!--              </div>-->
+              <!--              <div class="input-group search-area">-->
+              <!--                <input type="text" class="form-control" placeholder="Search here...">-->
+              <!--                <span class="input-group-text"><a href="javascript:void(0)"><i-->
+              <!--                  class="flaticon-381-search-2"></i></a></span>-->
+              <!--              </div>-->
             </li>
             <li class="nav-item dropdown notification_dropdown">
               <a class="nav-link  ai-icon" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
@@ -124,13 +124,14 @@
                   <ul class="timeline">
                     <li *ngFor="let n of notifications; index as i">
                       <div *ngIf="n.content == 'add'">
-                        <div class="timeline-panel" data-bs-toggle="modal" (click)="shownameph(n.user_ph,i)" data-bs-target="#addaccount">
+                        <div class="timeline-panel" data-bs-toggle="modal" (click)="shownameph(n.user_ph,i)"
+                             data-bs-target="#addaccount">
                           <div class="media me-2">
                             <img alt="image" width="50" src="{{n.user_ph.img}}">
                           </div>
                           <div class="media-body">
 
-                            <h6  class="mb-1">{{n.content}}</h6>
+                            <h6 class="mb-1">{{n.content}}</h6>
                             <h6 class="mb-1"> form : {{n.user_ph.username}}</h6>
 
                             <small class="d-block">{{n.date}} , {{n.time}}</small>
@@ -139,7 +140,8 @@
                       </div>
 
                       <div *ngIf="n.content != 'add'">
-                        <div class="timeline-panel" data-bs-toggle="modal" (click)="shownameph(n.user_ph,i)" data-bs-target="#mess">
+                        <div class="timeline-panel" data-bs-toggle="modal" (click)="shownameph(n.user_ph,i)"
+                             data-bs-target="#mess">
                           <div class="timeline-panel ">
                             <div class="media me-2">
                               <img alt="image" width="50" src="{{n.user_ph.img}}">
@@ -178,7 +180,7 @@
           <h6 id="thongbao">Bạn có đồng ý tài khoản {{userph.username}} quản lý </h6>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Thoát </button>
+          <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Thoát</button>
           <button type="button" class="btn btn-primary" (click)="chekuserph()">Đồng Ý</button>
         </div>
       </div>
@@ -268,7 +270,7 @@
                     <!-- Modal -->
                     <div class="modal fade" id="createmodal">
                       <div class="modal-dialog" role="document">
-                        <form [formGroup]="Formwallet" (submit)="recharge()">
+                        <form [formGroup]="Formwallet" (submit)="recharge()">//
                           <div class="modal-content">
                             <div class="modal-header">
                               <h5 class="modal-title" style="text-align: center">Nhập Số Tiền</h5>
@@ -278,7 +280,8 @@
                             <div class="modal-body">
                               <div class="form-group">
                                 <input type="number" formControlName="money" class="form-control">
-                                <p id="moneymax" style="color: red; display: none"  >Bạn Đã nạp quá số tiền vui lòng chờ xác nhận từ phía bên phụ huynh </p>
+                                <p id="moneymax" style="color: red; display: none">Bạn Đã nạp quá số tiền vui lòng chờ
+                                  xác nhận từ phía bên phụ huynh </p>
                               </div>
                             </div>
                             <div class="modal-footer">
@@ -362,11 +365,161 @@
                         </tr>
                         </thead>
                         <tbody *ngFor="let t of Transaction; index as i">
+                          <tr *ngIf="t.namespending == 'nạp tiền vào ví' ">
+                            <td><span class="text-black font-w500">{{i + 1}}</span></td>
+                            <td><span class="text-black text-nowrap">{{t.name}}</span></td>
+                            <td><span class="text-black text-nowrap">{{t.namespending}}</span></td>
+                            <td><span class="text-black text-nowrap">+ {{t.money}}</span></td>
+
+
+                            <td><span class="text-black text-nowrap">{{t.date}}, {{t.time}}</span></td>
+                            <td>
+                              <div class="dropdown">
+                                <a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                       xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
+                                      stroke="#575757" stroke-width="2" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                                    <path
+                                      d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
+                                      stroke="#575757" stroke-width="2" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                                    <path
+                                      d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
+                                      stroke="#575757" stroke-width="2" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                                  </svg>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                  <a class="dropdown-item">Delete</a>
+                                  <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
+                                     data-bs-target="#edit">Edit</a>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr *ngIf="t.namespending !== 'nạp tiền vào ví' ">
+                            <td><span class="text-black font-w500">{{i + 1}}</span></td>
+                            <td><span class="text-black text-nowrap">{{t.name}}</span></td>
+                            <td><span class="text-black text-nowrap">{{t.namespending}}</span></td>
+                            <td><span class="text-black text-nowrap"> - {{t.money}}</span></td>
+
+
+                            <td><span class="text-black text-nowrap">{{t.date}}, {{t.time}}</span></td>
+                            <td>
+                              <div class="dropdown">
+                                <a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                       xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                      d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
+                                      stroke="#575757" stroke-width="2" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                                    <path
+                                      d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
+                                      stroke="#575757" stroke-width="2" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                                    <path
+                                      d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
+                                      stroke="#575757" stroke-width="2" stroke-linecap="round"
+                                      stroke-linejoin="round"></path>
+                                  </svg>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                  <a class="dropdown-item">Delete</a>
+                                  <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
+                                     data-bs-target="#edit">Edit</a>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="Weekly" role="tabpanel">
+                  <div id="accordion-one1" class="accordion style-1">
+                    <form [formGroup]="fromday" (submit)="seachDay()">
+
+                      <div style="display: flex">
+                        <div class="form-group">
+                          <h6 style=" text-align: center;">Ngay bat dau</h6>
+                          <input formControlName="day1" type="date" class="form-control">
+                        </div>
+                        <div class="form-group" style="margin-left: 15px;">
+                          <h6 style=" text-align: center;">Ngay ket thuc</h6>
+                          <input formControlName="day2" type="date" class="form-control">
+                        </div>
+                        <button style="height: 52px;  margin-top: 28px; margin-left: 14px;" type="submit"
+                                class="btn btn-primary">Chọn
+                        </button>
+                      </div>
+                      <p id="checkdate" style="color: red; display: none">Vui long chon thoi gian bat dau lon hon hoac
+                        bang thoi gian ket thuc</p>
+                    </form>
+                  </div>
+                  <div *ngIf="Transaction1.length != 0">
+                    <div class="table-responsive fs-14" style="margin-top: 20px">
+                      <table class="table card-table display mb-4 dataTablesCard ">
+                        <thead>
                         <tr>
+                          <th>#</th>
+                          <th>Name</th>
+                          <th>Mục Giao dịch</th>
+                          <th>Tiền Giao dịch</th>
+                          <th>Thời Gian</th>
+                          <th></th>
+                        </tr>
+                        </thead>
+                        <tbody *ngFor="let t of Transaction1; index as i">
+                        <tr *ngIf="t.namespending == 'nạp tiền vào ví' ">
                           <td><span class="text-black font-w500">{{i + 1}}</span></td>
                           <td><span class="text-black text-nowrap">{{t.name}}</span></td>
                           <td><span class="text-black text-nowrap">{{t.namespending}}</span></td>
-                          <td><span class="text-black text-nowrap">- {{t.money}}</span></td>
+                          <td><span class="text-black text-nowrap">+ {{t.money}}</span></td>
+
+
+                          <td><span class="text-black text-nowrap">{{t.date}}, {{t.time}}</span></td>
+                          <td>
+                            <div class="dropdown">
+                              <a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown"
+                                 aria-expanded="false">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
+                                    stroke="#575757" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                  <path
+                                    d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
+                                    stroke="#575757" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                  <path
+                                    d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
+                                    stroke="#575757" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                </svg>
+                              </a>
+                              <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item">Delete</a>
+                                <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
+                                   data-bs-target="#edit">Edit</a>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr *ngIf="t.namespending !== 'nạp tiền vào ví' ">
+                          <td><span class="text-black font-w500">{{i + 1}}</span></td>
+                          <td><span class="text-black text-nowrap">{{t.name}}</span></td>
+                          <td><span class="text-black text-nowrap">{{t.namespending}}</span></td>
+                          <td><span class="text-black text-nowrap"> - {{t.money}}</span></td>
 
 
                           <td><span class="text-black text-nowrap">{{t.date}}, {{t.time}}</span></td>
@@ -405,83 +558,6 @@
 
                     </div>
                   </div>
-                </div>
-                <div class="tab-pane fade" id="Weekly" role="tabpanel">
-                  <div id="accordion-one1" class="accordion style-1">
-                    <form [formGroup]="fromday" (submit)="seachDay()">
-
-                    <div style="display: flex">
-                      <div class="form-group">
-                        <h6 style=" text-align: center;">Ngay bat dau</h6>
-                        <input formControlName="day1" type="date" class="form-control">
-                      </div>
-                      <div class="form-group" style="margin-left: 15px;">
-                        <h6 style=" text-align: center;">Ngay ket thuc</h6>
-                        <input formControlName="day2" type="date" class="form-control">
-                      </div>
-                      <button style="height: 52px;  margin-top: 28px; margin-left: 14px;" type="submit" class="btn btn-primary">Chọn
-                      </button>
-                    </div>
-                      <p id="checkdate" style="color: red; display: none">Vui long chon thoi gian bat dau lon hon hoac bang thoi gian ket thuc</p>
-                    </form>
-                  </div>
-                  <div *ngIf="Transaction1.length != 0">
-                  <div class="table-responsive fs-14"style="margin-top: 20px">
-                    <table class="table card-table display mb-4 dataTablesCard " >
-                      <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Mục Giao dịch</th>
-                        <th>Tiền Giao dịch</th>
-                        <th>Thời Gian</th>
-                        <th></th>
-                      </tr>
-                      </thead>
-                      <tbody *ngFor="let t of Transaction1; index as i">
-                      <tr>
-                        <td><span class="text-black font-w500">{{i + 1}}</span></td>
-                        <td><span class="text-black text-nowrap">{{t.name}}</span></td>
-                        <td><span class="text-black text-nowrap">{{t.namespending}}</span></td>
-                        <td><span class="text-black text-nowrap">- {{t.money}}</span></td>
-
-
-                        <td><span class="text-black text-nowrap">{{t.date}}, {{t.time}}</span></td>
-                        <td>
-                          <div class="dropdown">
-                            <a href="javascript:void(0);" class="btn-link" data-bs-toggle="dropdown"
-                               aria-expanded="false">
-                              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                   xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                  d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
-                                  stroke="#575757" stroke-width="2" stroke-linecap="round"
-                                  stroke-linejoin="round"></path>
-                                <path
-                                  d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
-                                  stroke="#575757" stroke-width="2" stroke-linecap="round"
-                                  stroke-linejoin="round"></path>
-                                <path
-                                  d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
-                                  stroke="#575757" stroke-width="2" stroke-linecap="round"
-                                  stroke-linejoin="round"></path>
-                              </svg>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                              <a class="dropdown-item">Delete</a>
-                              <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
-                                 data-bs-target="#edit">Edit</a>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-
-                      </tbody>
-                    </table>
-
-
-                  </div>
-                  </div>
 
                 </div>
 
@@ -496,9 +572,6 @@
   <!--**********************************
       Content body end
   ***********************************-->
-
-
-
 
 
   <!--**********************************
