@@ -287,7 +287,7 @@
     <div class="container-fluid">
       <div class="row invoice-card-row">
 
-        <div class="col-xl-3 col-xxl-6 col-sm-6">
+        <div class="col-xl-3 col-xxl-6 col-sm-6" data-bs-toggle="modal" data-bs-target="#createmodal">
           <div class="card bg-success invoice-card">
             <div class="card-body d-flex">
               <div class="icon me-3">
@@ -303,6 +303,30 @@
                 <span class="text-white fs-18">Số Dư</span>
               </div>
             </div>
+          </div>
+        </div>
+        <div class="modal fade" id="createmodal">
+          <div class="modal-dialog" role="document">
+            <form [formGroup]="Formwallet" (submit)="rechargehs()">//
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" style="text-align: center">Nhập Số Tiền</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal">
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <input type="number" formControlName="money" class="form-control">
+                    <p id="moneymax" style="color: red; display: none">Bạn Đã nạp quá số tiền vui lòng chờ
+                      xác nhận từ phía bên phụ huynh </p>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Thoát</button>
+                  <button type="submit" class="btn btn-primary" >Thêm</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
 

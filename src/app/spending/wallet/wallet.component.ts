@@ -94,6 +94,7 @@ export class WalletComponent implements OnInit {
 
     this.mctChitietService.create(mtct).subscribe((data) => {
       this.showWallet();
+      this.showTransaction()
       this.Formwallet = new FormGroup({
         money: new FormControl()
       })
@@ -143,7 +144,7 @@ export class WalletComponent implements OnInit {
 
   shownotifi() {
     this.notifi.show(this.loginService.getUserToken().id).subscribe((data) => {
-      this.notifications = data.reverse();
+      this.notifications = data;
       console.log(this.notifications)
     })
   }

@@ -83,7 +83,7 @@ export class HomephComponent implements OnInit {
 
   shownotifi() {
     this.notifi.show(this.loginService.getUserToken().id).subscribe((data) => {
-      this.notifications = data.reverse();
+      this.notifications = data;
       console.log(this.notifications)
     })
   }
@@ -102,20 +102,6 @@ export class HomephComponent implements OnInit {
       this.wallets = data;
       this.iduser = data.user.id;
     })
-  }
-
-  deduction() {
-    let wallet = {
-      id: this.wallets.id,
-      money: (this.wallets.money - this.mctchitietfrom.value.money),
-      user: {
-        id: this.iduser
-      }
-    }
-    this.wallet.create(wallet).subscribe((data) => {
-
-    })
-
   }
 
   showcount() {
@@ -540,6 +526,7 @@ export class HomephComponent implements OnInit {
 
     this.mctChitietService.create(mtct).subscribe((data) => {
       this.showWallet();
+      this.showTransaction();
       let notifi = {
         user_sv: {
           id: this.adduserservice.getUser().id
@@ -547,7 +534,7 @@ export class HomephComponent implements OnInit {
         user_ph: {
           id: this.loginService.getUserToken().id
         },
-        content: "Phụ huynh của bạn đã đồng ý nạp tiền",
+        content: "Phụ huynh đã đồng ý",
       }
       this.notifiservice.add(notifi).subscribe((data) => {
       })
@@ -573,6 +560,55 @@ export class HomephComponent implements OnInit {
         this.showhanche()
       })
     }
+
+  Formwallet = new FormGroup({
+    money: new FormControl()
+  })
+
+
+  createmctChitieths() {
+    let mtct = {
+      name: "phụ huynh nạp tiền",
+      namespending: "nạp tiền vào ví",
+      money: this.Formwallet.value.money,
+      user: {
+        id: this.iduser
+      }
+    }
+
+    this.mctChitietService.create(mtct).subscribe((data) => {
+      this.showWallet();
+      this.showTransaction();
+      this.Formwallet = new FormGroup({
+        money: new FormControl()
+      })
+
+    });
+  }
+
+  rechargehs() {
+    let wallet = {
+      id: this.wallets.id,
+      money: (this.Formwallet.value.money + this.wallets.money),
+      user: {
+        id: this.iduser
+      }
+    }
+      this.wallet.create(wallet).subscribe((data) => {
+        let notifi = {
+          user_sv: {
+            id: this.adduserservice.getUser().id
+          },
+          user_ph: {
+            id: this.loginService.getUserToken().id
+          },
+          content: "Phụ huynh đã nạp tiền cho bạn" + this.Formwallet.value.money + "VND",
+        }
+        this.notifiservice.add(notifi).subscribe((data) => {
+        })
+        this.createmctChitieths()
+      })
+  }
 }
 
 
