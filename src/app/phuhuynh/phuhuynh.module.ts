@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { PhuhuynhRoutingModule } from './phuhuynh-routing.module';
 import { HomephComponent } from './homeph/homeph.component';
 import { TkquanlyComponent } from './tkquanly/tkquanly.component';
-import { MucchitieuComponent } from './mucchitieu/mucchitieu.component';
 import { ProfilephComponent } from './profileph/profileph.component';
 import {ReactiveFormsModule} from "@angular/forms";
 
@@ -13,7 +12,6 @@ import {ReactiveFormsModule} from "@angular/forms";
   declarations: [
     HomephComponent,
     TkquanlyComponent,
-    MucchitieuComponent,
     ProfilephComponent
   ],
     imports: [

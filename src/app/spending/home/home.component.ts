@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
   date: any;
   moneyhc: number =0;
   conten: string = "";
+  datehientai: Date = new Date();
 
   constructor(private script: ScriptService, private loginService: LoginserviceService,
               private wallet: WalletService,
@@ -108,6 +109,15 @@ export class HomeComponent implements OnInit {
 
     })
 
+  }
+
+  checkdate(date : any): boolean {
+    let d = new Date(date)
+    if (this.datehientai.getDate() > d.getDate() || (this.datehientai.getMonth() + 1) > (d.getMonth() + 1)) {
+      return false
+    } else {
+      return true
+    }
   }
 
   createmctChitiet() {
@@ -238,8 +248,7 @@ this.notifi.editstatus(notification).subscribe((data) => {
     let date = new Date();
     for (let s of this.spendinglimit){
       let date2 = new Date(s.date2);
-      console.log(date.getDate() <= date2.getDate() || (date.getMonth()+1) <= (date2.getMonth() +1))
-      if (date.getDate() <= date2.getDate() || (date.getMonth()+1) <= (date2.getMonth() +1) ){
+      if ((date.getMonth()+1) < (date2.getMonth() +1)){
         s.money += this.moneyhc;
         let a= {
           id: s.id,
@@ -256,6 +265,26 @@ this.notifi.editstatus(notification).subscribe((data) => {
         this.spendinglimitService.save(a).subscribe((data) => {
           this.showhanche()
         });
+      }
+      if ((date.getMonth()+1) == (date2.getMonth() +1)) {
+        if (date.getDate() <= date2.getDate()) {
+          s.money += this.moneyhc;
+          let a = {
+            id: s.id,
+            date1: s.date1,
+            date2: s.date2,
+            user: {
+              id: s.user.id
+            },
+            money: s.money,
+            moneylimit: s.moneylimit
+          }
+
+          console.log(a)
+          this.spendinglimitService.save(a).subscribe((data) => {
+            this.showhanche()
+          });
+        }
       }
     }
     this.ktguinotifi();

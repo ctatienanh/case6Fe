@@ -117,6 +117,7 @@ export class WalletComponent implements OnInit {
         this.createmctChitiet()
       })
     } else {
+      console.log(this.user)
       // @ts-ignore
       document.getElementById("moneymax").style.display = "block"
       let notifi = {
@@ -130,6 +131,7 @@ export class WalletComponent implements OnInit {
         money: this.Formwallet.value.money
       }
       this.notifiservice.add(notifi).subscribe((data) => {
+        alert("vv")
       })
     }
   }

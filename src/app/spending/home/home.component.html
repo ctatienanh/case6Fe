@@ -310,7 +310,6 @@
                       <h2 class="text-white card-balance">{{wallets.money}} VNĐ</h2>
                       <p class="fs-16">Số Dư</p>
                     </div>
-                    <a class="change-btn" href="javascript:void(0);"><i class="fa fa-caret-up up-ico"></i>Change<span class="reload-icon"><i class="fa fa-refresh reload active"></i></span></a>
                   </div>
                 </div>
                 <div class="col-xl-6">
@@ -361,6 +360,7 @@
                     <th>Ngày kết thúc</th>
                     <th>Hạn Mức</th>
                     <th>Số Tiền đã tiêu</th>
+                    <th>Trạng thái</th>
                   </tr>
                   </thead>
                   <tbody >
@@ -369,6 +369,12 @@
                     <td><span class="text-black text-nowrap"></span>{{s.date2}}</td>
                     <td><span class="text-black text-nowrap"></span>{{s.moneylimit}}</td>
                     <td><span class="text-black text-nowrap"></span>{{s.money}}</td>
+                    <td *ngIf="checkdate(s.date2) == true" style="color: #0E9A00"><span
+                      class="text-black text-nowrap"></span>Hoạt Động
+                    </td>
+                    <td *ngIf="checkdate(s.date2) == false" style="color: red"><span
+                      class="text-black text-nowrap"></span>Kết thúc
+                    </td>
                   </tr>
 
                   </tbody>

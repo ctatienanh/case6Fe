@@ -53,7 +53,7 @@ export class LoginserviceService {
     for (const role of userToken?.roles) {
       if (role.name == "ph") {
         // this.router.navigate(["/ph"])
-        location.href = "/ph"
+        location.href = "/ph/tk"
       }
       if(role.name=="sv"){
         location.href = "/spending"

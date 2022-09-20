@@ -8,6 +8,10 @@ import {AdduserService} from "../../service/adduser.service";
 import {AddUser} from "../../model/AddUser";
 import {Wallet} from "../../model/wallet";
 import {WalletService} from "../../service/wallet.service";
+import {Counttb} from "../../model/counttb";
+import {Notification} from "../../model/Notification";
+import {lichsugiaodich} from "../../model/lichsugiaodich";
+import {MctChitietService} from "../../service/mct-chitiet.service";
 
 @Component({
   selector: 'app-tkquanly',
@@ -20,11 +24,19 @@ export class TkquanlyComponent implements OnInit {
   userchon: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
   wallets: Wallet = new Wallet(0, 0);
   check: number = 0;
-
+  counttb: Counttb = new Counttb(0);
+  notifications: Notification[] = [];
+  userph: AppUser = new AppUser(0, "", "", "", "", "", "", 0, 0, "")
+  moneysv: string = ""
+  addmoneymax: number = 0;
+  conten: string = "";
+  iduser: number = 0;
+  Transaction: lichsugiaodich [] = [];
   constructor(private script: ScriptService, private loginService: LoginserviceService,
               private notifiservice: NotificationserviceService,
               private adduserservice: AdduserService,
-              private wallet: WalletService) {
+              private wallet: WalletService,private notifi: NotificationserviceService,
+              private mctChitietService: MctChitietService) {
   }
 
   ngOnInit(): void {
@@ -33,7 +45,9 @@ export class TkquanlyComponent implements OnInit {
     }).catch(error => console.log(error));
     this.showadduser();
     this.checkusersv();
-    this.showWallet()
+    this.showWallet();
+    this.shownotifi();
+
   }
 
   logout() {
@@ -43,7 +57,42 @@ export class TkquanlyComponent implements OnInit {
   formadduser = new FormGroup({
     username: new FormControl("", Validators.required)
   })
-
+  shownameph(appuser: AppUser,i : number) {
+    this.userph = appuser;
+    let notification = {
+      id:this.notifications[i].id,
+      content:this.notifications[i].content,
+      date: this.notifications[i].date,
+      time: this.notifications[i].time,
+      status_confirm:this.notifications[i].status_confirm = true,
+      money : this.notifications[i].money,
+      user_ph:{
+        id: this.userph.id,
+      },
+      user_sv: {
+        id: this.loginService.getUserToken().id,
+      }
+    }
+    this.moneysv = this.notifications[i].user_ph.username;
+    this.addmoneymax = this.notifications[i].money;
+    this.conten = this.notifications[i].content
+    this.notifi.editstatus(notification).subscribe((data) => {
+      console.log(data)
+      this.shownotifi();
+      this.showcounttb();
+    })
+  }
+  showcounttb() {
+    this.notifi.showcounttb(this.loginService.getUserToken().id).subscribe((data) => {
+      this.counttb.Sumnotification = data.sumnotification;
+    });
+  }
+  shownotifi() {
+    this.notifi.show(this.loginService.getUserToken().id).subscribe((data) => {
+      this.notifications = data;
+      console.log(this.notifications)
+    })
+  }
   checkuser() {
     this.loginService.checkuser(this.formadduser.value.username).subscribe((data) => {
         if (data != null) {
@@ -97,6 +146,51 @@ export class TkquanlyComponent implements OnInit {
         this.showWallet();
       }
     )
+  }
+  recharge() {
+    let wallet = {
+      id: this.wallets.id,
+      money: (this.addmoneymax + this.wallets.money),
+      user: {
+        id: this.iduser
+      }
+    }
+    this.wallet.create(wallet).subscribe((data) => {
+      this.createmctChitiet()
+    })
+  }
+  createmctChitiet() {
+    let mtct = {
+      name: "nạp tiền vào ví",
+      namespending: "nạp tiền vào ví",
+      money: this.addmoneymax,
+      user: {
+        id: this.iduser
+      }
+    }
+
+    this.mctChitietService.create(mtct).subscribe((data) => {
+      this.showWallet();
+      this.showTransaction();
+      let notifi = {
+        user_sv: {
+          id: this.adduserservice.getUser().id
+        },
+        user_ph: {
+          id: this.loginService.getUserToken().id
+        },
+        content: "Phụ huynh đã đồng ý",
+      }
+      this.notifiservice.add(notifi).subscribe((data) => {
+      })
+
+    });
+  }
+  showTransaction() {
+    this.mctChitietService.show(this.adduserservice.getUser().id).subscribe((data) => {
+      this.Transaction = data;
+      console.log(this.Transaction)
+    })
   }
 
   showluachon() {
