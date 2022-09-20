@@ -244,7 +244,7 @@
               </div>
               <div class="modal-body">
                 <div class="form-group">
-                  <label>Name</label>
+                  <label>Nhập tên mục chi tiêu</label>
                   <input formControlName="name"  type="text" class="form-control" >
                   <p id="createmct" *ngIf="!Formspen.get('name')?.valid " style="color: red;margin-left: 25px; display: none">Không được để trống</p>
                   <p id="checknamemct" style="color: red;margin-left: 25px; display: none">Tên mục chi tiêu đã tồn tại</p>
@@ -330,8 +330,8 @@
                       </svg>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                      <a   class="dropdown-item" (click)="deletespending(s)">Delete</a>
-                      <a (click)="showedit(s.id)" class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#edit" >Edit</a>
+                      <a   class="dropdown-item" (click)="deletespending(s)">Xóa</a>
+                      <a (click)="showedit(s.id)" class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#edit" >Sửa</a>
                     </div>
                   </div>
                 </td>
@@ -367,8 +367,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save </button>
+          <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Đóng</button>
+          <button type="submit" class="btn btn-primary">Lưu lại </button>
         </div>
         </form>
       </div>

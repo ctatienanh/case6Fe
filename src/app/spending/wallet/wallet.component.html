@@ -299,30 +299,7 @@
                   <div class="progress default-progress">
                     <div class="progress-bar bg-gradient-5 progress-animated" style="width: 50%; height:20px;"
                          role="progressbar">
-                      <span class="sr-only">50% Complete</span>
-                    </div>
-                  </div>
-                  <div class="row mt-4 pt-3">
-                    <div class="col-xl-4 col-xxl-5 col-lg-6">
-                      <div class="row">
-                        <div class="col-sm-6 col-7">
-                          <h4 class="card-title">Weekly Summary</h4>
-                          <ul class="card-list mt-3">
-                            <li class="mb-2"><span class="bg-success circle"></span><span
-                              class="ms-0">Income</span><span class="text-black fs-18">50%</span></li>
-                            <li class="mb-2"><span class="bg-danger circle"></span><span
-                              class="ms-0">Expense</span><span class="text-black fs-18">30%</span></li>
-                            <li class="mb-2"><span class="bg-light circle"></span><span class="ms-0">Unknown</span><span
-                              class="text-black fs-18">20%</span></li>
-                          </ul>
-                        </div>
-                        <div class="col-sm-6 col-5">
-                          <canvas id="pieChart"></canvas>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xl-8 col-xxl-7 col-lg-6">
-                      <div id="line-chart" class="bar-chart"></div>
+                      <span class="sr-only">100% Complete</span>
                     </div>
                   </div>
                 </div>
@@ -333,7 +310,6 @@
               <div class="card-header d-block d-sm-flex border-0">
                 <div class="me-3">
                   <h4 class="card-title mb-2">Lịch Sử Giao Dịch</h4>
-                  <span class="fs-12">Lorem ipsum dolor sit amet, consectetur</span>
                 </div>
                 <div class="card-tabs mt-3 mt-sm-0">
                   <ul class="nav nav-tabs" role="tablist">
@@ -341,7 +317,7 @@
                       <a class="nav-link active" data-bs-toggle="tab" href="#monthly" role="tab">Tất Cả Giao dịch</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" data-bs-toggle="tab" href="#Weekly" role="tab">Chon Thoi gian</a>
+                      <a class="nav-link" data-bs-toggle="tab" href="#Weekly" role="tab">Chọn Thời Gian</a>
                     </li>
 
 
@@ -450,19 +426,19 @@
 
                       <div style="display: flex">
                         <div class="form-group">
-                          <h6 style=" text-align: center;">Ngay bat dau</h6>
+                          <h6 style=" text-align: center;">Ngày bắt đầu</h6>
                           <input formControlName="day1" type="date" class="form-control">
                         </div>
                         <div class="form-group" style="margin-left: 15px;">
-                          <h6 style=" text-align: center;">Ngay ket thuc</h6>
+                          <h6 style=" text-align: center;">Ngày kết thúc</h6>
                           <input formControlName="day2" type="date" class="form-control">
                         </div>
                         <button style="height: 52px;  margin-top: 28px; margin-left: 14px;" type="submit"
                                 class="btn btn-primary">Chọn
                         </button>
                       </div>
-                      <p id="checkdate" style="color: red; display: none">Vui long chon thoi gian bat dau lon hon hoac
-                        bang thoi gian ket thuc</p>
+                      <p id="checkdate" style="color: red; display: none">Vui lòng chọn thời gian bắt đầu lớn hơn hoặc
+                        bằng thời gian kết thúc</p>
                     </form>
                   </div>
                   <div *ngIf="Transaction1.length != 0">
@@ -544,9 +520,9 @@
                                 </svg>
                               </a>
                               <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item">Delete</a>
+                                <a class="dropdown-item">Xóa</a>
                                 <a class="dropdown-item" href="javascript:void(0);" data-bs-toggle="modal"
-                                   data-bs-target="#edit">Edit</a>
+                                   data-bs-target="#edit">Sửa</a>
                               </div>
                             </div>
                           </td>
