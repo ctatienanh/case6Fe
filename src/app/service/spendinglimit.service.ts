@@ -18,4 +18,9 @@ export class SpendinglimitService {
   show(id: any): Observable<any >{
     return this.http.get<any>("http://localhost:8080/spendinglimit/"+id);
   }
+
+  dalete(id: any): Observable<any> {
+    return this.http.get<any>("http://localhost:8080/spendinglimit/delete/" + id);
+  }
+
 }

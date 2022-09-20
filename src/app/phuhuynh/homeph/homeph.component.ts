@@ -567,6 +567,12 @@ export class HomephComponent implements OnInit {
         this.createmctChitiet()
       })
     }
+
+    dalete(id:number){
+    this.spendinglimitService.dalete(id).subscribe((data) => {
+        this.showhanche()
+      })
+    }
 }
 
 
