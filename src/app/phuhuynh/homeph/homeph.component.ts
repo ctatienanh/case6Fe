@@ -528,6 +528,33 @@ export class HomephComponent implements OnInit {
     });
   }
 
+  createmctChitiet() {
+    let mtct = {
+      name: "nạp tiền vào ví",
+      namespending: "nạp tiền vào ví",
+      money: this.addmoneymax,
+      user: {
+        id: this.iduser
+      }
+    }
+
+    this.mctChitietService.create(mtct).subscribe((data) => {
+      this.showWallet();
+      let notifi = {
+        user_sv: {
+          id: this.adduserservice.getUser().id
+        },
+        user_ph: {
+          id: this.loginService.getUserToken().id
+        },
+        content: "Phụ huynh của bạn đã đồng ý nạp tiền",
+      }
+      this.notifiservice.add(notifi).subscribe((data) => {
+      })
+
+    });
+  }
+
   recharge() {
     let wallet = {
       id: this.wallets.id,
@@ -537,18 +564,7 @@ export class HomephComponent implements OnInit {
       }
     }
       this.wallet.create(wallet).subscribe((data) => {
-        this.showWallet();
-        let notifi = {
-          user_sv: {
-            id: this.adduserservice.getUser().id
-          },
-          user_ph: {
-            id: this.loginService.getUserToken().id
-          },
-          content: "Phụ huynh của bạn đã đồng ý nạp tiền",
-        }
-        this.notifiservice.add(notifi).subscribe((data) => {
-        })
+        this.createmctChitiet()
       })
     }
 }
