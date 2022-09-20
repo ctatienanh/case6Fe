@@ -79,12 +79,10 @@ export class RegisterComponent implements OnInit {
     }
     if(this.roles.value[0].id == 3){
       this.wallservic.create(wallet).subscribe((data) => {
-        alert("Thêm Ví Thành Công")
         this.router.navigate([""]);
       })
     }
 
   }
-
 
 }
